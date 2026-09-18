@@ -23,6 +23,7 @@ The project's own `CLAUDE.md` is already in your context. Before anything else, 
 Match the task to a playbook, open its file, and open a `TodoWrite` list whose first items are its steps, copied in verbatim, before any task-specific todos. A step you choose not to do stays in the list with a one-line `skip: <reason>`. When no playbook matches, say so and ask which shape the work has; do not improvise a procedure.
 
 - **Investigation.** A read-only question: how does X work, why is Y like this, are we sure about Z. `playbooks/investigation.md`
+- **Explain.** A concept, a module or a behaviour to teach by example: explain X, what does Y mean, show me how Z is used. Ends in plain words and one example, not a cited trace. `playbooks/explain.md`
 
 ## Principles
 

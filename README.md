@@ -22,4 +22,4 @@ make new kind=steering name=shorter
 
 ## Status
 
-Structure and the mode exist. One playbook, Investigation. No principles yet; the project's `CLAUDE.md` is the only source of rules until they are written.
+Structure and the mode exist. Two playbooks, Investigation and Explain. No principles yet; the project's `CLAUDE.md` is the only source of rules until they are written.
