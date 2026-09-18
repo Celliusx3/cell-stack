@@ -9,7 +9,7 @@ kind="${1:-}"; name="${2:-}"
 [[ "$kind" =~ ^(steering|procedure|playbook|principle)$ ]] || { echo "kind must be steering, procedure, playbook or principle" >&2; exit 2; }
 [[ "$name" =~ ^[a-z0-9]+(-[a-z0-9]+)*$ ]] || { echo "name must be kebab-case" >&2; exit 2; }
 mode="skills/cell-mode/SKILL.md"
-title="$(printf '%s' "$name" | sed 's/-/ /g; s/\b\(.\)/\u\1/')"
+title="$(printf '%s' "$name" | sed 's/-/ /g' | awk '{ $1 = toupper(substr($1,1,1)) substr($1,2) } 1')"
 
 case "$kind" in
 	playbook)
