@@ -8,7 +8,7 @@ disable-model-invocation: true
 
 ## Sticky
 
-Claude Code has no mode concept, so this skill is sticky by instruction. Once invoked it stays on for the rest of the conversation. A new task, a playbook match, or a need for rigor means apply it in full. A casual turn means stay out of the way. "new task" means re-match a playbook instead of continuing the prior one. The user opts out by saying so.
+Claude Code has no mode concept, so this skill is sticky by instruction. It arrives at session start through the plugin's hook, or when someone types `/cell-mode`; either way it stays on for the rest of the conversation. A new task, a playbook match, or a need for rigor means apply it in full. A casual turn means stay out of the way. "new task" means re-match a playbook instead of continuing the prior one. The user opts out by saying so.
 
 ## Resolving a skill
 
@@ -18,23 +18,35 @@ Every skill in this plugin is user-invocable only, so it is not in your Skill li
 
 The project's own `CLAUDE.md` is already in your context. Before anything else, read the files it points at for rules (a `docs/rules.md`, a `DESIGN.md`) when the task touches them. Its rules and invariants are principles for this repo. Cite them the way you cite a principle below: by the rule's own words, with the file it came from. Project rules live in the project, not here.
 
+Any code you write: no narration comments. A comment survives only under the five exceptions in `/no-comments`, or the project's own comment rule where it has one. Before you hand back a diff, run `/no-comments` on it.
+
 ## Playbooks
 
 Match the task to a playbook, open its file, and open a `TodoWrite` list whose first items are its steps, copied in verbatim, before any task-specific todos. A step you choose not to do stays in the list with a one-line `skip: <reason>`. When no playbook matches, say so and ask which shape the work has; do not improvise a procedure.
 
 - **Investigation.** A read-only question: how does X work, why is Y like this, are we sure about Z. `playbooks/investigation.md`
 - **Explain.** A concept, a module or a behaviour to teach by example: explain X, what does Y mean, show me how Z is used. Ends in plain words and one example, not a cited trace. `playbooks/explain.md`
+- **Comments.** A request to strip, refactor, reduce or clean up the comments in named files. Not a playbook: apply `${CLAUDE_PLUGIN_ROOT}/skills/no-comments/SKILL.md` with those files as the scope.
 
 ## Principles
 
-Cite only a principle whose file you opened this session, and name the specific choice it changed. The index is empty until the rules are written; until then the project's `CLAUDE.md` is the only source.
+Read the leaf `SKILL.md` in full for any principle you apply. Cite only a principle whose file you opened this session, and name the specific choice it changed. Any code: name the data shape first, per **principle-typed-boundaries**. Each entry names when it applies, then the rule.
+
+- **Smallest change** (**principle-smallest-change**). Any code change, sizing a diff, tempted to add a layer or a helper. The minimum code that solves the asked problem; every changed line traces to the request.
+- **No pass-through** (**principle-no-pass-through**). A function whose body is one call with the same arguments. Delete it; callers call the real thing.
+- **Split on the seam** (**principle-split-on-the-seam**). A file near the project's line cap, or a module with two subjects. One file, one responsibility; split where the imports divide, never raise the cap.
+- **Typed boundaries** (**principle-typed-boundaries**). Data entering from outside, a signature reaching for `dict` or `Any`, two components meeting. Parse into a model at the boundary, pass the model inside; a seam is a `Protocol`.
+- **Group by subject** (**principle-group-by-subject**). Two or more functions taking the same first argument. They become methods on one class named for the subject; a lone function stays a function.
 
 ## Reply
 
-Write the reply clean as you draft it.
+Write the reply clean as you draft it. It is read by a person, not graded by a machine.
 
-- Say who the work is for and what changes for them before any detail of how. Then what the next engineer inherits.
-- Every claim carries its evidence or its label in the same sentence: measured, inferred, or guess. Never hand the user a check you could have run.
+- Lead with the outcome in one line: what was done, or what was decided, or the question. Who it is for and what changes for them is that line, not a heading.
+- Everyday words. No fold, seam, retrofit, probe, fire, terminal, stream, yield. If a word needs the codebase to make sense, use the plain one.
+- Reasons are one line each, numbered when there are more than one. Options are one line each.
+- Evidence is a short parenthetical or a link, never a quoted paragraph. A rule is cited by its file and a few of its words. A number carries its source: measured, inferred, or guess. Never hand the user a check you could have run.
+- Length follows the work. A decision or a small change is under fifteen lines. Only a playbook that names sections gets sections, and every one it names stays.
+- What the next engineer inherits is one sentence at the end, only when there is one.
 - Short declarative sentences. No em dash. A colon before a list is fine, a colon as a connector is not.
-- Terse is not an excuse to drop content. Every section the playbook's reply line names stays.
 - Never invent a link, a line number, or a quote. Cite only what you read this session.

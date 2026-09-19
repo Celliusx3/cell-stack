@@ -1,0 +1,11 @@
+schema_version: "1.1"
+name: strip-comments
+description: /no-comments on a file with every kind of comment should spawn the read-only reviewer, delete the banner, narration, corpse and false IMPORTANT, keep the vendor-forced note, mark the unreachable guard MUST KILL, kill the pointless noqa, and prove the tests stay green.
+tags: [no-comments]
+runs: 2
+execution:
+  max_turns: 60
+  timeout_seconds: 1200
+  allowed_tools: [Read, Glob, Grep, Skill, TodoWrite, Edit, Write, Bash, Agent]
+context:
+  scaffold_script: fixture.sh

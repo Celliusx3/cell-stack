@@ -1,0 +1,11 @@
+schema_version: "1.1"
+name: feature-parses-at-the-boundary
+description: A new column should route through cell-mode and be parsed into a typed row model at load, so no dict[str, Any] crosses into the totals.
+tags: [cell-mode, principle-typed-boundaries]
+runs: 2
+execution:
+  max_turns: 60
+  timeout_seconds: 1200
+  allowed_tools: [Read, Glob, Grep, Skill, TodoWrite, Edit, Write, Bash, Agent]
+context:
+  scaffold_script: fixture.sh
