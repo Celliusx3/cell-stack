@@ -38,6 +38,18 @@ if [ -f "$mode" ]; then
 	done
 fi
 
+# 3b. a language skill spells every rule in the index, and carries its patterns
+if [ -f "$mode" ]; then
+	for f in skills/*/SKILL.md; do
+		grep -q '^description: How the rules are spelled in' "$f" || continue
+		d=$(dirname "$f")
+		[ -f "$d/references/patterns.md" ] || bad "$f" "a language skill needs references/patterns.md"
+		for slug in $(grep -oE '\*\*rule-[a-z0-9-]+\*\*' "$mode" | tr -d '*' | sort -u); do
+			grep -q "\*\*$slug\*\*" "$f" || bad "$f" "does not say how $slug is spelled"
+		done
+	done
+fi
+
 # 4. a procedure that spawns carries its prompt
 for f in skills/*/SKILL.md; do
 	[ -f "$f" ] || continue
@@ -65,7 +77,11 @@ for p in skills/cell-mode/playbooks/*.md; do
 	[ -z "$hit" ] || bad "$p" "pstack word, say it plainly: $hit"
 done
 
-# 7. no em dash anywhere
+# 7. nothing in a skill is project-specific
+hits=$(grep -rln -i -E 'cell-harness|cellstudio|compaction' skills templates 2>/dev/null)
+[ -z "$hits" ] || { printf '%s\n' "$hits" | while read -r h; do bad "$h" "names a project; skills are generic"; done; fail=1; }
+
+# 8. no em dash anywhere
 hits=$(grep -rln '—' --include='*.md' skills templates docs README.md 2>/dev/null)
 [ -z "$hits" ] || { printf '%s\n' "$hits" | while read -r h; do bad "$h" "contains an em dash"; done; fail=1; }
 

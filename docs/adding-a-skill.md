@@ -6,7 +6,7 @@ A skill is a directory under `skills/` with a `SKILL.md` in it. When you type `/
 
 ## Pick the kind
 
-Four kinds. Each has one shape and one place it gets wired in, so adding one never touches more than two files.
+Five kinds. Each has one shape and one place it gets wired in, so adding one never touches more than two files.
 
 | Kind | The test | Lives at | Wired by |
 |---|---|---|---|
@@ -14,6 +14,7 @@ Four kinds. Each has one shape and one place it gets wired in, so adding one nev
 | **procedure** | It has numbered steps and may spawn subagents: a `/trace`, a `/compare`. | `skills/<name>/SKILL.md` + `references/` | a playbook step that names it, if any |
 | **playbook** | `/cell-mode` should route a task to it: `bug-fix`, `phase`. | `skills/cell-mode/playbooks/<name>.md` | one row in `cell-mode`'s routing table |
 | **rule** | It is a rule you would cite by name. | `skills/rule-<slug>/SKILL.md` | one line in `cell-mode`'s rules index |
+| **language** | How every rule is spelled in one language: `python`, `typescript`. | `skills/<language>/SKILL.md` + `references/patterns.md` | the mode names it by file extension; lint checks it spells every rule |
 
 If it fits none of these, it is not a skill. Write it as a note in the project's `CLAUDE.md` instead.
 
@@ -38,7 +39,7 @@ It copies the kind's template from `templates/`, fills in the name, adds the wir
 
 **procedure.** Under `## Steps`, numbered, each naming the evidence it produces. If a step says "spawn", put the subagent's prompt in `references/<role>-prompt.md` and pass it verbatim; name the `subagent_type` (`Explore` when it must not write, `general-purpose` when it does). Under `## Reply`, what the reply must contain, in order. Anything deterministic (a poll, a diff, a log row) goes in `scripts/` and the step says "run it".
 
-**playbook.** Five to fifteen numbered steps. Step 1 is always "apply the project's `CLAUDE.md`" (it is already in context; the step opens the rule files it links). Each step names its evidence. The last line is `**Reply:**` followed by what the reply must contain. Cap is 40 lines: a playbook that needs more is two playbooks.
+**playbook.** Five to fifteen numbered steps. A playbook that writes carries a **Plan mode stops here** line naming which steps run during planning and which become the plan. Step 1 is always "apply the project's `CLAUDE.md`" (it is already in context; the step opens the rule files it links). Each step names its evidence. The last line is `**Reply:**` followed by what the reply must contain. Cap is 40 lines: a playbook that needs more is two playbooks.
 
 **rule.** `## When` (the situations, concrete enough to know when it does *not* apply), `## Rule` (one or two sentences, then what to do instead of the tempting thing), `## Example` (one from your own code or a past correction, with a path). A rule with no source is an opinion; write where it came from in the description.
 

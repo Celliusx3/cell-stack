@@ -29,15 +29,41 @@ Match the task to a playbook, open its file, and open a `TodoWrite` list whose f
 - **Refactor.** Change how code is arranged without changing what it does: rename, extract, inline, group, move, dedupe, split a file. Adding or fixing behaviour has no playbook yet and is asked about. `playbooks/refactor.md`
 - **Comments.** A request to strip, refactor, reduce or clean up the comments in named files. Not a playbook: apply `${CLAUDE_PLUGIN_ROOT}/skills/strip-comments/SKILL.md` with those files as the scope.
 
+## Plan mode
+
+Claude's plan mode and cell mode stack; plan mode wins where they disagree. In plan mode: match the playbook as usual, run its read-only steps now (reading, tests, naming the shape, the end state), and put the rest into the plan file. Each playbook that writes marks where plan mode stops. After approval, open the todo list and resume the playbook at the first step after that mark; do not redo the read-only steps. Investigate and Explain never write, so plan mode changes nothing for them.
+
+The plan file is written for a person deciding yes or no, in this order and under eighty lines:
+
+- **The problem.** What is hard to read or wrong today, one short paragraph, no rule recital.
+- **The idea.** The end state as a story in plain words, five to ten lines, one verb per line, indented like code: no file names, no signatures, no `yield`. The shape that landed:
+  ```
+  checkout(order):
+      look at the order
+      if it is already paid:     done
+      if the cart is empty:      refuse, done
+      write STARTED
+      charge the card            (one call, returns PAID or FAILED)
+      write the result
+  ```
+  One block per idea. A helper the story calls does not get a second block: it gets a sentence, or a short list where every line is "question: answer". Where the callers sit is one line each after the block, not inside it. Every line of the block is "do this" or "if this: then that"; a line with no verb is a table row that wandered in.
+- **What changes.** A before / after table, one row per moved or deleted thing, then the callers one line each, then the files touched as a count. More than about five files: two refactors, shown as two tables.
+- **What does not change.** The promises the code keeps, and the tests that guard them, as a table of promise to test name. Count the baseline run ("31 passed"). A promise with no test is named here as the first thing to write.
+- **A question, if there is one.** A behaviour choice the reshape exposes, in three lines, with the strict option named.
+- **Order of work.** The playbook's remaining steps, numbered, one line each, with the break-on-purpose named per piece.
+- **Verify.** The commands and what green looks like.
+
+The reply rules below apply to the plan file too: everyday words, no `file:line` outside the tables, no paragraph where a table row will do.
+
 ## Rules
 
-Read the leaf `SKILL.md` in full for any rule you apply. Cite only a rule whose file you opened this session, and name the specific choice it changed. Any code: name the data shape first, per **rule-typed-boundaries**. Each entry names when it applies, then the rule.
+Read the leaf `SKILL.md` in full for any rule you apply. Cite only a rule whose file you opened this session, and name the specific choice it changed. Any code: name the data shape first, per **rule-typed-boundaries**, and read the language skill for the file you are in (`${CLAUDE_PLUGIN_ROOT}/skills/python/SKILL.md` for `.py`, `${CLAUDE_PLUGIN_ROOT}/skills/typescript/SKILL.md` for `.ts` and `.tsx`) for how each rule is spelled there. Each entry names when it applies, then the rule.
 
 - **Smallest change** (**rule-smallest-change**). Any code change, sizing a diff, tempted to add a layer or a helper. The minimum code that solves the asked problem; every changed line traces to the request.
 - **No pass-through** (**rule-no-pass-through**). A function whose body is one call with the same arguments. Delete it; callers call the real thing.
 - **Split on the seam** (**rule-split-on-the-seam**). A file near the project's line cap, or a module with two subjects. One file, one responsibility; split where the imports divide, never raise the cap.
-- **Typed boundaries** (**rule-typed-boundaries**). Data entering from outside, a signature reaching for `dict` or `Any`, two components meeting. Parse into a model at the boundary, pass the model inside; a seam is a `Protocol`.
-- **Group by subject** (**rule-group-by-subject**). Two or more functions taking the same first argument. They become methods on one class named for the subject; a lone function stays a function.
+- **Typed boundaries** (**rule-typed-boundaries**). Data entering from outside, a signature reaching for a loose map or `any`, two components meeting. Parse into a typed model at the boundary, pass the model inside; a seam is an interface.
+- **Group by subject** (**rule-group-by-subject**). Two or more functions taking the same first argument, or a class being born. They stay functions in one module named for the subject; a class is earned only by state it hides or a decision it makes.
 
 ## Reply
 

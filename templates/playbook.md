@@ -6,4 +6,6 @@
 2. Second step. Name the evidence it produces.
 3. Third step.
 
+**Plan mode stops here.** Which steps run during planning, and which become the plan. Delete this line in a playbook that never writes.
+
 **Reply:** what the reply must contain, in order.

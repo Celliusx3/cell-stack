@@ -8,7 +8,7 @@ disable-model-invocation: true
 
 ## When
 
-You are writing or reading a function or method whose body is a single `return other(...)` or `await other(...)` with the same arguments in the same order. Also a class method that only forwards to a module function, or a module function that only forwards to a method. It does not apply to a wrapper that renames for an interface it must satisfy (a `Protocol` the caller depends on), or one that adds a default, a conversion, a check, or an error translation.
+You are writing or reading a function or method whose body is a single `return other(...)` or `await other(...)` with the same arguments in the same order. Also a class method that only forwards to a module function, or a module function that only forwards to a method. It does not apply to a wrapper that renames for an interface it must satisfy (one the caller depends on), or one that adds a default, a conversion, a check, or an error translation.
 
 ## Rule
 

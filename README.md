@@ -17,12 +17,13 @@ claude --plugin-dir ~/Desktop/cellstudio/cellstack
 | `/cell-mode` | any task; routes to a playbook and cites the rules |
 | `/strip-comments` | before review: strips the comments a file does not need and fixes the code that needed them |
 | `/shorter` | the last reply was too long |
+| `/python`, `/typescript` | how every rule is spelled in that language; the mode reads the one for the file you are in |
 
 Two hooks ship with the plugin. `hooks/session-start.sh` puts cell mode into context at the start of every session, so a plain request routes to a playbook without typing `/cell-mode`. `hooks/comment-nag.sh` runs after every `Edit` or `Write` and, when the edit added comment lines, tells the model to run `/strip-comments` before handing back.
 
 ## Adding a skill
 
-Four kinds (steering, procedure, playbook, rule), one command:
+Five kinds (steering, procedure, playbook, rule, language), one command:
 
 ```sh
 make new kind=steering name=shorter
