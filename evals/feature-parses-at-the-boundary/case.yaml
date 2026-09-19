@@ -1,7 +1,7 @@
 schema_version: "1.1"
 name: feature-parses-at-the-boundary
-description: A new column should route through cell-mode and be parsed into a typed row model at load, so no dict[str, Any] crosses into the totals.
-tags: [cell-mode, rule-typed-boundaries]
+description: A new column should route to the Feature playbook, be researched first, be parsed into a typed row model at load, be written by a subagent from a failing test, and be shown running.
+tags: [cell-mode, feature, rule-typed-boundaries]
 runs: 2
 execution:
   max_turns: 60

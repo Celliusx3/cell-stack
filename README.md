@@ -15,6 +15,7 @@ claude --plugin-dir ~/Desktop/cellstudio/cellstack
 | Skill | When |
 |---|---|
 | `/cell-mode` | any task; routes to a playbook and cites the rules |
+| `/research` | before designing: what others built, with links, and the options it leaves |
 | `/strip-comments` | before review: strips the comments a file does not need and fixes the code that needed them |
 | `/shorter` | the last reply was too long |
 | `/python`, `/typescript` | how every rule is spelled in that language; the mode reads the one for the file you are in |
@@ -33,4 +34,4 @@ make new kind=steering name=shorter
 
 ## Status
 
-Structure and the mode exist. Three playbooks: Investigate, Explain, Refactor. Five rules, indexed in the mode. Project rules still live in each project's `CLAUDE.md`, which the mode reads first.
+Structure and the mode exist. Four playbooks: Investigate, Explain, Refactor, Feature. Five rules, indexed in the mode. Project rules still live in each project's `CLAUDE.md`, which the mode reads first.

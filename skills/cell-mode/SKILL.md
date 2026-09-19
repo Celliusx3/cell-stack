@@ -26,12 +26,13 @@ Match the task to a playbook, open its file, and open a `TodoWrite` list whose f
 
 - **Investigate.** A read-only question: how does X work, why is Y like this, are we sure about Z. `playbooks/investigate.md`
 - **Explain.** A concept, a module or a behaviour to teach by example: explain X, what does Y mean, show me how Z is used. Ends in plain words and one example, not a cited trace. `playbooks/explain.md`
-- **Refactor.** Change how code is arranged without changing what it does: rename, extract, inline, group, move, dedupe, split a file. Adding or fixing behaviour has no playbook yet and is asked about. `playbooks/refactor.md`
+- **Refactor.** Change how code is arranged without changing what it does: rename, extract, inline, group, move, dedupe, split a file. Fixing behaviour has no playbook yet and is asked about. `playbooks/refactor.md`
+- **Feature.** New behaviour: add, support, allow, a new flag, endpoint, command or field. Research first, a subagent writes. `playbooks/feature.md`
 - **Comments.** A request to strip, refactor, reduce or clean up the comments in named files. Not a playbook: apply `${CLAUDE_PLUGIN_ROOT}/skills/strip-comments/SKILL.md` with those files as the scope.
 
 ## Plan mode
 
-Claude's plan mode and cell mode stack; plan mode wins where they disagree. In plan mode: match the playbook as usual, run its read-only steps now (reading, tests, naming the shape, the end state), and put the rest into the plan file. Each playbook that writes marks where plan mode stops. After approval, open the todo list and resume the playbook at the first step after that mark; do not redo the read-only steps. Investigate and Explain never write, so plan mode changes nothing for them.
+Claude's plan mode and cell mode stack; plan mode wins where they disagree. `/research` runs during planning; its table goes in the plan under "What others do". In plan mode: match the playbook as usual, run its read-only steps now (reading, tests, naming the shape, the end state), and put the rest into the plan file. Each playbook that writes marks where plan mode stops. After approval, open the todo list and resume the playbook at the first step after that mark; do not redo the read-only steps. Investigate and Explain never write, so plan mode changes nothing for them.
 
 The plan file is written for a person deciding yes or no, in this order and under eighty lines:
 
@@ -54,6 +55,14 @@ The plan file is written for a person deciding yes or no, in this order and unde
 - **Verify.** The commands and what green looks like.
 
 The reply rules below apply to the plan file too: everyday words, no `file:line` outside the tables, no paragraph where a table row will do.
+
+## Autonomy
+
+A playbook runs end to end in one turn; do not stop to ask mid-way. A "which approach" fork is settled by running the cheaper option, or by the research table, and the pick is reported as a decision with its alternatives. Pause only before an irreversible write (a commit, a push, a delete outside the working tree, a message to a person) or a genuine product call no experiment can settle. Plan mode is the one deliberate pause, at the playbook's stop line.
+
+## Subagents
+
+`Explore` when it must not write; `general-purpose` when it writes. The prompt is a file under the skill's `references/`, passed verbatim, followed by the scope. Parallel spawns go in one message. No `model` unless the skill says so. You own every subagent's work: read its diff, run the tests yourself, and never relay a "looks good".
 
 ## Rules
 

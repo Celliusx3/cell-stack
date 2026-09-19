@@ -1,1 +1,1 @@
-/cell-mode rows need a `currency` column after amount, default USD when a line has only three fields. `python -m pytest -q` stays green. Commit on this branch, no PR.
+/cell-mode rows need a `currency` column after amount, default USD when a line has only three fields. `python -m pytest -q` stays green. Run `python cli.py ledger.csv` and show me the output. Commit on this branch, no PR.

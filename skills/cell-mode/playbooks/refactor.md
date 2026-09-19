@@ -9,7 +9,7 @@
 **Plan mode stops here.** Steps 1 to 4 run during planning; the plan is steps 5 to 9 with the end state from step 4. A missing test from step 2 is written after approval, first.
 
 5. Remove before you add: dead code, one-call wrappers (**rule-no-pass-through**), leftover references. Then the smallest change that reaches the end state (**rule-smallest-change**).
-6. Move one thing, run the tests, move the next. Update every caller and delete the old name in the same step; never keep old and new side by side. Grep each rename against strings, docs and tests. Mechanical edits across many files may go to one `general-purpose` subagent with the exact scope; you review the diff.
+6. Move one thing, run the tests, move the next. Update every caller and delete the old name in the same step; never keep old and new side by side. Grep each rename against strings, docs and tests. The edits go to one `general-purpose` subagent with the exact scope: the files, the names being moved, the promises that must hold, the language skill. You do not make the edits. Review its diff yourself; run the tests yourself.
 7. Break it on purpose: for each moved piece, change one line so it is wrong and check that a test fails. A test that stays green was not watching; write one that does. Undo the break. Paste commands and results.
 8. Easier to read? Fewer functions to relate, fewer branches, a named shape. If not, undo the whole thing and say why.
 9. Run `/strip-comments` on the diff. Write the commits in order (removal, reshape, cleanup), each with its message. Make none unless asked.
