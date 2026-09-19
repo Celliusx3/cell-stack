@@ -1,7 +1,7 @@
 schema_version: "1.1"
 name: refactor-groups-by-subject
-description: Adding a fourth function on the same subject should route through cell-mode, group the row functions on one class named for the subject, delete the pass-through, and prove the tests stay green.
-tags: [cell-mode, rule-group-by-subject, rule-no-pass-through]
+description: Adding a fourth function on the same subject should route to the Refactor playbook, run the tests before any edit, group the row functions on one class named subject plus role, delete the pass-through, and prove the tests stay green.
+tags: [cell-mode, refactor, rule-group-by-subject, rule-no-pass-through]
 runs: 2
 execution:
   max_turns: 60

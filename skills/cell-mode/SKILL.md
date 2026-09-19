@@ -26,6 +26,7 @@ Match the task to a playbook, open its file, and open a `TodoWrite` list whose f
 
 - **Investigate.** A read-only question: how does X work, why is Y like this, are we sure about Z. `playbooks/investigate.md`
 - **Explain.** A concept, a module or a behaviour to teach by example: explain X, what does Y mean, show me how Z is used. Ends in plain words and one example, not a cited trace. `playbooks/explain.md`
+- **Refactor.** Change how code is arranged without changing what it does: rename, extract, inline, group, move, dedupe, split a file. Adding or fixing behaviour has no playbook yet and is asked about. `playbooks/refactor.md`
 - **Comments.** A request to strip, refactor, reduce or clean up the comments in named files. Not a playbook: apply `${CLAUDE_PLUGIN_ROOT}/skills/strip-comments/SKILL.md` with those files as the scope.
 
 ## Rules
