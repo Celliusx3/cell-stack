@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Seeds a small project into the current (empty) workspace. Shared by every case.
-# It carries every smell the principles target, so one fixture serves all cases:
+# It carries every smell the rules target, so one fixture serves all cases:
 # three functions on one subject, rows as dict[str, Any], and a pass-through.
 set -euo pipefail
 git init -q -b main

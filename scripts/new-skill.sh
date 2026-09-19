@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 # The one way to add a skill. Copies the kind's template, fills the name, adds
 # the wiring line the kind needs, and runs lint so a wrong shape is refused now.
-# Usage: scripts/new-skill.sh <steering|procedure|playbook|principle> <name>
+# Usage: scripts/new-skill.sh <steering|procedure|playbook|rule> <name>
 set -euo pipefail
 root="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$root"
 kind="${1:-}"; name="${2:-}"
-[[ "$kind" =~ ^(steering|procedure|playbook|principle)$ ]] || { echo "kind must be steering, procedure, playbook or principle" >&2; exit 2; }
+[[ "$kind" =~ ^(steering|procedure|playbook|rule)$ ]] || { echo "kind must be steering, procedure, playbook or rule" >&2; exit 2; }
 [[ "$name" =~ ^[a-z0-9]+(-[a-z0-9]+)*$ ]] || { echo "name must be kebab-case" >&2; exit 2; }
 mode="skills/cell-mode/SKILL.md"
 title="$(printf '%s' "$name" | sed 's/-/ /g' | awk '{ $1 = toupper(substr($1,1,1)) substr($1,2) } 1')"
@@ -21,15 +21,15 @@ case "$kind" in
 		printf -- '- **%s.** When it matches. `playbooks/%s.md`\n' "$title" "$name" >> "$mode"
 		echo "created $dst and a routing row at the end of $mode (move it under ## Playbooks)"
 		;;
-	principle)
-		[[ "$name" == principle-* ]] || name="principle-$name"
+	rule)
+		[[ "$name" == rule-* ]] || name="rule-$name"
 		dst="skills/$name/SKILL.md"
 		[ -e "$dst" ] && { echo "$dst exists" >&2; exit 1; }
 		[ -f "$mode" ] || { echo "$mode does not exist yet; build the mode first" >&2; exit 1; }
 		mkdir -p "skills/$name"
-		sed "s/NAME/$name/" templates/principle.md > "$dst"
+		sed "s/NAME/$name/" templates/rule.md > "$dst"
 		printf -- '- **%s**. When it applies, in one line. The rule, in one line.\n' "$name" >> "$mode"
-		echo "created $dst and an index line at the end of $mode (move it under ## Principles)"
+		echo "created $dst and an index line at the end of $mode (move it under ## Rules)"
 		;;
 	steering|procedure)
 		dst="skills/$name/SKILL.md"

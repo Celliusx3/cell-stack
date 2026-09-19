@@ -1,5 +1,5 @@
 ---
-name: principle-group-by-subject
+name: rule-group-by-subject
 description: Two or more functions that take the same subject as their first argument become methods on one class named for that subject, which holds the argument. A lone function with one caller and no sibling stays a function. The user's decision, 2026-09-19, and a deliberate departure from pstack's minimize-reader-load, which prefers pure functions.
 disable-model-invocation: true
 ---
@@ -12,7 +12,7 @@ A module has two or more functions whose first parameter is the same thing (the 
 
 ## Rule
 
-Give the subject a class named for it, hold the subject as its one field, and make the functions its methods. The caller then writes `subject.question()` instead of `question(subject)`, and the module reads as one thing with several questions on it rather than several functions that happen to agree on an argument. A new function on that subject is a new method; do not add a sixth free function beside five.
+Give the subject a class, hold the subject as its one field, and make the functions its methods. Name the class for its subject plus its role (`ChatService`, `ChatRepository`, `CompactionService`), never the bare subject; methods are verb phrases (`state_of`, `session_for`). The caller then writes `subject.question()` instead of `question(subject)`, and the module reads as one thing with several questions on it rather than several functions that happen to agree on an argument. A new function on that subject is a new method; do not add a sixth free function beside five.
 
 This is a departure, chosen on purpose: pstack's minimize-reader-load prefers pure functions and "locals over fields". The user chose grouping, so that a module's shape shows its subject. Keep the methods pure where they were pure: a method that returns an answer and mutates nothing is still that.
 
@@ -24,4 +24,4 @@ Cover the function names. If the first parameters are the same word, they are on
 
 ## Example
 
-Before: `total(rows)`, `by_month(rows)`, `largest(rows)` as three module functions, and a request to add `smallest(rows)`. After: `class Ledger` with one field, `rows`, and four methods; the caller writes `ledger.total()` and the module reads as one subject with four questions. `load(path) -> Ledger` is the one function left, because it is the conversion that makes the subject.
+Before: `total(rows)`, `by_month(rows)`, `largest(rows)` as three module functions, and a request to add `smallest(rows)`. After: `class LedgerService` with one field, `rows`, and four methods; the caller writes `ledger.total()` and the module reads as one subject with four questions. `load(path) -> LedgerService` is the one function left, because it is the conversion that makes the subject.

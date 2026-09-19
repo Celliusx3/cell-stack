@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # After an Edit or Write: count the comment lines the edit added and, if any,
-# tell the model to run /no-comments before handing back. The edit stands.
+# tell the model to run /strip-comments before handing back. The edit stands.
 set -euo pipefail
 file=$(python3 -c 'import json,sys; print(json.load(sys.stdin).get("tool_input",{}).get("file_path",""))')
 [ -n "$file" ] && [ -f "$file" ] || exit 0
@@ -18,4 +18,4 @@ else
 fi
 [ "$count" -gt 0 ] || exit 0
 name=$(basename "$file")
-printf '{"hookSpecificOutput":{"hookEventName":"PostToolUse","additionalContext":"%s comment lines added to %s; run /no-comments before handing back"}}\n' "$count" "$name"
+printf '{"hookSpecificOutput":{"hookEventName":"PostToolUse","additionalContext":"%s comment lines added to %s; run /strip-comments before handing back"}}\n' "$count" "$name"

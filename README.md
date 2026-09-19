@@ -14,15 +14,15 @@ claude --plugin-dir ~/Desktop/cellstudio/cellstack
 
 | Skill | When |
 |---|---|
-| `/cell-mode` | any task; routes to a playbook and cites the principles |
-| `/no-comments` | before review: strips the comments a file does not need and fixes the code that needed them |
+| `/cell-mode` | any task; routes to a playbook and cites the rules |
+| `/strip-comments` | before review: strips the comments a file does not need and fixes the code that needed them |
 | `/shorter` | the last reply was too long |
 
-Two hooks ship with the plugin. `hooks/session-start.sh` puts cell mode into context at the start of every session, so a plain request routes to a playbook without typing `/cell-mode`. `hooks/comment-nag.sh` runs after every `Edit` or `Write` and, when the edit added comment lines, tells the model to run `/no-comments` before handing back.
+Two hooks ship with the plugin. `hooks/session-start.sh` puts cell mode into context at the start of every session, so a plain request routes to a playbook without typing `/cell-mode`. `hooks/comment-nag.sh` runs after every `Edit` or `Write` and, when the edit added comment lines, tells the model to run `/strip-comments` before handing back.
 
 ## Adding a skill
 
-Four kinds (steering, procedure, playbook, principle), one command:
+Four kinds (steering, procedure, playbook, rule), one command:
 
 ```sh
 make new kind=steering name=shorter
@@ -32,4 +32,4 @@ make new kind=steering name=shorter
 
 ## Status
 
-Structure and the mode exist. Two playbooks, Investigation and Explain. Five principles, indexed in the mode. Project rules still live in each project's `CLAUDE.md`, which the mode reads first.
+Structure and the mode exist. Two playbooks, Investigate and Explain. Five rules, indexed in the mode. Project rules still live in each project's `CLAUDE.md`, which the mode reads first.

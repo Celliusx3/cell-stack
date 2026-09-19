@@ -13,7 +13,7 @@ Four kinds. Each has one shape and one place it gets wired in, so adding one nev
 | **steering** | You would type it to steer a reply: `/shorter`, `/plain`. | `skills/<name>/SKILL.md` | nothing. You type it. |
 | **procedure** | It has numbered steps and may spawn subagents: a `/trace`, a `/compare`. | `skills/<name>/SKILL.md` + `references/` | a playbook step that names it, if any |
 | **playbook** | `/cell-mode` should route a task to it: `bug-fix`, `phase`. | `skills/cell-mode/playbooks/<name>.md` | one row in `cell-mode`'s routing table |
-| **principle** | It is a rule you would cite by name. | `skills/principle-<slug>/SKILL.md` | one line in `cell-mode`'s principles index |
+| **rule** | It is a rule you would cite by name. | `skills/rule-<slug>/SKILL.md` | one line in `cell-mode`'s rules index |
 
 If it fits none of these, it is not a skill. Write it as a note in the project's `CLAUDE.md` instead.
 
@@ -22,13 +22,13 @@ If it fits none of these, it is not a skill. Write it as a note in the project's
 One command for every kind:
 
 ```sh
-make new kind=<steering|procedure|playbook|principle> name=<kebab-case>
+make new kind=<steering|procedure|playbook|rule> name=<kebab-case>
 ```
 
 It copies the kind's template from `templates/`, fills in the name, adds the wiring line where the kind needs one, and runs `make lint`. Then:
 
 1. Open the file it created and replace the placeholder text. The template's headings say what goes where.
-2. For a playbook or principle, the wiring line was appended to the **end** of `skills/cell-mode/SKILL.md`. Move it under `## Playbooks` or `## Principles` and finish its sentence.
+2. For a playbook or rule, the wiring line was appended to the **end** of `skills/cell-mode/SKILL.md`. Move it under `## Playbooks` or `## Rules` and finish its sentence.
 3. `make lint`.
 4. `/reload-plugins` in a running session, or start one with `claude --plugin-dir ~/Desktop/cellstudio/cellstack`, and type `/<name>`.
 
@@ -40,7 +40,7 @@ It copies the kind's template from `templates/`, fills in the name, adds the wir
 
 **playbook.** Five to fifteen numbered steps. Step 1 is always "apply the project's `CLAUDE.md`" (it is already in context; the step opens the rule files it links). Each step names its evidence. The last line is `**Reply:**` followed by what the reply must contain. Cap is 40 lines: a playbook that needs more is two playbooks.
 
-**principle.** `## When` (the situations, concrete enough to know when it does *not* apply), `## Rule` (one or two sentences, then what to do instead of the tempting thing), `## Example` (one from your own code or a past correction, with a path). A principle with no source is an opinion; write where it came from in the description.
+**rule.** `## When` (the situations, concrete enough to know when it does *not* apply), `## Rule` (one or two sentences, then what to do instead of the tempting thing), `## Example` (one from your own code or a past correction, with a path). A rule with no source is an opinion; write where it came from in the description.
 
 ## What lint refuses, and why
 
@@ -50,7 +50,7 @@ It copies the kind's template from `templates/`, fills in the name, adds the wir
 |---|---|
 | Frontmatter is exactly `name`, `description`, `disable-model-invocation: true`; `name` equals the directory | The three fields are all Claude Code reads. `disable-model-invocation` keeps every skill user-triggered, so the model reaches them by path, never by guessing. A mismatched name is a `/command` that does not exist. |
 | Every playbook has a routing row, and every row points at a real file | A playbook with no row is unreachable; a row with no file is a broken promise the model will trip on mid-task. |
-| Every `principle-*` is in the index | The mode cites from the index. An unindexed principle is never cited. |
+| Every `rule-*` is in the index | The mode cites from the index. An unindexed rule is never cited. |
 | A procedure that says "spawn" has a `references/` prompt | The prompt being a file is what makes the subagent do the same thing every time. |
 | No `SKILL.md` over 150 lines, no playbook over 40 | The body is pasted into context on every use. pstack's one 2,000-line skill is the cautionary example. |
 | No em dash in any `.md` | The reply rule, applied to the skills themselves. The model copies the style it reads. |
@@ -61,6 +61,8 @@ It copies the kind's template from `templates/`, fills in the name, adds the wir
 - The `description` is the phrasings that should trigger it. It is the only text the `/` menu shows.
 - Long material goes in `references/`, deterministic work in `scripts/`, never in the body.
 - Playbook steps say what evidence they produce, not what to think about.
+- Playbook steps are in a new hire's words: "run the tests first", "move one thing", "break it on purpose". Lint refuses pstack's words (pin, characterization test, mutation, reader load, subtract).
+- Names are plain verbs: `/explain`, `/refactor`, `/strip-comments`. A rule is `rule-<what-to-do>`.
 - Nothing in a skill is project-specific. Project rules live in that project's `CLAUDE.md`, which the mode reads first.
 
 ## Worked examples

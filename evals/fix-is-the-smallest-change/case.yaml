@@ -1,7 +1,7 @@
 schema_version: "1.1"
 name: fix-is-the-smallest-change
 description: A one-line bug should route through cell-mode and be fixed with a diff that touches only lines tracing to the bug, adds no helper, no option and no file, and proves it with a failing-then-passing test.
-tags: [cell-mode, principle-smallest-change]
+tags: [cell-mode, rule-smallest-change]
 runs: 2
 execution:
   max_turns: 60

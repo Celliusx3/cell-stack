@@ -1,5 +1,5 @@
 ---
-name: principle-typed-boundaries
+name: rule-typed-boundaries
 description: Parse external data into a model at the boundary and pass the model inside; no bare dict or Any past that line. A genuine open map is dict[str, str], not a model. A seam between components is a Protocol so the caller depends on the shape, not the implementation. From pstack's type-system-discipline and boundary-discipline, and dependency inversion.
 disable-model-invocation: true
 ---

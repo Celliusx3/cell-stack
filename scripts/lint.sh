@@ -30,11 +30,11 @@ if [ -f "$mode" ]; then
 	grep -oE '`playbooks/[a-z0-9-]+\.md`' "$mode" | tr -d '`' | sort -u | while read -r ref; do
 		[ -f "skills/cell-mode/$ref" ] || bad "$mode" "routing row points at missing $ref"
 	done
-	# 3. every principle is in the index
-	for d in skills/principle-*/; do
+	# 3. every rule is in the index
+	for d in skills/rule-*/; do
 		[ -d "$d" ] || continue
 		slug=$(basename "$d")
-		grep -q "\*\*$slug\*\*" "$mode" || bad "$d" "not in the principles index of $mode (expected **$slug**)"
+		grep -q "\*\*$slug\*\*" "$mode" || bad "$d" "not in the rules index of $mode (expected **$slug**)"
 	done
 fi
 
@@ -42,7 +42,7 @@ fi
 for f in skills/*/SKILL.md; do
 	[ -f "$f" ] || continue
 	d=$(dirname "$f")
-	case "$d" in skills/cell-mode|skills/principle-*) continue;; esac
+	case "$d" in skills/cell-mode|skills/rule-*) continue;; esac
 	if grep -qi '\bspawn' "$f"; then
 		ls "$d"/references/*.md >/dev/null 2>&1 || bad "$f" "says spawn but has no references/*-prompt.md"
 	fi
@@ -58,7 +58,14 @@ for p in skills/cell-mode/playbooks/*.md; do
 	n=$(wc -l < "$p"); [ "$n" -le 40 ] || bad "$p" "$n lines, playbook cap is 40"
 done
 
-# 6. no em dash anywhere
+# 6. playbook steps are in a new hire's words, not pstack's
+for p in skills/cell-mode/playbooks/*.md; do
+	[ -f "$p" ] || continue
+	hit=$(grep -n -i -E '\bpin(s|ned|ning)?\b|characteri[sz]ation test|\bmutation\b|reader load|\bsubtract' "$p" | head -1 || true)
+	[ -z "$hit" ] || bad "$p" "pstack word, say it plainly: $hit"
+done
+
+# 7. no em dash anywhere
 hits=$(grep -rln '—' --include='*.md' skills templates docs README.md 2>/dev/null)
 [ -z "$hits" ] || { printf '%s\n' "$hits" | while read -r h; do bad "$h" "contains an em dash"; done; fail=1; }
 

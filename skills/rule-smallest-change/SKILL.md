@@ -1,5 +1,5 @@
 ---
-name: principle-smallest-change
+name: rule-smallest-change
 description: The minimum code that solves the asked problem, and every changed line traces to the request. No speculative abstraction, no option nobody asked for. From pstack's laziness-protocol and subtract-before-you-add, and the KISS + YAGNI rule most projects state.
 disable-model-invocation: true
 ---

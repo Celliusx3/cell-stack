@@ -16,27 +16,27 @@ Every skill in this plugin is user-invocable only, so it is not in your Skill li
 
 ## Every task starts the same way
 
-The project's own `CLAUDE.md` is already in your context. Before anything else, read the files it points at for rules (a `docs/rules.md`, a `DESIGN.md`) when the task touches them. Its rules and invariants are principles for this repo. Cite them the way you cite a principle below: by the rule's own words, with the file it came from. Project rules live in the project, not here.
+The project's own `CLAUDE.md` is already in your context. Before anything else, read the files it points at for rules (a `docs/rules.md`, a `DESIGN.md`) when the task touches them. Its rules and invariants bind this repo. Cite them the way you cite a rule below: by the rule's own words, with the file it came from. Project rules live in the project, not here.
 
-Any code you write: no narration comments. A comment survives only under the five exceptions in `/no-comments`, or the project's own comment rule where it has one. Before you hand back a diff, run `/no-comments` on it.
+Any code you write: no narration comments. A comment survives only under the five exceptions in `/strip-comments`, or the project's own comment rule where it has one. Before you hand back a diff, run `/strip-comments` on it.
 
 ## Playbooks
 
 Match the task to a playbook, open its file, and open a `TodoWrite` list whose first items are its steps, copied in verbatim, before any task-specific todos. A step you choose not to do stays in the list with a one-line `skip: <reason>`. When no playbook matches, say so and ask which shape the work has; do not improvise a procedure.
 
-- **Investigation.** A read-only question: how does X work, why is Y like this, are we sure about Z. `playbooks/investigation.md`
+- **Investigate.** A read-only question: how does X work, why is Y like this, are we sure about Z. `playbooks/investigate.md`
 - **Explain.** A concept, a module or a behaviour to teach by example: explain X, what does Y mean, show me how Z is used. Ends in plain words and one example, not a cited trace. `playbooks/explain.md`
-- **Comments.** A request to strip, refactor, reduce or clean up the comments in named files. Not a playbook: apply `${CLAUDE_PLUGIN_ROOT}/skills/no-comments/SKILL.md` with those files as the scope.
+- **Comments.** A request to strip, refactor, reduce or clean up the comments in named files. Not a playbook: apply `${CLAUDE_PLUGIN_ROOT}/skills/strip-comments/SKILL.md` with those files as the scope.
 
-## Principles
+## Rules
 
-Read the leaf `SKILL.md` in full for any principle you apply. Cite only a principle whose file you opened this session, and name the specific choice it changed. Any code: name the data shape first, per **principle-typed-boundaries**. Each entry names when it applies, then the rule.
+Read the leaf `SKILL.md` in full for any rule you apply. Cite only a rule whose file you opened this session, and name the specific choice it changed. Any code: name the data shape first, per **rule-typed-boundaries**. Each entry names when it applies, then the rule.
 
-- **Smallest change** (**principle-smallest-change**). Any code change, sizing a diff, tempted to add a layer or a helper. The minimum code that solves the asked problem; every changed line traces to the request.
-- **No pass-through** (**principle-no-pass-through**). A function whose body is one call with the same arguments. Delete it; callers call the real thing.
-- **Split on the seam** (**principle-split-on-the-seam**). A file near the project's line cap, or a module with two subjects. One file, one responsibility; split where the imports divide, never raise the cap.
-- **Typed boundaries** (**principle-typed-boundaries**). Data entering from outside, a signature reaching for `dict` or `Any`, two components meeting. Parse into a model at the boundary, pass the model inside; a seam is a `Protocol`.
-- **Group by subject** (**principle-group-by-subject**). Two or more functions taking the same first argument. They become methods on one class named for the subject; a lone function stays a function.
+- **Smallest change** (**rule-smallest-change**). Any code change, sizing a diff, tempted to add a layer or a helper. The minimum code that solves the asked problem; every changed line traces to the request.
+- **No pass-through** (**rule-no-pass-through**). A function whose body is one call with the same arguments. Delete it; callers call the real thing.
+- **Split on the seam** (**rule-split-on-the-seam**). A file near the project's line cap, or a module with two subjects. One file, one responsibility; split where the imports divide, never raise the cap.
+- **Typed boundaries** (**rule-typed-boundaries**). Data entering from outside, a signature reaching for `dict` or `Any`, two components meeting. Parse into a model at the boundary, pass the model inside; a seam is a `Protocol`.
+- **Group by subject** (**rule-group-by-subject**). Two or more functions taking the same first argument. They become methods on one class named for the subject; a lone function stays a function.
 
 ## Reply
 
