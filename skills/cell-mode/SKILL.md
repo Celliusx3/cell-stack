@@ -33,12 +33,12 @@ Match the task to a playbook, open its file, and open a `TodoWrite` list whose f
 
 ## Plan mode
 
-Claude's plan mode and cell mode stack; plan mode wins where they disagree. `/research` runs during planning; its table goes in the plan under "What others do". In plan mode: match the playbook as usual, run its read-only steps now (reading, tests, naming the shape, the end state), and put the rest into the plan file. Each playbook that writes marks where plan mode stops. After approval, open the todo list and resume the playbook at the first step after that mark; do not redo the read-only steps. Investigate and Explain never write, so plan mode changes nothing for them.
+Claude's plan mode and cell mode stack; plan mode wins where they disagree. `/research` runs during planning; the plan carries one line per decision naming who else does it, and the full table goes in the reply, never the plan. In plan mode: match the playbook as usual, run its read-only steps now (reading, tests, naming the shape, the end state), and put the rest into the plan file. Each playbook that writes marks where plan mode stops. After approval, open the todo list and resume the playbook at the first step after that mark; do not redo the read-only steps. Investigate and Explain never write, so plan mode changes nothing for them.
 
-The plan file is written for a person deciding yes or no, in this order and under eighty lines:
+The plan file is written for a person deciding yes or no. Keep it simple: under fifty lines, one idea per section, and a section that runs past ten lines is cut, not explained. When a section is hard to follow, lead it with one concrete example (what the person says, what they see, what happens) before any table. In this order:
 
 - **The problem.** What is hard to read or wrong today, one short paragraph, no rule recital.
-- **The idea.** The end state as a story in plain words, five to ten lines, one verb per line, indented like code: no file names, no signatures, no `yield`. The shape that landed:
+- **The idea.** For a feature: one walkthrough, numbered, of a person using it ("You say X. A card appears with Y. You tap Z, and..."). For a refactor: the end state as a story in plain words, five to ten lines, one verb per line, indented like code: no file names, no signatures, no `yield`. The shape that landed:
   ```
   checkout(order):
       look at the order
@@ -49,8 +49,10 @@ The plan file is written for a person deciding yes or no, in this order and unde
       write the result
   ```
   One block per idea. A helper the story calls does not get a second block: it gets a sentence, or a short list where every line is "question: answer". Where the callers sit is one line each after the block, not inside it. Every line of the block is "do this" or "if this: then that"; a line with no verb is a table row that wandered in.
-- **What changes.** A before / after table, one row per moved or deleted thing, then the callers one line each, then the files touched as a count. More than about five files: two refactors, shown as two tables.
-- **What does not change.** The promises the code keeps, and the tests that guard them, as a table of promise to test name. Count the baseline run ("31 passed"). A promise with no test is named here as the first thing to write.
+- **Decisions.** One line each: the choice, and who else does it the same way. No table of sources here; that is the reply's.
+- **What changes.** For a feature: the files, one line each saying what the file gains, grouped by commit. For a refactor: a before / after table, one row per moved or deleted thing, then the callers one line each, then the files touched as a count. More than about five files: two pieces, shown separately.
+- **What does not change.** The promises the code keeps, and the tests that guard them, as a table of promise to test name. Count the baseline run ("31 passed"). A promise with no test is named here as the first thing to write. For a feature this may be one line: the baseline count and the test files that must stay green.
+- **Later.** Things this plan deliberately leaves out, one line each, saying why nothing here changes for them.
 - **A question, if there is one.** A behaviour choice the reshape exposes, in three lines, with the strict option named.
 - **Order of work.** The playbook's remaining steps, numbered, one line each, with the break-on-purpose named per piece.
 - **Verify.** The commands and what green looks like.
@@ -89,3 +91,4 @@ Write the reply clean as you draft it. It is read by a person, not graded by a m
 - What the next engineer inherits is one sentence at the end, only when there is one.
 - Short declarative sentences. No em dash. A colon before a list is fine, a colon as a connector is not.
 - Never invent a link, a line number, or a quote. Cite only what you read this session.
+- When the person says they are lost, or asks how something works, answer with one concrete example first (what they do, what they see, what happens), then the reasons. An example beats a table.
