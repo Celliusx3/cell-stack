@@ -17,6 +17,7 @@ claude --plugin-dir ~/Desktop/cellstudio/cellstack
 | `/cell-mode` | any task; routes to a playbook and cites the rules |
 | `/research` | before designing: what others built, with links, and the options it leaves |
 | `/strip-comments` | before review: strips the comments a file does not need and fixes the code that needed them |
+| `/drive` | before a Verify step: writes the repo-local skill that starts the app, drives one feature, and keeps the proof |
 | `/shorter` | the last reply was too long |
 | `/python`, `/typescript` | how every rule is spelled in that language; the mode reads the one for the file you are in |
 
