@@ -59,3 +59,45 @@ Asked: "include rows with an empty memo". Not this:
 def load(path: Path, include_empty: bool = True) -> list[Row]:
 ```
 This: delete the `if not memo: continue` line and fix the one test that encoded the skip.
+
+## rule-keep-logic-pure
+
+Before:
+```python
+@app.get("/ledger")
+async def ledger(month: str, client: Client) -> list[Row]:
+    rows = await client.rows()
+    kept = [r for r in rows if r.date.startswith(month) and r.amount != 0]
+    return sorted(kept, key=lambda r: r.date, reverse=True)
+```
+
+After:
+```python
+def visible_rows(rows: Sequence[Row], month: str) -> list[Row]:
+    kept = [r for r in rows if r.date.startswith(month) and r.amount != 0]
+    return sorted(kept, key=lambda r: r.date, reverse=True)
+
+@app.get("/ledger")
+async def ledger(month: str, client: Client) -> list[Row]:
+    return visible_rows(await client.rows(), month)
+```
+`test_visible_rows_drops_zero_amounts` hands `visible_rows` three rows and reads the result; no app, no client, no fixture.
+
+## rule-strengthen-the-type
+
+Before:
+```python
+def largest(rows: list[Row]) -> Row:
+    if not rows:
+        raise ValueError("no rows")
+    return max(rows, key=lambda r: r.amount)
+```
+
+After:
+```python
+NonEmpty = tuple[Row, *tuple[Row, ...]]
+
+def largest(rows: NonEmpty) -> Row:
+    return max(rows, key=lambda r: r.amount)
+```
+`total(rows: Sequence[Row])` keeps the plain type, since the sum of nothing is 0; only `load` decides whether the file was empty.

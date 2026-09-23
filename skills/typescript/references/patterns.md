@@ -52,3 +52,48 @@ export const readLedger = (url: string) => load(url);   // delete; callers call 
 ## rule-smallest-change
 
 Asked: "include rows with an empty memo". Not `load(url, { includeEmpty = true } = {})`. Delete the `if (!r.memo) continue;` line and fix the one test that encoded the skip.
+
+## rule-keep-logic-pure
+
+Before:
+```tsx
+useEffect(() => {
+  load(url).then((rows) => {
+    const kept = rows.filter((r) => r.date.startsWith(month) && r.amount !== 0);
+    setRows(kept.sort((a, b) => b.date.localeCompare(a.date)));
+  });
+}, [url, month]);
+```
+
+After:
+```tsx
+export function visibleRows(rows: readonly Row[], month: string): Row[] {
+  return rows
+    .filter((r) => r.date.startsWith(month) && r.amount !== 0)
+    .sort((a, b) => b.date.localeCompare(a.date));
+}
+
+useEffect(() => { load(url).then(setRows); }, [url]);
+const visible = useMemo(() => visibleRows(rows, month), [rows, month]);
+```
+`visibleRows` has a test that passes three rows and reads the array back; no renderer, and the month filter is no longer a refetch.
+
+## rule-strengthen-the-type
+
+Before:
+```ts
+function largest(rows: Row[]): Row {
+  if (rows.length === 0) throw new Error("should never happen");
+  return rows.reduce((a, b) => (b.amount > a.amount ? b : a));
+}
+```
+
+After:
+```ts
+type NonEmpty<T> = [T, ...T[]];
+
+function largest(rows: NonEmpty<Row>): Row {
+  return rows.reduce((a, b) => (b.amount > a.amount ? b : a));
+}
+```
+`total(rows: Row[])` keeps the plain type, since the sum of nothing is 0; only `load` decides whether the response was empty.

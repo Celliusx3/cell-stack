@@ -74,6 +74,8 @@ Read the leaf `SKILL.md` in full for any rule you apply. Cite only a rule whose 
 - **Split on the seam** (**rule-split-on-the-seam**). A file near the project's line cap, or a module with two subjects. One file, one responsibility; split where the imports divide, never raise the cap.
 - **Typed boundaries** (**rule-typed-boundaries**). Data entering from outside, a signature reaching for a loose map or `any`, two components meeting. Parse into a typed model at the boundary, pass the model inside; a seam is an interface.
 - **Group by subject** (**rule-group-by-subject**). Two or more functions taking the same first argument, or a class being born. They stay functions in one module named for the subject; a class is earned only by state it hides or a decision it makes.
+- **Keep logic pure** (**rule-keep-logic-pure**). A body that both talks to the outside (a file, a socket, the clock, React) and decides something. The decision is a plain function beside it, typed in and out; the shell is the read and the call.
+- **Strengthen the type** (**rule-strengthen-the-type**). A throw, a null check or a "should never happen" for a case the caller cannot produce. Push the case into the parameter type and delete the check; total functions take the plain type.
 
 ## Reply
 
