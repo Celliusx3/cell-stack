@@ -15,6 +15,6 @@
 8. Prove the safety fact by running code, not by writing it up: a test or a script that calls the real thing and fails loud if the fact is false. Say how far it got: pointed at the line, walked the case, ran it, reproduced in the running app.
 9. Run the tests. Then reproduce the original failure on the surface the person uses and show it gone; paste what came out. A page is opened in a browser and clicked through, never reached with a request behind it: follow the repo's `drive-*` skill, or run `/drive` first when it has none. Do not write into the person's live state to prove it: point the config at a scratch directory, or undo what you wrote and say so. "Inconclusive" is not a pass.
 10. Two fixes that failed the same check share a wrong premise; question the premise before a third patch.
-11. Run `/strip-comments` on the diff. Commits: the test and the fix as one story. Make none unless asked. A wording change goes to the project's prompt ledger when it has one.
+11. Run `/strip-comments` on the diff. Commits: the test and the fix as one story. Make none unless asked; when asked, run `/commit`. A wording change goes to the project's prompt ledger when it has one.
 
 **Reply:** what changes for the person, first; the root cause in one line and the symptom it explained; the evidence (the failing test, the passing test, the real surface); the safety fact and how far it was proven; what the next engineer inherits.

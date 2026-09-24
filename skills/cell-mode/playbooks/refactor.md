@@ -12,6 +12,6 @@
 6. Move one thing, run the tests, move the next. Update every caller and delete the old name in the same step; never keep old and new side by side. Grep each rename against strings, docs and tests. The edits go to one `general-purpose` subagent with the exact scope: the files, the names being moved, the promises that must hold, the language skill. You do not make the edits. Review its diff yourself; run the tests yourself.
 7. Break it on purpose: for each moved piece, change one line so it is wrong and check that a test fails. A test that stays green was not watching; write one that does. Undo the break. Paste commands and results.
 8. Easier to read? Fewer functions to relate, fewer branches, a named shape. If not, undo the whole thing and say why.
-9. Run `/strip-comments` on the diff. Write the commits in order (removal, reshape, cleanup), each with its message. Make none unless asked.
+9. Run `/strip-comments` on the diff. Write the commits in order (removal, reshape, cleanup), each with its message. Make none unless asked; when asked, run `/commit`.
 
 **Reply:** what moved, the tests that guarded it, the proof (commands and results, including the break-on-purpose), what reads easier, what was undone, the commits proposed. No new behaviour.

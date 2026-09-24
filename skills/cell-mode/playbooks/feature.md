@@ -12,6 +12,6 @@
 
 6. Hand the code to one `general-purpose` subagent with the exact scope: the files, the data shape and its class, the failing test that must pass, the project's `CLAUDE.md`, and the language skill for the file type. Before the handoff, grep the tests and docs for every string the change rewords, and put those files in the scope. You do not write the code; text a model will follow (a skill, a tool description) is design, so you write that, per **rule-spell-the-call**. Review its diff line by line. Send it back with the exact failure rather than patching it yourself, unless the patch is one line.
 7. Run the tests yourself. Then run the real thing on the surface the person uses and paste what came out: a page is opened in a browser and clicked through, never reached with a request behind it. Follow the repo's `drive-*` skill; with none, run `/drive` first. Do not write into the person's live state to prove it: point the config at a scratch directory, or undo what you wrote and say so. "Inconclusive" is not a pass; say what was not verified.
-8. Run `/strip-comments` on the diff. Write the commits in order, each with its message. Make none unless asked.
+8. Run `/strip-comments` on the diff. Write the commits in order, each with its message. Make none unless asked; when asked, run `/commit`.
 
 **Reply:** what changes for the person using it, first; then what the next engineer inherits; the research table; the design pick with its alternatives; the evidence (commands and output); open decisions.

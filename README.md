@@ -19,6 +19,7 @@ claude --plugin-dir ~/Desktop/cellstudio/cellstack
 | `/strip-comments` | before review: strips the comments a file does not need and fixes the code that needed them |
 | `/drive` | before a Verify step: writes the repo-local skill that starts the app, drives one feature, and keeps the proof |
 | `/shorter` | the last reply was too long |
+| `/commit` | "let's commit this": one commit per story, each proven to pass on its own; nothing pushed |
 | `/python`, `/typescript` | how every rule is spelled in that language; the mode reads the one for the file you are in |
 
 Two hooks ship with the plugin. `hooks/session-start.sh` puts cell mode into context at the start of every session, so a plain request routes to a playbook without typing `/cell-mode`. `hooks/comment-nag.sh` runs after every `Edit` or `Write` and, when the edit added comment lines, tells the model to run `/strip-comments` before handing back.
@@ -35,4 +36,4 @@ make new kind=steering name=shorter
 
 ## Status
 
-Structure and the mode exist. Five playbooks: Investigate, Explain, Refactor, Fix, Feature. Nine rules, indexed in the mode. Project rules still live in each project's `CLAUDE.md`, which the mode reads first.
+Structure and the mode exist. Five playbooks: Investigate, Explain, Refactor, Fix, Feature. Eleven rules, indexed in the mode. Project rules still live in each project's `CLAUDE.md`, which the mode reads first.
