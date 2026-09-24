@@ -81,6 +81,8 @@ Read the leaf `SKILL.md` in full for any rule you apply. Cite only a rule whose 
 - **Strengthen the type** (**rule-strengthen-the-type**). A throw, a null check or a "should never happen" for a case the caller cannot produce. Push the case into the parameter type and delete the check; total functions take the plain type.
 - **Suspect the test** (**rule-suspect-the-test**). A test is red and the only fix is a shape you would not otherwise write, or a subagent worked around the brief in the code. Ask what the test exercises; one asserting the client, the framework or the standard library is testing someone else's code.
 - **Leave generated alone** (**rule-leave-generated-alone**). A file something else writes: a vendored component, a generated client, a lockfile, a snapshot. Read it, never edit it; reach the result from outside, and know what an installer rewrites before running it.
+- **Place by kind** (**rule-place-by-kind**). A new module, package or test file, or its name. It goes where the project keeps its kind, named for its subject in that folder's words; one older file elsewhere is an outlier, not a precedent.
+- **Spell the call** (**rule-spell-the-call**). Text a model will follow: a skill, a tool description, a system prompt. Write each call exactly, name and arguments, and keep one worked example that a test runs.
 
 ## Reply
 
