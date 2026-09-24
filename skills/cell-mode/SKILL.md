@@ -83,6 +83,7 @@ Read the leaf `SKILL.md` in full for any rule you apply. Cite only a rule whose 
 - **Leave generated alone** (**rule-leave-generated-alone**). A file something else writes: a vendored component, a generated client, a lockfile, a snapshot. Read it, never edit it; reach the result from outside, and know what an installer rewrites before running it.
 - **Place by kind** (**rule-place-by-kind**). A new module, package or test file, or its name. It goes where the project keeps its kind, named for its subject in that folder's words; one older file elsewhere is an outlier, not a precedent.
 - **Spell the call** (**rule-spell-the-call**). Text a model will follow: a skill, a tool description, a system prompt. Write each call exactly, name and arguments, and keep one worked example that a test runs.
+- **Name what it returns** (**rule-name-what-it-returns**). Naming or renaming a function, or a call site that only makes sense after reading the docstring. A yes or no reads as a question, a value is named for the value, and an action is the plain verb for what it does.
 
 ## Reply
 

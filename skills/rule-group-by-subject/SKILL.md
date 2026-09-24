@@ -17,7 +17,7 @@ Leave them as functions, together in one module named for the subject. Sharing a
 1. It holds state the caller should not see or manage: an open connection, a cache, a cursor, an accumulator that changes.
 2. It hides a decision behind one name: which implementation runs, in what order, with what defaults, so a test double or a second implementation can stand in.
 
-Then name it subject plus role (`OrderRepository`, `MailSender`), make its fields exactly what it hides, and write its methods as verb phrases. Keep pure what was pure.
+Then name it subject plus role (`OrderRepository`, `MailSender`), make its fields exactly what it hides, and name its methods for what they return (**rule-name-what-it-returns**). Keep pure what was pure.
 
 Instead of the tempting thing: do not wrap a frozen value in a one-field class so the module shows its subject. Do not create a class of static methods, or one with no fields.
 
