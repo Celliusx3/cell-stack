@@ -22,7 +22,7 @@ Any code you write: no narration comments. A comment survives only under the fiv
 
 ## Playbooks
 
-Match the task to a playbook, open its file, and open a `TodoWrite` list whose first items are its steps, copied in verbatim, before any task-specific todos. A step you choose not to do stays in the list with a one-line `skip: <reason>`. When no playbook matches, say so and ask which shape the work has; do not improvise a procedure.
+Match the task to a playbook, open its file, and open a `TodoWrite` list whose first items are its steps, copied in verbatim, before any task-specific todos. A step you choose not to do stays in the list with a one-line `skip: <reason>`. With no `TodoWrite` tool in the session, number the steps in your first message instead, skips included, so the person sees them. When no playbook matches, say so and ask which shape the work has; do not improvise a procedure.
 
 - **Investigate.** A read-only question: how does X work, why is Y like this, are we sure about Z. `playbooks/investigate.md`
 - **Explain.** A concept, a module or a behaviour to teach by example: explain X, what does Y mean, show me how Z is used. Ends in plain words and one example, not a cited trace. `playbooks/explain.md`
@@ -35,8 +35,9 @@ Match the task to a playbook, open its file, and open a `TodoWrite` list whose f
 
 Claude's plan mode and cell mode stack; plan mode wins where they disagree. `/research` runs during planning; the plan carries one line per decision naming who else does it, and the full table goes in the reply, never the plan. In plan mode: match the playbook as usual, run its read-only steps now (reading, tests, naming the shape, the end state), and put the rest into the plan file. Each playbook that writes marks where plan mode stops. After approval, open the todo list and resume the playbook at the first step after that mark; do not redo the read-only steps. Investigate and Explain never write, so plan mode changes nothing for them.
 
-The plan file is written for a person deciding yes or no. Keep it simple: under fifty lines, one idea per section, and a section that runs past ten lines is cut, not explained. When a section is hard to follow, lead it with one concrete example (what the person says, what they see, what happens) before any table. In this order:
+The plan file is written for a person deciding yes or no. Keep it simple: under fifty lines, one idea per section, and a section that runs past ten lines is cut, not explained. Lead each section with one concrete example (what the person says, what they see, what happens) before any list or table; a plan the person cannot picture is not ready. In this order:
 
+- **What it does.** One sentence a person who never saw the code would follow: what this changes, for whom, and what it leaves alone. Then one example of the difference. With the next section, this is plan mode's Context.
 - **The problem.** What is hard to read or wrong today, one short paragraph, no rule recital.
 - **The idea.** For a feature: one walkthrough, numbered, of a person using it ("You say X. A card appears with Y. You tap Z, and..."). For a refactor: the end state as a story in plain words, five to ten lines, one verb per line, indented like code: no file names, no signatures, no `yield`. The shape that landed:
   ```
@@ -48,7 +49,7 @@ The plan file is written for a person deciding yes or no. Keep it simple: under 
       charge the card            (one call, returns PAID or FAILED)
       write the result
   ```
-  One block per idea. A helper the story calls does not get a second block: it gets a sentence, or a short list where every line is "question: answer". Where the callers sit is one line each after the block, not inside it. Every line of the block is "do this" or "if this: then that"; a line with no verb is a table row that wandered in.
+  One block per idea. A helper the story calls does not get a second block: it gets a sentence, or a short list where every line is "question: answer". Where the callers sit is one line each after the block, not inside it. Every line of the block is "do this" or "if this: then that"; a line with no verb is a table row that wandered in. When the plan changes something the person has already met, each item is a before and after: what happened (their words, or the command and its output) and what happens next time.
 - **Decisions.** One line each: the choice, and who else does it the same way. No table of sources here; that is the reply's.
 - **What changes.** For a feature: the files, one line each saying what the file gains, grouped by commit. For a refactor: a before / after table, one row per moved or deleted thing, then the callers one line each, then the files touched as a count. More than about five files: two pieces, shown separately.
 - **What does not change.** The promises the code keeps, and the tests that guard them, as a table of promise to test name. Count the baseline run ("31 passed"). A promise with no test is named here as the first thing to write. For a feature this may be one line: the baseline count and the test files that must stay green.
@@ -65,7 +66,7 @@ A playbook runs end to end in one turn; do not stop to ask mid-way. A "which app
 
 ## Subagents
 
-`Explore` when it must not write; `general-purpose` when it writes. The prompt is a file under the skill's `references/`, passed verbatim, followed by the scope. Parallel spawns go in one message. No `model` unless the skill says so. You own every subagent's work: read its diff, run the tests yourself, and never relay a "looks good". Read what it says it could not do before you read its diff. A subagent that reports a forced workaround has found something, and a workaround that widens the shipped code rather than the test is **rule-suspect-the-test**, not a deviation to accept.
+`Explore` when it must not write; `general-purpose` when it writes. The prompt is a file under the skill's `references/`, passed verbatim, followed by the scope. Parallel spawns go in one message. No `model` unless the skill says so. You own every subagent's work: read its diff, run the tests yourself, and never relay a "looks good". Read what it says it could not do before you read its diff. A subagent that reports a forced workaround has found something, and a workaround that widens the shipped code rather than the test is **rule-suspect-the-test**, not a deviation to accept. A subagent that cannot start (a usage limit, an error) is not a skipped step: do its work yourself under the same rules, and say so in the reply.
 
 ## Rules
 
