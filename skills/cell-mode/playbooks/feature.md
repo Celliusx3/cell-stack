@@ -11,7 +11,7 @@
 **Plan mode stops here.** Steps 1 to 4 run during planning; the plan is steps 5 to 8, with the research table and the design in it.
 
 6. Hand the code to one `general-purpose` subagent with the exact scope: the files, the data shape and its class, the failing test that must pass, the project's `CLAUDE.md`, and the language skill for the file type. You do not write the code. Review its diff line by line. Send it back with the exact failure rather than patching it yourself, unless the patch is one line.
-7. Run the tests yourself. Then run the real thing on its own surface (the endpoint, the command, the page) and paste what came out. "Inconclusive" is not a pass; say what was not verified.
+7. Run the tests yourself. Then run the real thing on its own surface (the endpoint, the command, the page) and paste what came out. Do not write into the person's live state to prove it: point the config at a scratch directory, or undo what you wrote and say so. "Inconclusive" is not a pass; say what was not verified.
 8. Run `/strip-comments` on the diff. Write the commits in order, each with its message. Make none unless asked.
 
 **Reply:** what changes for the person using it, first; then what the next engineer inherits; the research table; the design pick with its alternatives; the evidence (commands and output); open decisions.

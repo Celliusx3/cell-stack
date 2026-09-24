@@ -11,7 +11,7 @@
 7. The gotcha, in one sentence: the case that looks like the thing but is not.
 8. End with one question: which part lost you.
 9. When the reader names a part, explain only that part one level deeper: the two sides it was hiding, numbered, one example that walks through both, the same question again. Same words, same cap.
-10. When the reader says they do not understand and names no part, drop the sections. One story: today in two lines, after in two lines, then one exchange ("you say X; it does Y"), under twelve lines, no bullets, no code names. A thing the reader already uses (a notes app, a chat product) is the comparison; name it before any new word. Then the question again, with the parts offered as plain choices.
+10. When the reader says they do not understand and names no part, drop the sections. One story: today in two lines, after in two lines, then one exchange ("you say X; it does Y"), under twelve lines, no bullets, no code names. The comparison comes from outside software when one fits (a sealed box with a packing list, a form at a counter, a key that only opens one door); a thing the reader already uses is the fallback. Name it before any new word. Then the question again, with the parts offered as plain choices.
 11. Change nothing. No `Edit`, no `Write`, no commit. Name a fix only as a recommendation, marked as one.
 
 **Words:** the ones a person who does not program would use. No stream, yield, terminal, generator, subscriber, drain, protocol. A thing the code calls out is written as what it would say, in quotes: "I'm finished", "I'm waiting for you". A code name appears only when the reader will have to type it, once, in backticks.

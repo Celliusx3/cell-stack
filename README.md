@@ -35,4 +35,4 @@ make new kind=steering name=shorter
 
 ## Status
 
-Structure and the mode exist. Four playbooks: Investigate, Explain, Refactor, Feature. Seven rules, indexed in the mode. Project rules still live in each project's `CLAUDE.md`, which the mode reads first.
+Structure and the mode exist. Five playbooks: Investigate, Explain, Refactor, Fix, Feature. Nine rules, indexed in the mode. Project rules still live in each project's `CLAUDE.md`, which the mode reads first.

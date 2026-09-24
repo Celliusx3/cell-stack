@@ -65,7 +65,7 @@ A playbook runs end to end in one turn; do not stop to ask mid-way. A "which app
 
 ## Subagents
 
-`Explore` when it must not write; `general-purpose` when it writes. The prompt is a file under the skill's `references/`, passed verbatim, followed by the scope. Parallel spawns go in one message. No `model` unless the skill says so. You own every subagent's work: read its diff, run the tests yourself, and never relay a "looks good".
+`Explore` when it must not write; `general-purpose` when it writes. The prompt is a file under the skill's `references/`, passed verbatim, followed by the scope. Parallel spawns go in one message. No `model` unless the skill says so. You own every subagent's work: read its diff, run the tests yourself, and never relay a "looks good". Read what it says it could not do before you read its diff. A subagent that reports a forced workaround has found something, and a workaround that widens the shipped code rather than the test is **rule-suspect-the-test**, not a deviation to accept.
 
 ## Rules
 
@@ -78,6 +78,8 @@ Read the leaf `SKILL.md` in full for any rule you apply. Cite only a rule whose 
 - **Group by subject** (**rule-group-by-subject**). Two or more functions taking the same first argument, or a class being born. They stay functions in one module named for the subject; a class is earned only by state it hides or a decision it makes.
 - **Keep logic pure** (**rule-keep-logic-pure**). A body that both talks to the outside (a file, a socket, the clock, React) and decides something. The decision is a plain function beside it, typed in and out; the shell is the read and the call.
 - **Strengthen the type** (**rule-strengthen-the-type**). A throw, a null check or a "should never happen" for a case the caller cannot produce. Push the case into the parameter type and delete the check; total functions take the plain type.
+- **Suspect the test** (**rule-suspect-the-test**). A test is red and the only fix is a shape you would not otherwise write, or a subagent worked around the brief in the code. Ask what the test exercises; one asserting the client, the framework or the standard library is testing someone else's code.
+- **Leave generated alone** (**rule-leave-generated-alone**). A file something else writes: a vendored component, a generated client, a lockfile, a snapshot. Read it, never edit it; reach the result from outside, and know what an installer rewrites before running it.
 
 ## Reply
 
