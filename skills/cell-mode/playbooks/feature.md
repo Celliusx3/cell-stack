@@ -1,17 +1,13 @@
 ### Feature
 
-**You own the design. Research, decide, review, verify. A subagent writes the code.** New behaviour only; a bug found on the way is named in the reply and left for its own change, unless it blocks this change's own run: then fix it first as its own Fix, with its own test and commit, and say so.
+**New behaviour, in three stages: make it work (POC), make it right (Refactor), make it clean (Clean up).** The POC's code is kept and reshaped, never rewritten. A bug found on the way is its own Fix, with its own test and commit.
 
 1. Apply the project's `CLAUDE.md` (already in context) as this repo's rules; open the rule files it links if the change touches them.
-2. Read the code the feature touches and its tests. Name the data shape it changes or adds, per **rule-typed-boundaries** and **rule-group-by-subject**, and where each new file goes, per **rule-place-by-kind**, before anything else is decided.
-3. Run `/research` (`${CLAUDE_PLUGIN_ROOT}/skills/research/SKILL.md`) on the question. Its table goes in the reply.
-4. Decide the design here, never inside the code: the end state as one story block (the shape in the mode's Plan mode section), and the alternatives as a table with the pick and why. A design that crosses more than about five files is two features; do the first. A request that is a principle ("every feature", "anything configurable") is designed as the rule, a test that keeps it true, and the first instance; ask about the rule, never a menu of instances.
-5. Write the test that describes the new behaviour and run it. It fails. Paste the command and the failure.
+2. **POC.** Run `playbooks/poc.md` to its end. It stops with the slice running on the person's setup, one end-to-end check green, and a rough-spots list.
+3. **Refactor.** When the person says it works, or the request already asked for the finished change, run `playbooks/refactor.md` with the POC's diff as the scope and its rough-spots list as the candidates. Its step 2 writes a test for every promise before anything moves; the POC wrote only the end-to-end check.
+4. **Clean up.** Run `/strip-comments` on the whole diff. Update the docs the change made wrong: the project's plan, its prompt ledger, a drive skill's feature map. Run the tests and the drive once more on the final code, and paste both.
+5. Write the commits in order: each Fix, then the feature with its refactor folded in, then the docs, each with its message. Make none unless asked; when asked, run `/commit`, and open a PR only when asked.
 
-**Plan mode stops here.** Steps 1 to 4 run during planning; the plan is steps 5 to 8, with the design in it; the research table stays in the reply.
+**Plan mode stops here** inside the POC: its steps 1 to 5 run during planning, and the plan is the rest of the POC.
 
-6. Hand the code to one `general-purpose` subagent with the exact scope: the files, the data shape and its class, the failing test that must pass, the project's `CLAUDE.md`, and the language skill for the file type. Before the handoff, grep the tests and docs for every string the change rewords, and put those files in the scope. You do not write the code; text a model will follow (a skill, a tool description) is design, so you write that, per **rule-spell-the-call**. Review its diff line by line. Send it back with the exact failure rather than patching it yourself, unless the patch is one line.
-7. Run the tests yourself. Then run the real thing on the surface the person uses and paste what came out: a page is opened in a browser and clicked through, never reached with a request behind it. Follow the repo's `drive-*` skill; with none, run `/drive` first. Do not write into the person's live state to prove it: point the config at a scratch directory, or undo what you wrote and say so. "Inconclusive" is not a pass; say what was not verified. A model that misuses text you wrote (a tool description, a prompt) while you drive has found a bug in that text: reword it, drive the same case three times, record the failure where the project keeps its prompt failures, and report how many of the three went right.
-8. Run `/strip-comments` on the diff. Write the commits in order, each with its message. Make none unless asked. Before the first one, leave the app running on the person's own setup with numbered steps to try it by hand (what to type, what they should see, on each surface the change touches), and run `/commit` once they say it works.
-
-**Reply:** what changes for the person using it, first; then what the next engineer inherits; the research table; the design pick with its alternatives; the evidence (commands and output); the steps to try it by hand; open decisions.
+**Reply:** at the end of each stage, that stage's reply. After Clean up: what changes for the person, what the next engineer inherits, the evidence from the final run, the commits proposed, open decisions.
