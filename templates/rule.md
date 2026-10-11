@@ -1,6 +1,6 @@
 ---
 name: NAME
-description: One line. The rule, so it can be cited by name.
+description: One line. The rule, so it can be cited by name, and where it came from.
 disable-model-invocation: true
 ---
 
@@ -14,6 +14,6 @@ The situations this applies to. Concrete, so the model can tell when it does not
 
 The rule in one or two sentences. Then what to do instead of the tempting thing.
 
-## Example
+## The test
 
-One example from your own code or a past correction. Path and line when there is one.
+One question that tells whether the rule was kept.

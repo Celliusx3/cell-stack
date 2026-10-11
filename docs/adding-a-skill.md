@@ -41,7 +41,7 @@ It copies the kind's template from `templates/`, fills in the name, adds the wir
 
 **playbook.** Five to fifteen numbered steps. A playbook that writes carries a **Plan mode stops here** line naming which steps run during planning and which become the plan. Step 1 is always "apply the project's `CLAUDE.md`" (it is already in context; the step opens the rule files it links). Each step names its evidence. The last line is `**Reply:**` followed by what the reply must contain. Cap is 40 lines: a playbook that needs more is two playbooks.
 
-**rule.** `## When` (the situations, concrete enough to know when it does *not* apply), `## Rule` (one or two sentences, then what to do instead of the tempting thing), `## Example` (one from your own code or a past correction, with a path). A rule with no source is an opinion; write where it came from in the description.
+**rule.** `## When` (the situations, concrete enough to know when it does *not* apply), `## Rule` (one or two sentences, then what to do instead of the tempting thing), `## The test` (one question that tells whether it was kept). No example section: the rule says what the example would have shown. A rule with no source is an opinion; write where it came from in the description.
 
 ## What lint refuses, and why
 

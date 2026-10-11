@@ -23,7 +23,3 @@ Instead of the tempting thing: do not thread a `dict` through three functions "b
 ## The test
 
 For every loose map and escape hatch in a signature: which boundary did this come through, and why was it not parsed there?
-
-## Example
-
-Before: `load(path) -> list[dict[str, Any]]`, and three functions downstream index `row["amount"]`, one of them wrongly as `row["amt"]`. After: a frozen `Row(date: str, amount: float, memo: str)` built inside `load`, which raises on a malformed line; the three functions take `list[Row]` and the typo is a type error, not a `KeyError` at the third call. The one map left is `headers: dict[str, str]` on the HTTP client, because header names are genuinely open.

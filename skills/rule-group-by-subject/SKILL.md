@@ -24,7 +24,3 @@ Instead of the tempting thing: do not wrap a frozen value in a one-field class s
 ## The test
 
 Cover the class name. What does an instance know that the caller does not, or decide that the caller should not? If the answer is "nothing, it holds the argument", it is functions.
-
-## Example
-
-Before: `total(rows)`, `by_month(rows)`, `largest(rows)` as module functions, and a request to add `smallest(rows)`. After: `smallest(rows)` beside them; four functions, one argument, no class. The class that is earned in the same file is `LedgerRepository(path)`, because it holds the open file and decides how a line becomes a `Row`.

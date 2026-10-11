@@ -19,7 +19,3 @@ Instead of the tempting thing: do not put it beside the one similar file you hap
 ## The test
 
 Cover the file name and point at its folder. Would someone who knows the layout look for it there? If they would look where its siblings live, it goes there.
-
-## Example
-
-Three model tools that save, delete and add files to a skill were written as `skills/edit_tools.py`, beside the one older tool that lived outside the tools folder, although the plan named `tools/native/skills/`. The person asked twice: "the naming sucks", then "it is more like function in skills service, then tool in native tool will call these skills functions". They moved to `tools/native/skills/tools.py`, next to every other tool, calling the service's own `save`, `delete` and `write_file`; the skills package kept only skill logic.

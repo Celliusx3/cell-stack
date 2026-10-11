@@ -19,19 +19,3 @@ Instead of the tempting thing: do not add a second guard one level up, and do no
 ## The test
 
 Which call site can pass the value this check refuses? If none, the check is a type that was not written.
-
-## Example
-
-Before, a made-up pair in the shape this bans:
-
-```python
-def newest(sessions: list[Session]) -> Session:
-    if not sessions:
-        raise ValueError("no sessions")
-    return max(sessions, key=lambda s: s.started)
-
-if sessions:
-    print(newest(sessions).id)
-```
-
-After: `newest(sessions: NonEmpty[Session]) -> Session`, the raise is gone, and the caller passes what it has. The one place the list comes in from disk is where emptiness is decided: it either builds a `NonEmpty` or reports that there is nothing to show. Nothing downstream asks again.

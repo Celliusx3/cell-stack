@@ -21,9 +21,3 @@ Instead of the tempting thing: do not widen the production shape and move on bec
 ## The test
 
 Write the line you are about to change and ask: would I write this if the test did not exist? If no, the test is the suspect.
-
-## Example
-
-A test asserted that a request for a path containing `..` was refused by the server. To make it pass, the route had to be widened to a catch-all so the collapsed path still reached the handler, which then reconstructed the `..` to refuse it.
-
-Running the client by itself showed why: every conforming HTTP client removes dot segments before the request is sent, so the server never saw one. The test was asserting the client's behaviour. The escape that does reach a server is percent-encoded, and that is what the refusals now test. The route went back to being narrow, and a second test pins the collapse so nobody re-widens it.

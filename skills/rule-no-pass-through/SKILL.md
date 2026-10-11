@@ -19,14 +19,3 @@ Instead of the tempting thing: do not keep it "for readability" or "in case it c
 ## The test
 
 Cover the body with your hand. If the signature alone tells you what happens, and the body adds nothing to it, the function is a pass-through.
-
-## Example
-
-Before, a made-up two-liner in the shape this bans:
-
-```python
-def read_ledger(path: Path) -> list[Row]:
-    return load(path)
-```
-
-After: `read_ledger` is gone, its callers call `load(path)`. If the file has a `load_ledger` and a `load`, one of the two names was wrong; fix the name, not the call chain.

@@ -21,9 +21,3 @@ Instead of the tempting thing: do not make one small edit because the generated 
 ## The test
 
 Ask who writes this file next time. If the answer is a command rather than a person, you are not allowed to be the person.
-
-## Example
-
-A component library's `init` was run in a project with a hand built colour palette. It rewrote the stylesheet with its own flat palette, swapped the dark mode trigger, and replaced the project's typeface.
-
-The fix was not to edit the library's components to use the project's class names, which the next `add` would have undone. The stylesheet and the layout went back to their committed state, the components stayed exactly as shipped, and one block was added to the project's own stylesheet aliasing the library's colour names onto the palette that already existed. The library is styled from outside, and updating it stays a one line command.

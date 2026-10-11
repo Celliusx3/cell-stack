@@ -19,7 +19,3 @@ Instead of the tempting thing: do not compress the file to fit (shorter names, d
 ## The test
 
 Can you write the file's one-line purpose without an "and"? If not, the "and" is the seam.
-
-## Example
-
-A `ledger.py` whose first line is "Read a CSV ledger and answer questions about its rows" has an "and" in it. The seam is the import line: `load` needs `pathlib` and the row model; `total`, `by_month` and `largest` need only the rows. Split into `ledger/rows.py` (the model and `load`) and `ledger/questions.py` (the three questions), each with a first line that has no "and", each far from the cap.

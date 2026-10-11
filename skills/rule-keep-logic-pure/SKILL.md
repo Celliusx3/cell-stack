@@ -19,19 +19,3 @@ Instead of the tempting thing: do not put an if-chain inside the effect or the h
 ## The test
 
 pstack's own question: "Can this be a pure function that the shell just calls? If yes, extract it."
-
-## Example
-
-Before, a made-up effect in the shape this bans:
-
-```tsx
-useEffect(() => {
-  listRows().then((listed) => {
-    const kept = listed.filter((r) => filter === "all" || r.kind === filter);
-    kept.sort((a, b) => b.date.localeCompare(a.date));
-    setRows(kept);
-  });
-}, [filter]);
-```
-
-After: `visibleRows(listed: Row[], filter: Filter): Row[]` sits beside it and does the filter and the sort; the effect is `listRows().then((listed) => setRows(visibleRows(listed, filter)))`. `visibleRows` has a test that hands it four rows and a filter and checks the order, with no React in the file.

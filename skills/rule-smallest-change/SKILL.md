@@ -19,7 +19,3 @@ Instead of the tempting thing: when you see a second use coming, write it down i
 ## The test
 
 Read the diff hunk by hunk. For each, name the sentence in the request that caused it. A hunk with no sentence comes out.
-
-## Example
-
-A request: "the export skips rows with an empty memo; include them." The tempting diff adds an `include_empty: bool = True` parameter so the old behaviour stays reachable. Nobody asked for the old behaviour. The smallest change deletes the `if not row.memo: continue` line and updates the one test that encoded the skip. One hunk, one sentence of the request.

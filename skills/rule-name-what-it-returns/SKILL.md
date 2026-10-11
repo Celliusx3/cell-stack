@@ -23,9 +23,3 @@ Instead of the tempting thing: do not keep a short name and explain it in the do
 ## The test
 
 Read the call site out loud without looking at the definition. `if ledger.should_close(month): ledger.close(month)` reads as a sentence. `if ledger.due(month): ledger.reduce(month)` needs the docstring. If it needs the docstring, rename it.
-
-## Example
-
-A ledger service closes a month. It had three methods, `due(month)`, `refusal(month)` and `reduce(month)`, and three helpers, `unposted(rows)`, `retained(rows)` and `render(total, balances)`. They become `should_close`, `refusal_reason` (the reason text, or `None`), `close`, `unposted_ids`, `carried_balances` and `closing_statement`. Nothing else changes. The last line of `close` now reads `closing_statement(total, carried_balances(rows))`.
-
-The correction this came from had the same six shapes. The person first asked what one helper's name meant, then said "the function naming does not make sense". Only names moved, and every call site read as a sentence afterwards.
