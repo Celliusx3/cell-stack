@@ -87,6 +87,9 @@ Read the leaf `SKILL.md` in full for any rule you apply. Cite only a rule whose 
 - **Place by kind** (**rule-place-by-kind**). A new module, package or test file, or its name. It goes where the project keeps its kind, named for its subject in that folder's words; one older file elsewhere is an outlier, not a precedent.
 - **Spell the call** (**rule-spell-the-call**). Text a model will follow: a skill, a tool description, a system prompt. Name each call exactly and say its rules in plain sentences, each argument's rule on that argument; no example calls.
 - **Name what it returns** (**rule-name-what-it-returns**). Naming or renaming a function, or a call site that only makes sense after reading the docstring. A yes or no reads as a question, a value is named for the value, and an action is the plain verb for what it does.
+- **Few parameters** (**rule-few-parameters**). Writing or changing a function, method, constructor or route handler. Four parameters at most, `self` and `cls` not counted; a fifth means some of them are one typed value.
+- **No name switch** (**rule-no-name-switch**). Shared code (a channel, a dispatcher, a renderer) gaining a branch for one member's name. Shared code knows no member by name; make the shared behaviour right for all, or move the difference onto the member.
+- **One id, one meaning** (**rule-one-id-one-meaning**). Two ids that are equal today but mean different things. Never pass one where the other is meant; one function maps between them.
 
 ## Reply
 
