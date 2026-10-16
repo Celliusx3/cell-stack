@@ -4,7 +4,7 @@ description: Strip comments before review. Spawn a read-only comment reviewer on
 disable-model-invocation: true
 ---
 
-# No comments
+# Strip comments
 
 Removes the comments a file does not need and fixes the code that needed them, for whoever reads the file next. Ported from pstack's `/strip-comments` and its Comment Sicko reviewer; where pstack calls skills cellstack does not have, the step says what to do instead.
 
