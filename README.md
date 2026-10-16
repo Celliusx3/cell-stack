@@ -10,21 +10,21 @@ claude --plugin-dir ~/Desktop/cellstudio/cellstack
 
 `make check` validates the manifest and the structure rules. `make help` lists the rest.
 
-## Skills
+## What the mode reads
 
-`/cell-mode` is the only command. Every other skill is hidden from the `/` menu, and the mode reads it by path when a step names it.
+`/cell-mode` is the only skill and the only command. Everything else is a plain page inside it, under `skills/cell-mode/`, that the mode reads by path when a step names it.
 
-| Skill | The mode reads it |
+| Page | The mode reads it |
 |---|---|
-| `research` | before designing: what others built, with links, and the options it leaves |
-| `strip-comments` | before review: strips the comments a file does not need and fixes the code that needed them |
-| `drive` | before a Verify step: writes the repo-local skill that starts the app, drives one feature, and keeps the proof |
-| `commit` | you asked for commits: one commit per story, each proven to pass on its own; nothing pushed |
-| `python`, `typescript` | how every rule is spelled in that language; the mode reads the one for the file you are in |
+| `procedures/research.md` | before designing: what others built, with links, and the options it leaves |
+| `procedures/strip-comments.md` | before review: strips the comments a file does not need and fixes the code that needed them |
+| `procedures/drive.md` | before a Verify step: writes the repo-local skill that starts the app, drives one feature, and keeps the proof |
+| `procedures/commit.md` | you asked for commits: one commit per story, each proven to pass on its own; nothing pushed |
+| `languages/python.md`, `languages/typescript.md` | how every rule is spelled in that language; the mode reads the one for the file you are in |
 
 Two hooks ship with the plugin. `hooks/session-start.sh` puts cell mode into context at the start of every session, so a plain request routes to a playbook without typing `/cell-mode`. `hooks/comment-nag.sh` runs after every `Edit` or `Write` and, when the edit added comment lines, tells the model to run `/strip-comments` before handing back.
 
-## Adding a skill
+## Adding a page
 
 A rule is one command:
 

@@ -4,7 +4,7 @@
 
 1. Apply the project's `CLAUDE.md` (already in context) as this repo's rules; open the rule files it links if the change touches them.
 2. Read the code the change touches and its tests. Name the data shape it adds or changes, per **rule-typed-boundaries**, and where each new file goes, per **rule-place-by-kind**.
-3. Run `/research` (`${CLAUDE_PLUGIN_ROOT}/skills/research/SKILL.md`) on the question. Its table goes in the reply.
+3. Run `/research` (`${CLAUDE_PLUGIN_ROOT}/skills/cell-mode/procedures/research.md`) on the question. Its table goes in the reply.
 4. Pick the slice: the shortest path from what the person does to what they see, as one story block, and the alternatives as a table with the pick and why. More than about five files is two slices; build the first.
 5. Write one end-to-end check of that path through the real entry point (a test, or the repo's drive script) and run it. It fails. Paste the command and the failure.
 

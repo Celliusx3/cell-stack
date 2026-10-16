@@ -10,9 +10,9 @@ disable-model-invocation: true
 
 Claude Code has no mode concept, so this skill is sticky by instruction. It arrives at session start through the plugin's hook, or when someone types `/cell-mode`; either way it stays on for the rest of the conversation. A new task, a playbook match, or a need for rigor means apply it in full. A casual turn means stay out of the way. "new task" means re-match a playbook instead of continuing the prior one. The user opts out by saying so.
 
-## Resolving a skill
+## Resolving a page
 
-Every other skill in this plugin is hidden from both the `/` menu and your Skill listing; this mode is the only way in. Each one lives at `${CLAUDE_PLUGIN_ROOT}/skills/<name>/SKILL.md`. Read that file in full before applying it. Playbook paths below are relative to `${CLAUDE_PLUGIN_ROOT}/skills/cell-mode/`.
+Every other page this mode names lives inside it, under `${CLAUDE_PLUGIN_ROOT}/skills/cell-mode/`: playbooks in `playbooks/`, rules in `rules/`, language pages in `languages/`, and procedures as `procedures/<name>.md` with their prompts in `procedures/<name>/`. They are plain pages, not skills; this mode is the only way in. Read a page in full before applying it. Playbook paths below are relative to `${CLAUDE_PLUGIN_ROOT}/skills/cell-mode/`.
 
 ## Every task starts the same way
 
@@ -31,7 +31,7 @@ Match the task to a playbook, open its file, and open a `TodoWrite` list whose f
 - **Refactor.** Change how code is arranged without changing what it does: rename, extract, inline, group, move, dedupe, split a file. Fixing behaviour is the Fix playbook. `playbooks/refactor.md`
 - **Fix.** Behaviour that is wrong: a bug, a regression, "X returns nothing", "Y crashes", "Z is slow". Reproduce, root cause, regression test first. `playbooks/fix.md`
 - **Feature.** New behaviour: add, support, allow, a new flag, endpoint, command or field, or a prototype to try. Three stages in one run, with no pause between them: make it work, then Refactor on its diff, then Clean up. `playbooks/feature.md`
-- **Comments.** A request to strip, refactor, reduce or clean up the comments in named files. Not a playbook: apply `${CLAUDE_PLUGIN_ROOT}/skills/strip-comments/SKILL.md` with those files as the scope.
+- **Comments.** A request to strip, refactor, reduce or clean up the comments in named files. Not a playbook: apply `${CLAUDE_PLUGIN_ROOT}/skills/cell-mode/procedures/strip-comments.md` with those files as the scope.
 
 ## Plan mode
 
@@ -43,11 +43,11 @@ A playbook runs end to end in one turn; do not stop to ask mid-way. A "which app
 
 ## Subagents
 
-`Explore` when it must not write; `general-purpose` when it writes. The prompt is a file under the skill's `references/`, passed verbatim, followed by the scope. Parallel spawns go in one message. No `model` unless the skill says so. You own every subagent's work: read its diff, run the tests yourself, and never relay a "looks good". Read what it says it could not do before you read its diff. A subagent that reports a forced workaround has found something, and a workaround that widens the shipped code rather than the test is **rule-suspect-the-test**, not a deviation to accept. A subagent that cannot start (a usage limit, an error) is not a skipped step: do its work yourself under the same rules, and say so in the reply. While a subagent writes in a folder, nothing else writes there: the next piece's tests wait until it reports, or its brief names the files you will add.
+`Explore` when it must not write; `general-purpose` when it writes. The prompt is a file in the procedure's own folder (`procedures/<name>/`), passed verbatim, followed by the scope. Parallel spawns go in one message. No `model` unless the procedure says so. You own every subagent's work: read its diff, run the tests yourself, and never relay a "looks good". Read what it says it could not do before you read its diff. A subagent that reports a forced workaround has found something, and a workaround that widens the shipped code rather than the test is **rule-suspect-the-test**, not a deviation to accept. A subagent that cannot start (a usage limit, an error) is not a skipped step: do its work yourself under the same rules, and say so in the reply. While a subagent writes in a folder, nothing else writes there: the next piece's tests wait until it reports, or its brief names the files you will add.
 
 ## Rules
 
-Read the leaf `SKILL.md` in full for any rule you apply. Cite only a rule whose file you opened this session, and name the specific choice it changed. Any code: name the data shape first, per **rule-typed-boundaries**, and read the language skill for the file you are in (`${CLAUDE_PLUGIN_ROOT}/skills/python/SKILL.md` for `.py`, `${CLAUDE_PLUGIN_ROOT}/skills/typescript/SKILL.md` for `.ts` and `.tsx`) for how each rule is spelled there. Each entry names when it applies, then the rule.
+Read the rule's page in full for any rule you apply: **rule-<slug>** is `rules/<slug>.md`. Cite only a rule whose file you opened this session, and name the specific choice it changed. Any code: name the data shape first, per **rule-typed-boundaries**, and read the language page for the file you are in (`${CLAUDE_PLUGIN_ROOT}/skills/cell-mode/languages/python.md` for `.py`, `${CLAUDE_PLUGIN_ROOT}/skills/cell-mode/languages/typescript.md` for `.ts` and `.tsx`) for how each rule is spelled there. Each entry names when it applies, then the rule.
 
 - **Smallest change** (**rule-smallest-change**). Any code change, sizing a diff, tempted to add a layer or a helper. The minimum code that solves the asked problem; every changed line traces to the request.
 - **No pass-through** (**rule-no-pass-through**). A function whose body is one call with the same arguments. Delete it; callers call the real thing.
