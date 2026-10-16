@@ -51,6 +51,7 @@ It copies the kind's template from `templates/`, fills in the name, adds the wir
 |---|---|
 | Frontmatter is exactly `name`, `description`, `disable-model-invocation: true`; `name` equals the directory | The three fields are all Claude Code reads. `disable-model-invocation` keeps every skill user-triggered, so the model reaches them by path, never by guessing. A mismatched name is a `/command` that does not exist. |
 | Every playbook has a routing row, and every row points at a real file | A playbook with no row is unreachable; a row with no file is a broken promise the model will trip on mid-task. |
+| Every `${CLAUDE_PLUGIN_ROOT}/...` path a skill names exists | The model follows the path as written. A page that moved is a step it cannot read, and nothing else would say so. |
 | Every `rule-*` is in the index | The mode cites from the index. An unindexed rule is never cited. |
 | A procedure that says "spawn" has a `references/` prompt | The prompt being a file is what makes the subagent do the same thing every time. |
 | No `SKILL.md` over 150 lines, no playbook over 40 | The body is pasted into context on every use. pstack's one 2,000-line skill is the cautionary example. |

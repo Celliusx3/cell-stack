@@ -38,6 +38,12 @@ if [ -f "$mode" ]; then
 	done
 fi
 
+plugin_root_prefix='${CLAUDE_PLUGIN_ROOT}/'
+while IFS=: read -r f ref; do
+	path="${ref#"$plugin_root_prefix"}"
+	[ -e "$path" ] || bad "$f" "points at missing $path"
+done < <(grep -roE '\$\{CLAUDE_PLUGIN_ROOT\}/[A-Za-z0-9_./-]+' skills)
+
 # 3b. a language skill spells every rule in the index, and carries its patterns
 if [ -f "$mode" ]; then
 	for f in skills/*/SKILL.md; do
