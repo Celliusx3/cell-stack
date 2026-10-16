@@ -2,6 +2,7 @@
 name: rule-spell-the-call
 description: Text a model follows names every call exactly and says its rules in plain sentences, with no example calls; a tool's description says what it does, when, and what comes back, and each argument's rule sits on that argument. From a failed skill reuse on 2026-09-24, and the person's call on 2026-10-11 to keep tool descriptions simple and free of examples, after which three model failures were each fixed by one sentence.
 disable-model-invocation: true
+user-invocable: false
 ---
 
 # Spell the call

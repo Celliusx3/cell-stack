@@ -2,6 +2,7 @@
 name: rule-name-what-it-returns
 description: A function's name says what the caller gets back. A yes or no reads as a question, a value is named for the value, and an action is the plain verb for what it does. From a correction on 2026-09-24, when a service's `due`, `refusal` and `reduce` became a question, a reason and a plain verb.
 disable-model-invocation: true
+user-invocable: false
 ---
 
 # Name what it returns

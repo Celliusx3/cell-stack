@@ -2,6 +2,7 @@
 name: drive
 description: Write a repo-local skill that starts the app, drives it the way a person does, and captures proof. Use for /drive, "make a drive skill for this repo", "how do I verify the UI", or when a Verify step has no scripted way to prove a screen or a command. Ported from pstack's create-verification-skill.
 disable-model-invocation: true
+user-invocable: false
 ---
 
 # Drive

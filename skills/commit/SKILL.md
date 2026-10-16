@@ -2,6 +2,7 @@
 name: commit
 description: Commit the working tree as one commit per story, each proven to pass on its own, in the repo's own message style. Use for /commit, "let's commit this", "commit this", or when a playbook's commit step is reached and the person asked for commits.
 disable-model-invocation: true
+user-invocable: false
 ---
 
 # Commit

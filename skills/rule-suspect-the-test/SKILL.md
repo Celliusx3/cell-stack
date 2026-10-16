@@ -2,6 +2,7 @@
 name: rule-suspect-the-test
 description: When passing a test needs a shape you would not otherwise choose, the test is the suspect, not the code. Check what the test actually exercises before widening anything to satisfy it. The user's decision, 2026-09-23.
 disable-model-invocation: true
+user-invocable: false
 ---
 
 # Suspect the test

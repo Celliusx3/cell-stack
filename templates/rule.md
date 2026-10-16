@@ -2,6 +2,7 @@
 name: NAME
 description: One line. The rule, so it can be cited by name, and where it came from.
 disable-model-invocation: true
+user-invocable: false
 ---
 
 # NAME

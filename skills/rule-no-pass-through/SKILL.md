@@ -2,6 +2,7 @@
 name: rule-no-pass-through
 description: A function whose whole body is one call to another callable, arguments passed straight through, is deleted and its callers call the real thing. A wrapper is earned only when it changes the arguments, the return, or the error. The user's decision, 2026-09-19.
 disable-model-invocation: true
+user-invocable: false
 ---
 
 # No pass-through

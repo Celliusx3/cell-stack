@@ -2,6 +2,7 @@
 name: research
 description: Find how others have built the thing before designing it. Spawns one read-only researcher per source (this project, GitHub, library docs, the web) and returns a table with links and two or three options with a pick. Deep by facet, not by length; all four sources when the shape is open. Use for /research, "how do others do this", "what does the library say", and as step 3 of the Feature playbook.
 disable-model-invocation: true
+user-invocable: false
 ---
 
 # Research

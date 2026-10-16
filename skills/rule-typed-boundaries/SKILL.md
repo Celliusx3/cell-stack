@@ -2,6 +2,7 @@
 name: rule-typed-boundaries
 description: Parse external data into a typed model at the boundary and pass the model inside; no loose map or any past that line. A genuine open map is a map of string to string, not a model. A seam between components is an interface so the caller depends on the shape, not the implementation. From pstack's type-system-discipline and boundary-discipline, and dependency inversion.
 disable-model-invocation: true
+user-invocable: false
 ---
 
 # Typed boundaries

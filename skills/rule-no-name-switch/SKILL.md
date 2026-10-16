@@ -2,6 +2,7 @@
 name: rule-no-name-switch
 description: Code that serves every member of a kind never branches on one member's name; the difference moves onto the member, or the shared code stays generic. The open/closed principle. From a correction on 2026-10-11, when two chat channels each grew a branch on one tool's name to pick a line of text, and the person called it not SOLID.
 disable-model-invocation: true
+user-invocable: false
 ---
 
 # No name switch

@@ -12,7 +12,7 @@ Claude Code has no mode concept, so this skill is sticky by instruction. It arri
 
 ## Resolving a skill
 
-Every skill in this plugin is user-invocable only, so it is not in your Skill listing. It lives at `${CLAUDE_PLUGIN_ROOT}/skills/<name>/SKILL.md`. Read that file in full before applying it. Playbook paths below are relative to `${CLAUDE_PLUGIN_ROOT}/skills/cell-mode/`.
+Every other skill in this plugin is hidden from both the `/` menu and your Skill listing; this mode is the only way in. Each one lives at `${CLAUDE_PLUGIN_ROOT}/skills/<name>/SKILL.md`. Read that file in full before applying it. Playbook paths below are relative to `${CLAUDE_PLUGIN_ROOT}/skills/cell-mode/`.
 
 ## Every task starts the same way
 

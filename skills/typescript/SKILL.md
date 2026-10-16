@@ -2,6 +2,7 @@
 name: typescript
 description: How the rules are spelled in TypeScript. Applied to any .ts or .tsx file; read after the rule it spells.
 disable-model-invocation: true
+user-invocable: false
 ---
 
 # TypeScript

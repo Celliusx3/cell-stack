@@ -2,6 +2,7 @@
 name: strip-comments
 description: Strip comments before review. Spawn a read-only comment reviewer on the diff or the named files, delete what it finds, restructure what it marks MUST KILL, and offer an encoding for any comment that claims a constraint. Use for /strip-comments, "too many comments", "clean up the comments".
 disable-model-invocation: true
+user-invocable: false
 ---
 
 # Strip comments

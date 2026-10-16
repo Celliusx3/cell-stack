@@ -2,6 +2,7 @@
 name: rule-strengthen-the-type
 description: A throw, an assert, a null check or a "should never happen" for a case the caller cannot produce marks a type that is too weak; push the case into the parameter type, delete the check, then stop. A total function takes the plain type. From pstack's type-system-discipline.
 disable-model-invocation: true
+user-invocable: false
 ---
 
 # Strengthen the type

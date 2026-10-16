@@ -2,6 +2,7 @@
 name: python
 description: How the rules are spelled in Python. Applied to any .py file; read after the rule it spells.
 disable-model-invocation: true
+user-invocable: false
 ---
 
 # Python

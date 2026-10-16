@@ -2,6 +2,7 @@
 name: rule-few-parameters
 description: A function takes at most four parameters; a fifth means some of them travel together and become one typed value. From the person's call on 2026-10-11, after a helper that sent a saved key took five arguments, three of which were one saved secret.
 disable-model-invocation: true
+user-invocable: false
 ---
 
 # Few parameters

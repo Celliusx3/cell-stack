@@ -2,6 +2,7 @@
 name: rule-keep-logic-pure
 description: A body that both talks to the outside and decides something is split; the decision is a plain function beside the shell, typed in and typed out, with no framework import, and the shell is the read, the call and the write. Test the decision without the framework. From pstack's boundary-discipline and minimize-reader-load.
 disable-model-invocation: true
+user-invocable: false
 ---
 
 # Keep logic pure

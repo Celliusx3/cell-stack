@@ -2,6 +2,7 @@
 name: rule-split-on-the-seam
 description: One file, one responsibility. When a file nears the project's line cap, split it where the imports already divide; never raise the cap or exempt a file. The number lives in the project's CLAUDE.md. From the file-length rule projects state and the single-responsibility rule.
 disable-model-invocation: true
+user-invocable: false
 ---
 
 # Split on the seam

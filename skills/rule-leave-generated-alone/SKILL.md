@@ -2,6 +2,7 @@
 name: rule-leave-generated-alone
 description: Generated and vendored files are read, never edited. Change the thing that produces them, or configure them from outside. Know what an installer rewrites before you run it. The user's decision, 2026-09-23.
 disable-model-invocation: true
+user-invocable: false
 ---
 
 # Leave generated alone

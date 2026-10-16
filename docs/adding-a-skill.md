@@ -2,16 +2,15 @@
 
 ## What a skill is
 
-A skill is a directory under `skills/` with a `SKILL.md` in it. When you type `/<name>`, Claude Code pastes that file's body into the conversation as your message. That is the whole mechanism. There is no engine: a skill is a saved prompt with a name, and everything bigger in cellstack (the mode, the playbooks it routes to) is the same trick with more words.
+A skill is a directory under `skills/` with a `SKILL.md` in it. When you type `/<name>`, Claude Code pastes that file's body into the conversation as your message. In cellstack only `/cell-mode` is typed: every other skill has `user-invocable: false`, and the mode reads its file by path when a step names it. That is the whole mechanism. There is no engine: a skill is a saved prompt with a name, and everything bigger in cellstack (the mode, the playbooks it routes to) is the same trick with more words.
 
 ## Pick the kind
 
-Five kinds. Each has one shape and one place it gets wired in, so adding one never touches more than two files.
+Four kinds. Each has one shape and one place it gets wired in, so adding one never touches more than two files.
 
 | Kind | The test | Lives at | Wired by |
 |---|---|---|---|
-| **steering** | You would type it to steer a reply: `/shorter`, `/plain`. | `skills/<name>/SKILL.md` | nothing. You type it. |
-| **procedure** | It has numbered steps and may spawn subagents: a `/trace`, a `/compare`. | `skills/<name>/SKILL.md` + `references/` | a playbook step that names it, if any |
+| **procedure** | It has numbered steps and may spawn subagents: `trace`, `compare`. | `skills/<name>/SKILL.md` + `references/` | a playbook step that names it, if any |
 | **playbook** | `/cell-mode` should route a task to it: `bug-fix`, `phase`. | `skills/cell-mode/playbooks/<name>.md` | one row in `cell-mode`'s routing table |
 | **rule** | It is a rule you would cite by name. | `skills/rule-<slug>/SKILL.md` | one line in `cell-mode`'s rules index |
 | **language** | How every rule is spelled in one language: `python`, `typescript`. | `skills/<language>/SKILL.md` | the mode names it by file extension; lint checks it spells every rule |
@@ -31,11 +30,9 @@ It copies the kind's template from `templates/`, fills in the name, adds the wir
 1. Open the file it created and replace the placeholder text. The template's headings say what goes where.
 2. For a playbook or rule, the wiring line was appended to the **end** of `skills/cell-mode/SKILL.md`. Move it under `## Playbooks` or `## Rules` and finish its sentence.
 3. `make lint`.
-4. `/reload-plugins` in a running session, or start one with `claude --plugin-dir ~/Desktop/cellstudio/cellstack`, and type `/<name>`.
+4. `/reload-plugins` in a running session, or start one with `claude --plugin-dir ~/Desktop/cellstudio/cellstack`, and give `/cell-mode` a task that reaches it.
 
 ### What to write, per kind
-
-**steering.** One to five sentences. Say what to do with the last message or with the text after the command. No steps, no headings. `/bro` in pstack is two sentences and earns its place.
 
 **procedure.** Under `## Steps`, numbered, each naming the evidence it produces. If a step says "spawn", put the subagent's prompt in `references/<role>-prompt.md` and pass it verbatim; name the `subagent_type` (`Explore` when it must not write, `general-purpose` when it does). Under `## Reply`, what the reply must contain, in order. Anything deterministic (a poll, a diff, a log row) goes in `scripts/` and the step says "run it".
 
@@ -49,7 +46,7 @@ It copies the kind's template from `templates/`, fills in the name, adds the wir
 
 | Rule | Why |
 |---|---|
-| Frontmatter is exactly `name`, `description`, `disable-model-invocation: true`; `name` equals the directory | The three fields are all Claude Code reads. `disable-model-invocation` keeps every skill user-triggered, so the model reaches them by path, never by guessing. A mismatched name is a `/command` that does not exist. |
+| Frontmatter is exactly `name`, `description`, `disable-model-invocation: true`, plus `user-invocable: false` on every skill but `cell-mode`; `name` equals the directory | `disable-model-invocation` keeps every skill out of the model's Skill listing, so the model reaches them by path, never by guessing. `user-invocable: false` keeps every skill but `cell-mode` out of the `/` menu, so the mode is the one way in. A mismatched name is a skill nobody can find by its name. |
 | Every playbook has a routing row, and every row points at a real file | A playbook with no row is unreachable; a row with no file is a broken promise the model will trip on mid-task. |
 | Every `${CLAUDE_PLUGIN_ROOT}/...` path a skill names exists | The model follows the path as written. A page that moved is a step it cannot read, and nothing else would say so. |
 | Every `rule-*` is in the index | The mode cites from the index. An unindexed rule is never cited. |
@@ -59,35 +56,14 @@ It copies the kind's template from `templates/`, fills in the name, adds the wir
 
 ## Conventions
 
-- Names are kebab-case and read as a command: `/shorter`, not `/make-it-shorter`.
-- The `description` is the phrasings that should trigger it. It is the only text the `/` menu shows.
+- Names are kebab-case plain verbs: `strip-comments`, not `remove-the-comments`. A rule is `rule-<what-to-do>`.
+- The `description` is the phrasings that should trigger it.
 - Long material goes in `references/`, deterministic work in `scripts/`, never in the body.
 - Playbook steps say what evidence they produce, not what to think about.
 - Playbook steps are in a new hire's words: "run the tests first", "move one thing", "break it on purpose". Lint refuses pstack's words (pin, characterization test, mutation, reader load, subtract).
-- Names are plain verbs: `/explain`, `/refactor`, `/strip-comments`. A rule is `rule-<what-to-do>`.
 - Nothing in a skill is project-specific. Project rules live in that project's `CLAUDE.md`, which the mode reads first.
 
 ## Worked examples
-
-### A steering skill: `/shorter`
-
-```sh
-make new kind=steering name=shorter
-```
-
-Edit `skills/shorter/SKILL.md`:
-
-```markdown
----
-name: shorter
-description: Restate the last message in half the words. Use for /shorter or "too long".
-disable-model-invocation: true
----
-
-Restate your last message in at most half the words. Keep every claim and its evidence. Drop the framing, the hedges, and anything the reader already knows.
-```
-
-`make lint`, then `/shorter` after any reply.
 
 ### A playbook: `bug-fix`
 

@@ -2,6 +2,7 @@
 name: rule-one-id-one-meaning
 description: Two ids that hold the same value today stay two names, and one function maps between them. From a correction on 2026-10-11, when a chat's id was passed wherever a bot's id was meant, and the person asked to keep the two independent although they are equal.
 disable-model-invocation: true
+user-invocable: false
 ---
 
 # One id, one meaning

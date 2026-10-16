@@ -2,6 +2,7 @@
 name: rule-place-by-kind
 description: A new module goes where the project keeps its kind, named for its subject in that folder's words; one older file of the same kind elsewhere is an outlier, not a precedent. From a correction, 2026-09-24, when model tools placed beside an outlier were moved in with the other tools.
 disable-model-invocation: true
+user-invocable: false
 ---
 
 # Place by kind

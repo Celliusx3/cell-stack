@@ -2,6 +2,7 @@
 name: rule-group-by-subject
 description: Functions that share an argument stay functions in one module named for the subject. They become methods on a class only when the class holds state the caller should not manage or hides a decision behind one name. From pstack's minimize-reader-load; the user's 2026-09-19 preference for grouping into a class was revised the same day, after a one-field class bought nothing.
 disable-model-invocation: true
+user-invocable: false
 ---
 
 # Group by subject

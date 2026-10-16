@@ -8,13 +8,17 @@ mode="skills/cell-mode/SKILL.md"
 fail=0
 bad() { printf '%s: %s\n' "$1" "$2" >&2; fail=1; }
 
-# 1. exactly three frontmatter fields, and name equals the directory
 for f in skills/*/SKILL.md; do
 	[ -f "$f" ] || continue
 	dir=$(basename "$(dirname "$f")")
 	fm=$(awk 'NR==1 && $0!="---"{exit} NR>1 && $0=="---"{exit} NR>1{print}' "$f")
 	keys=$(printf '%s\n' "$fm" | grep -oE '^[a-z-]+:' | tr -d ':' | sort | tr '\n' ' ')
-	[ "$keys" = "description disable-model-invocation name " ] || bad "$f" "frontmatter must be exactly name, description, disable-model-invocation (got: ${keys:-none})"
+	if [ "$f" = "$mode" ]; then
+		[ "$keys" = "description disable-model-invocation name " ] || bad "$f" "frontmatter must be exactly name, description, disable-model-invocation (got: ${keys:-none})"
+	else
+		[ "$keys" = "description disable-model-invocation name user-invocable " ] || bad "$f" "frontmatter must be exactly name, description, disable-model-invocation, user-invocable (got: ${keys:-none})"
+		printf '%s\n' "$fm" | grep -q '^user-invocable: false$' || bad "$f" "user-invocable must be false; cell-mode is the only / command"
+	fi
 	printf '%s\n' "$fm" | grep -q '^disable-model-invocation: true$' || bad "$f" "disable-model-invocation must be true"
 	name=$(printf '%s\n' "$fm" | sed -n 's/^name: //p')
 	[ "$name" = "$dir" ] || bad "$f" "name '$name' must equal directory '$dir'"
