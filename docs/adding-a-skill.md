@@ -14,7 +14,7 @@ Five kinds. Each has one shape and one place it gets wired in, so adding one nev
 | **procedure** | It has numbered steps and may spawn subagents: a `/trace`, a `/compare`. | `skills/<name>/SKILL.md` + `references/` | a playbook step that names it, if any |
 | **playbook** | `/cell-mode` should route a task to it: `bug-fix`, `phase`. | `skills/cell-mode/playbooks/<name>.md` | one row in `cell-mode`'s routing table |
 | **rule** | It is a rule you would cite by name. | `skills/rule-<slug>/SKILL.md` | one line in `cell-mode`'s rules index |
-| **language** | How every rule is spelled in one language: `python`, `typescript`. | `skills/<language>/SKILL.md` + `references/patterns.md` | the mode names it by file extension; lint checks it spells every rule |
+| **language** | How every rule is spelled in one language: `python`, `typescript`. | `skills/<language>/SKILL.md` | the mode names it by file extension; lint checks it spells every rule |
 
 If it fits none of these, it is not a skill. Write it as a note in the project's `CLAUDE.md` instead.
 

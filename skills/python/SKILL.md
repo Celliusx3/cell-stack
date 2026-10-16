@@ -27,5 +27,3 @@ Read the rule first; this is only how it is written here. One row per rule in th
 | **rule-name-what-it-returns** | `snake_case`. A yes or no returns `bool` and starts with `is_`, `has_`, `should_` or `can_`. A value is a noun phrase with no `get_` prefix (`refusal_reason`, `unposted_ids`), and a function that returns `X \| None` is named for the `X`, not for the check. An action is a bare verb (`save`, `close`). |
 
 Also here: `from __future__ import annotations` at the top of every module; `logging`, never `print`, in library code; tests are `pytest` functions named for the promise they check (`test_a_failed_summary_changes_nothing`).
-
-Examples: `references/patterns.md`.

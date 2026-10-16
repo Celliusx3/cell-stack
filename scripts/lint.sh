@@ -44,12 +44,10 @@ while IFS=: read -r f ref; do
 	[ -e "$path" ] || bad "$f" "points at missing $path"
 done < <(grep -roE '\$\{CLAUDE_PLUGIN_ROOT\}/[A-Za-z0-9_./-]+' skills)
 
-# 3b. a language skill spells every rule in the index, and carries its patterns
+# 3b. a language skill spells every rule in the index
 if [ -f "$mode" ]; then
 	for f in skills/*/SKILL.md; do
 		grep -q '^description: How the rules are spelled in' "$f" || continue
-		d=$(dirname "$f")
-		[ -f "$d/references/patterns.md" ] || bad "$f" "a language skill needs references/patterns.md"
 		for slug in $(grep -oE '\*\*rule-[a-z0-9-]+\*\*' "$mode" | tr -d '*' | sort -u); do
 			grep -q "\*\*$slug\*\*" "$f" || bad "$f" "does not say how $slug is spelled"
 		done

@@ -27,5 +27,3 @@ Read the rule first; this is only how it is written here. One row per rule in th
 | **rule-name-what-it-returns** | `camelCase`. A yes or no returns `boolean` and starts with `is`, `has`, `should` or `can` (`shouldClose`). A value is a noun phrase with no `get` prefix (`refusalReason`, `unpostedIds`). An action is a bare verb (`save`, `close`). A React hook keeps `use` and then names what it returns (`useUnpostedRows`). `handleX` for an event handler is React's convention and stays. |
 
 Also here: `unknown` over `any` for external data; `satisfies` over `as`; pass an object, not positional arguments, when a call has more than two; no `console.log` in shipped code.
-
-Examples: `references/patterns.md`.
