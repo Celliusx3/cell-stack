@@ -19,16 +19,18 @@ If it fits none of these, it is not a skill. Write it as a note in the project's
 
 ## The recipe
 
-One command for every kind:
+A rule is one command:
 
 ```sh
-make new kind=<steering|procedure|playbook|rule> name=<kebab-case>
+make rule name=<what-to-do>
 ```
 
-It copies the kind's template from `templates/`, fills in the name, adds the wiring line where the kind needs one, and runs `make lint`. Then:
+It copies `templates/rule.md`, fills in the name, appends the rule's line to the **end** of `skills/cell-mode/SKILL.md`, and runs `make lint`.
 
-1. Open the file it created and replace the placeholder text. The template's headings say what goes where.
-2. For a playbook or rule, the wiring line was appended to the **end** of `skills/cell-mode/SKILL.md`. Move it under `## Playbooks` or `## Rules` and finish its sentence.
+Any other kind starts as a copy of the nearest page of that kind: a playbook from `skills/cell-mode/playbooks/fix.md`, a procedure from `skills/research/`, a language from `skills/python/`. Then:
+
+1. Replace the copied text. For a rule, replace the placeholder text; the headings say what goes where.
+2. Wire it as the kinds table says. A rule's line is already at the end of `skills/cell-mode/SKILL.md`: move it under `## Rules` and finish its sentence. A rule also needs its row in `skills/python/SKILL.md` and `skills/typescript/SKILL.md`; until then lint names both. A playbook gets its row under `## Playbooks`.
 3. `make lint`.
 4. `/reload-plugins` in a running session, or start one with `claude --plugin-dir ~/Desktop/cellstudio/cellstack`, and give `/cell-mode` a task that reaches it.
 
@@ -42,7 +44,7 @@ It copies the kind's template from `templates/`, fills in the name, adds the wir
 
 ## What lint refuses, and why
 
-`scripts/lint.sh` runs on every `make new` and `make check`. It exits 1 naming the file and the rule.
+`scripts/lint.sh` runs on every `make rule` and `make check`. It exits 1 naming the file and the rule.
 
 | Rule | Why |
 |---|---|
@@ -62,19 +64,3 @@ It copies the kind's template from `templates/`, fills in the name, adds the wir
 - Playbook steps say what evidence they produce, not what to think about.
 - Playbook steps are in a new hire's words: "run the tests first", "move one thing", "break it on purpose". Lint refuses pstack's words (pin, characterization test, mutation, reader load, subtract).
 - Nothing in a skill is project-specific. Project rules live in that project's `CLAUDE.md`, which the mode reads first.
-
-## Worked examples
-
-### A playbook: `bug-fix`
-
-```sh
-make new kind=playbook name=bug-fix
-```
-
-Edit `skills/cell-mode/playbooks/bug-fix.md` (steps: read `CLAUDE.md`; reproduce first and paste the failing output; find the cause with evidence; smallest fix; rerun the repro; propose the commit). Then in `skills/cell-mode/SKILL.md`, move the appended line under `## Playbooks` and finish it:
-
-```markdown
-- **Bug fix.** A reported defect to reproduce, root-cause and fix with the repro rerun. `playbooks/bug-fix.md`
-```
-
-`make lint` checks the row and the file agree. From then on `/cell-mode the export writes duplicate rows` routes there.

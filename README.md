@@ -26,13 +26,13 @@ Two hooks ship with the plugin. `hooks/session-start.sh` puts cell mode into con
 
 ## Adding a skill
 
-Five kinds (steering, procedure, playbook, rule, language), one command:
+A rule is one command:
 
 ```sh
-make new kind=steering name=shorter
+make rule name=<what-to-do>
 ```
 
-[docs/adding-a-skill.md](./docs/adding-a-skill.md) is the full recipe: how to pick the kind, what to write, what lint refuses and why, two worked examples.
+A playbook, procedure or language page starts as a copy of the nearest one. [docs/adding-a-skill.md](./docs/adding-a-skill.md) is the full recipe: how to pick the kind, what to write, and what lint refuses and why.
 
 ## Status
 
