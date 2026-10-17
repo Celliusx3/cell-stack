@@ -17,6 +17,6 @@
 10. Review the diff yourself and run the tests yourself. Paste the command and the result.
 11. Break it on purpose: for each moved piece, change one line so it is wrong and check that a test fails. A test that stays green was not watching; write one that does. Undo the break. Paste commands and results.
 12. Easier to read? Fewer functions to keep track of, fewer branches, or one named type where loose values were passed around. Say which in one line. If none, undo the whole thing and say why.
-13. Run `/strip-comments` on the diff. Write the commits in order (removal, reshape, cleanup), each with its message. Make none unless asked; when asked, run `/commit`.
+13. Run `${CLAUDE_PLUGIN_ROOT}/skills/cell-mode/procedures/strip-comments.md` on the diff. Write the commits in order (removal, reshape, cleanup), each with its message. Make none unless asked; when asked, run `${CLAUDE_PLUGIN_ROOT}/skills/cell-mode/procedures/commit.md`.
 
 **Reply:** what reads easier, first, and that nothing the person sees changes; what moved and what was deleted; the tests that guarded it and the proof (commands and results, including the break-on-purpose); what was undone; the commits proposed. When step 5 saves the change for Build, the reply at its stop is the spec's path, the ticket list with blockers, and the request to approve.

@@ -75,6 +75,11 @@ for f in skills/cell-mode/procedures/*.md; do
 	fi
 done
 
+# 4b. a page names a procedure by its path; the only command is /cell-mode
+while IFS=: read -r f cmd; do
+	[ "$cmd" = '`/cell-mode`' ] || bad "$f" "names $cmd, which is not a command; name the page by its path"
+done < <(grep -roE '`/[a-z][a-z-]*`' skills hooks | sort -u)
+
 # 5. size caps
 for f in "$mode" skills/cell-mode/rules/*.md skills/cell-mode/languages/*.md skills/cell-mode/procedures/*.md; do
 	[ -f "$f" ] || continue
