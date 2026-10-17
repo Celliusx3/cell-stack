@@ -30,7 +30,8 @@ Match the task to a playbook, open its file, and open a `TodoWrite` list whose f
 - **Explain.** A concept, a module or a behaviour to teach by example: explain X, what does Y mean, show me how Z is used. Ends in plain words and one example, not a cited trace. `playbooks/explain.md`
 - **Refactor.** Change how code is arranged without changing what it does: rename, extract, inline, group, move, dedupe, split a file. Fixing behaviour is the Fix playbook. `playbooks/refactor.md`
 - **Fix.** Behaviour that is wrong: a bug, a regression, "X returns nothing", "Y crashes", "Z is slow". Reproduce, root cause, regression test first. `playbooks/fix.md`
-- **Feature.** New behaviour: add, support, allow, a new flag, endpoint, command or field, or a prototype to try. Three stages in one run, with no pause between them: make it work, then Refactor on its diff, then Clean up. `playbooks/feature.md`
+- **Feature.** New behaviour: add, support, allow, a new flag, endpoint, command or field, or a prototype to try. Planned with the person in four stages (grill, research, spec, tickets) that stop twice, then Build. `playbooks/feature.md`
+- **Build.** A saved spec's tickets to build: the step after Feature's approval, or "build docs/specs/<feature>" in a fresh session. Every ticket in order, then clean up, with no stop between them. `playbooks/build.md`
 - **Comments.** A request to strip, refactor, reduce or clean up the comments in named files. Not a playbook: apply `${CLAUDE_PLUGIN_ROOT}/skills/cell-mode/procedures/strip-comments.md` with those files as the scope.
 
 ## Plan mode
@@ -39,7 +40,7 @@ Claude's plan mode and cell mode stack; plan mode wins where they disagree. In p
 
 ## Autonomy
 
-A playbook runs end to end in one turn; do not stop to ask mid-way. A "which approach" fork is settled by running the cheaper option, or by the research table, and the pick is reported as a decision with its alternatives. Pause only before an irreversible write (a commit, a push, a delete outside the working tree, a message to a person), or for a genuine product call no experiment can settle. Plan mode is the one deliberate pause, at the playbook's stop line. A question to the person opens with the case it decides as one example (this arrives, this happens), then what the source being copied does in that case, read from its code before asking; an option never claims who else does it from memory.
+A playbook runs end to end in one turn; do not stop to ask mid-way. Feature is the one playbook that stops by design, twice: after the grill, and for approval of the spec and tickets; that approval covers each commit Build makes. A "which approach" fork is settled by running the cheaper option, or by the research table, and the pick is reported as a decision with its alternatives. Pause only before an irreversible write (a commit, a push, a delete outside the working tree, a message to a person), or for a genuine product call no experiment can settle. Plan mode is the other deliberate pause, at the playbook's stop line. A question to the person opens with the case it decides as one example (this arrives, this happens), then what the source being copied does in that case, read from its code before asking; an option never claims who else does it from memory.
 
 ## Subagents
 
