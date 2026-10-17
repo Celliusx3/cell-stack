@@ -37,7 +37,7 @@ if [ -f "$mode" ]; then
 	# 2b. every procedure is in the mode's list
 	for p in skills/cell-mode/procedures/*.md; do
 		[ -f "$p" ] || continue
-		grep -q "procedures/$(basename "$p")\`" "$mode" || bad "$p" "not in the procedures list of $mode"
+		grep -qE "^- \*\*[^*]+\*\* \(\`[^\`]*/procedures/$(basename "$p")\`\)" "$mode" || bad "$p" "not in the procedures list of $mode"
 	done
 	# 3. every rule is in the index, and every rule a page cites has its page
 	for r in skills/cell-mode/rules/*.md; do
