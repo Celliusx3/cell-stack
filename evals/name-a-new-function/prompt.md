@@ -1,0 +1,1 @@
+/cell-mode in cli.py, pull everything after the rows are read out into one function in ledger.py, so cli.py only reads the path and prints what it gets back. The output of `python cli.py ledger.csv` stays the same and `python -m pytest -q` stays green. No commit.

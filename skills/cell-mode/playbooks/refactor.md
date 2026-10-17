@@ -4,7 +4,7 @@
 
 1. Apply the project's `CLAUDE.md` (already in context) as this repo's rules; open the rule files it links if the change touches them.
 2. Read the code and every caller. List what the code promises (what it returns, saves, raises, and in what order) and which test checks each promise. Run those tests once and paste the command and the result. For a UI change the test is a rendered snapshot or a screenshot of every state, taken before and compared after; no baseline, no claim that it looks the same. Type check and lint do not count. A promise with no test is listed as the first test to write; it is not written yet.
-3. Say what the change makes better: what it lets you delete (a branch, an argument threaded through, a one-call wrapper, an impossible state), or what it makes clear (a name that says what it returns, per **rule-name-what-it-returns**). A new model or class is added only where **rule-typed-boundaries** or **rule-group-by-subject** earns it. If the change only adds a layer, it is not worth doing; say so and stop.
+3. Say what the change makes better: what it lets you delete (a branch, an argument threaded through, a one-call wrapper, an impossible state), or what it makes clear (a name that says what it holds or returns, per **rule-name-for-the-reader**). A new model or class is added only where **rule-typed-boundaries** or **rule-group-by-subject** earns it. If the change only adds a layer, it is not worth doing; say so and stop.
 4. Say the end state in plain words, with one example of the code after it lands, then how many files change.
 
 **Plan mode stops here.** Steps 1 to 4 run during planning; the plan is steps 5 to 13.
