@@ -10,7 +10,7 @@ Four kinds. Each has one shape and one place it gets wired in, so adding one nev
 
 | Kind | The test | Lives at | Wired by |
 |---|---|---|---|
-| **procedure** | It has numbered steps and may spawn subagents: `research`, `commit`. | `skills/cell-mode/procedures/<name>.md`, prompts in `procedures/<name>/` | a playbook step that names it, if any |
+| **procedure** | It has numbered steps and may spawn subagents: `research`, `commit`. | `skills/cell-mode/procedures/<name>.md`, prompts in `procedures/<name>/` | one line in `cell-mode`'s procedures list; a playbook step names it by its full path |
 | **playbook** | `/cell-mode` should route a task to it: `fix`, `feature`. | `skills/cell-mode/playbooks/<name>.md` | one row in `cell-mode`'s routing table |
 | **rule** | It is a rule you would cite by name. | `skills/cell-mode/rules/<slug>.md`, cited as `rule-<slug>` | one line in `cell-mode`'s rules index |
 | **language** | How every rule is spelled in one language: `python`, `typescript`. | `skills/cell-mode/languages/<language>.md` | the mode names it by file extension; lint checks it spells every rule |
@@ -30,13 +30,13 @@ It copies `templates/rule.md` to `skills/cell-mode/rules/<slug>.md`, fills in th
 Any other kind starts as a copy of the nearest page of that kind: a playbook from `skills/cell-mode/playbooks/fix.md`, a procedure from `skills/cell-mode/procedures/research.md` and its folder, a language from `skills/cell-mode/languages/python.md`. Then:
 
 1. Replace the copied text. For a rule, replace the placeholder text; the headings say what goes where.
-2. Wire it as the kinds table says. A rule's line is already at the end of `skills/cell-mode/SKILL.md`: move it under `## Rules` and finish its sentence. A rule also needs its row in `skills/cell-mode/languages/python.md` and `skills/cell-mode/languages/typescript.md`; until then lint names both. A playbook gets its row under `## Playbooks`.
+2. Wire it as the kinds table says. A rule's line is already at the end of `skills/cell-mode/SKILL.md`: move it under `## Rules` and finish its sentence. A rule also needs its row in `skills/cell-mode/languages/python.md` and `skills/cell-mode/languages/typescript.md`; until then lint names both. A playbook gets its row under `## Playbooks`, a procedure its line under `## Procedures`.
 3. `make lint`.
 4. `/reload-plugins` in a running session, or start one with `claude --plugin-dir ~/Desktop/cellstudio/cellstack`, and give `/cell-mode` a task that reaches it.
 
 ### What to write, per kind
 
-**procedure.** Under `## Steps`, numbered, each naming the evidence it produces. If a step says "spawn", put the subagent's prompt in `procedures/<name>/<role>-prompt.md`, name it in the page by its full `${CLAUDE_PLUGIN_ROOT}/skills/cell-mode/...` path so lint checks it exists, and pass it verbatim; name the `subagent_type` (`Explore` when it must not write, `general-purpose` when it does). Under `## Reply`, what the reply must contain, in order. Anything deterministic (a poll, a diff, a log row) goes in `scripts/` and the step says "run it".
+**procedure.** One line under the title says what it makes and for whom; when it runs goes in the mode's list, not the page. Under `## Steps`, numbered, each naming the evidence it produces. If a step says "spawn", put the subagent's prompt in `procedures/<name>/<role>-prompt.md`, name it in the page by its full `${CLAUDE_PLUGIN_ROOT}/skills/cell-mode/...` path so lint checks it exists, and pass it verbatim; name the `subagent_type` (`Explore` when it must not write, `general-purpose` when it does). There is no `## Subagents` section: the step says all of that, and the mode's Subagents section says the rest. Under `## Reply`, what the reply must contain, in order. Anything deterministic (a poll, a diff, a log row) goes in `scripts/` and the step says "run it".
 
 **playbook.** Five to fifteen numbered steps. A playbook that writes carries a **Plan mode stops here** line naming which steps run during planning and which become the plan. Step 1 is always "apply the project's `CLAUDE.md`" (it is already in context; the step opens the rule files it links). Each step names its evidence. The last line is `**Reply:**` followed by what the reply must contain. Cap is 40 lines: a playbook that needs more is two playbooks.
 
@@ -50,6 +50,8 @@ Any other kind starts as a copy of the nearest page of that kind: a playbook fro
 |---|---|
 | `skills/` holds only `cell-mode`; its `SKILL.md` frontmatter is exactly `name`, `description`, `disable-model-invocation: true`; no other page has frontmatter | `cell-mode` is the only skill, so it is the only `/` command and the one way in. `disable-model-invocation` keeps it out of the model's Skill listing; the hook puts it in context instead. A page with frontmatter looks like a skill and is not one. |
 | Every playbook has a routing row, and every row points at a real file | A playbook with no row is unreachable; a row with no file is a broken promise the model will trip on mid-task. |
+| Every procedure page has a line in the mode's procedures list | The mode is the only text the model always sees. A procedure no line points at is reached only when a step happens to name it, and a request like "commit this" never finds it. |
+| No page or hook names a slash command but `/cell-mode` | `cell-mode` is the only command. A page that says to run a command that does not exist leaves the model guessing a path, per `rule-name-tools-exactly`; name the page by its path instead. |
 | Every `${CLAUDE_PLUGIN_ROOT}/...` path a page names exists | The model follows the path as written. A page that moved is a step it cannot read, and nothing else would say so. |
 | Every rule page is in the index, and every rule a page cites has its page | The mode cites from the index and opens `rules/<slug>.md`. An unindexed rule is never cited; a cited rule with no page, say after a rename, is a file the model cannot open. |
 | A procedure that says "spawn" has a prompt in `procedures/<name>/` | The prompt being a file is what makes the subagent do the same thing every time. |
@@ -58,7 +60,7 @@ Any other kind starts as a copy of the nearest page of that kind: a playbook fro
 
 ## Conventions
 
-- Names are kebab-case plain verbs: `strip-comments`, not `remove-the-comments`. A rule's page is `rules/<what-to-do>.md`, cited as `rule-<what-to-do>`.
+- Names are kebab-case and follow `rule-name-for-the-reader`: read aloud, the path says what is inside (`procedures/strip-comments.md`, `procedures/write-how-to-use.md`). A rule's page is `rules/<what-to-do>.md`, cited as `rule-<what-to-do>`.
 - The line under a page's title says what it is for; a rule's also says where it came from.
 - Long material goes in a procedure's own folder, deterministic work in `scripts/`, never in the body.
 - Playbook steps say what evidence they produce, not what to think about.

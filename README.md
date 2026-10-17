@@ -12,7 +12,7 @@ claude --plugin-dir ~/Desktop/cellstudio/cellstack
 
 ## What the mode reads
 
-`/cell-mode` is the only skill and the only command. Everything else is a plain page inside it, under `skills/cell-mode/`, that the mode reads by path when a step names it.
+`/cell-mode` is the only skill and the only command. Everything else is a plain page inside it, under `skills/cell-mode/`, that the mode reads by path when a step names it. The mode lists every procedure, so a request like "commit this" finds its page.
 
 | Page | The mode reads it |
 |---|---|
@@ -21,11 +21,11 @@ claude --plugin-dir ~/Desktop/cellstudio/cellstack
 | `procedures/spec.md` | after the grill and research: the feature written down as one spec you approve |
 | `procedures/tickets.md` | after the spec: one file per ticket, thinnest slice first, each with its checks and blockers |
 | `procedures/strip-comments.md` | before review: strips the comments a file does not need and fixes the code that needed them |
-| `procedures/drive.md` | before a Verify step: writes the repo-local skill that starts the app, drives one feature, and keeps the proof |
+| `procedures/write-how-to-use.md` | a change must be shown in the real app and the repo has no skill for it: writes one that starts the app, uses one feature, and keeps the proof |
 | `procedures/commit.md` | you asked for commits: one commit per story, each proven to pass on its own; nothing pushed |
 | `languages/python.md`, `languages/typescript.md` | how every rule is spelled in that language; the mode reads the one for the file you are in |
 
-Two hooks ship with the plugin. `hooks/session-start.sh` puts cell mode into context at the start of every session, so a plain request routes to a playbook without typing `/cell-mode`. `hooks/comment-nag.sh` runs after every `Edit` or `Write` and, when the edit added comment lines, tells the model to run `/strip-comments` before handing back.
+Two hooks ship with the plugin. `hooks/session-start.sh` puts cell mode into context at the start of every session, so a plain request routes to a playbook without typing `/cell-mode`. `hooks/comment-nag.sh` runs after every `Edit` or `Write` and, when the edit added comment lines, tells the model to run the strip-comments procedure before handing back.
 
 ## Adding a page
 
