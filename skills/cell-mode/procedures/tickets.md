@@ -1,6 +1,6 @@
 # Tickets
 
-Split a spec into tickets that Build takes one at a time, in order. The Feature playbook runs it after the spec, and so does the Refactor playbook for a refactor of more than about five files; it ends at the person's approval. Shaped after mattpocock's to-tickets skill.
+Split a spec into tickets that Build takes one at a time, in order; it ends at the person's approval. Shaped after mattpocock's to-tickets skill.
 
 ## Steps
 
@@ -13,10 +13,6 @@ Split a spec into tickets that Build takes one at a time, in order. The Feature 
    - **Checks.** The end-to-end check it must pass: what is run, and what comes out. Build writes this check first and watches it fail; a refactor ticket's check passes before and after.
    - **Blocked by.** The ticket numbers, or `none`.
 5. Show the person the ticket list, one line each (number, what a person can try after it, blocked by), and every spec Decisions line marked "to decide at approval". This is the stop before Build, Feature's stop 2. Change the split until they approve; their approval also covers the commit Build makes for each ticket. When the person said not to ask, skip the stop and say so.
-
-## Subagents
-
-None.
 
 ## Reply
 
