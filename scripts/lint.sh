@@ -34,6 +34,11 @@ if [ -f "$mode" ]; then
 	while read -r ref; do
 		[ -f "skills/cell-mode/$ref" ] || bad "$mode" "routing row points at missing $ref"
 	done < <(grep -oE '`playbooks/[a-z0-9-]+\.md`' "$mode" | tr -d '`' | sort -u)
+	# 2b. every procedure is in the mode's list
+	for p in skills/cell-mode/procedures/*.md; do
+		[ -f "$p" ] || continue
+		grep -q "procedures/$(basename "$p")\`" "$mode" || bad "$p" "not in the procedures list of $mode"
+	done
 	# 3. every rule is in the index, and every rule a page cites has its page
 	for r in skills/cell-mode/rules/*.md; do
 		[ -f "$r" ] || continue
