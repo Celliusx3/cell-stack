@@ -1,4 +1,4 @@
-**Status.** open
+**Status.** done
 
 **What to build.** `git mv rules/spell-the-call.md rules/name-tools-exactly.md` and retitle it. Update `SKILL.md`, both language pages, and the citations in `playbooks/fix.md` and `playbooks/build.md`.
 
