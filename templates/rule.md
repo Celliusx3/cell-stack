@@ -1,10 +1,6 @@
----
-name: NAME
-description: One line. The rule, so it can be cited by name, and where it came from.
-disable-model-invocation: true
----
-
 # NAME
+
+One line: the rule, so it can be cited by name, and where it came from.
 
 ## When
 

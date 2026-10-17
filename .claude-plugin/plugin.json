@@ -1,7 +1,7 @@
 {
 	"name": "cellstack",
 	"version": "0.1.0",
-	"description": "One front door, /cell-mode, that routes a task to a playbook and runs it with your rules attached. Four kinds of skill, each added the same way.",
+	"description": "One front door, /cell-mode, that routes a task to a playbook and runs it with your rules attached. Four kinds of page.",
 	"author": { "name": "Coyan Oh" },
 	"license": "MIT",
 	"keywords": ["cell-mode", "workflow", "skills"],

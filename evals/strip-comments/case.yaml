@@ -1,6 +1,6 @@
 schema_version: "1.1"
 name: strip-comments
-description: /strip-comments on a file with every kind of comment should spawn the read-only reviewer, delete the banner, narration, corpse and false IMPORTANT, keep the vendor-forced note, mark the unreachable guard MUST KILL, kill the pointless noqa, and prove the tests stay green.
+description: Asking cell-mode to strip the comments in a file with every kind of comment should spawn the read-only reviewer, delete the banner, narration, corpse and false IMPORTANT, keep the vendor-forced note, mark the unreachable guard MUST KILL, kill the pointless noqa, and prove the tests stay green.
 tags: [strip-comments]
 runs: 2
 execution:

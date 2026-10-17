@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # The structure rules. Exit 1 naming the file and the rule it broke, so a new
-# skill that does not fit the shape is refused before it is ever typed.
+# page that does not fit the shape is refused before it is ever typed.
 set -u
 root="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$root" || exit 1
@@ -8,18 +8,22 @@ mode="skills/cell-mode/SKILL.md"
 fail=0
 bad() { printf '%s: %s\n' "$1" "$2" >&2; fail=1; }
 
-# 1. exactly three frontmatter fields, and name equals the directory
-for f in skills/*/SKILL.md; do
-	[ -f "$f" ] || continue
-	dir=$(basename "$(dirname "$f")")
-	fm=$(awk 'NR==1 && $0!="---"{exit} NR>1 && $0=="---"{exit} NR>1{print}' "$f")
-	keys=$(printf '%s\n' "$fm" | grep -oE '^[a-z-]+:' | tr -d ':' | sort | tr '\n' ' ')
-	[ "$keys" = "description disable-model-invocation name " ] || bad "$f" "frontmatter must be exactly name, description, disable-model-invocation (got: ${keys:-none})"
-	printf '%s\n' "$fm" | grep -q '^disable-model-invocation: true$' || bad "$f" "disable-model-invocation must be true"
-	name=$(printf '%s\n' "$fm" | sed -n 's/^name: //p')
-	[ "$name" = "$dir" ] || bad "$f" "name '$name' must equal directory '$dir'"
-	[[ "$dir" =~ ^[a-z0-9]+(-[a-z0-9]+)*$ ]] || bad "$f" "directory must be kebab-case"
+for d in skills/*/; do
+	[ -d "$d" ] || continue
+	[ "$d" = "skills/cell-mode/" ] || bad "$d" "only cell-mode is a skill; other pages live inside it"
 done
+if [ -f "$mode" ]; then
+	fm=$(awk 'NR==1 && $0!="---"{exit} NR>1 && $0=="---"{exit} NR>1{print}' "$mode")
+	keys=$(printf '%s\n' "$fm" | grep -oE '^[a-z-]+:' | tr -d ':' | sort | tr '\n' ' ')
+	[ "$keys" = "description disable-model-invocation name " ] || bad "$mode" "frontmatter must be exactly name, description, disable-model-invocation (got: ${keys:-none})"
+	printf '%s\n' "$fm" | grep -q '^disable-model-invocation: true$' || bad "$mode" "disable-model-invocation must be true"
+	name=$(printf '%s\n' "$fm" | sed -n 's/^name: //p')
+	[ "$name" = "cell-mode" ] || bad "$mode" "name '$name' must be cell-mode"
+fi
+while read -r f; do
+	[ "$f" = "$mode" ] && continue
+	[ "$(head -1 "$f")" != "---" ] || bad "$f" "a page has no frontmatter; only cell-mode/SKILL.md is a skill"
+done < <(find skills/cell-mode -type f -name '*.md' | sort)
 
 if [ -f "$mode" ]; then
 	# 2. every playbook has a routing row, and every row points at a file
@@ -27,23 +31,35 @@ if [ -f "$mode" ]; then
 		[ -f "$p" ] || continue
 		grep -q "\`playbooks/$(basename "$p")\`" "$mode" || bad "$p" "no routing row in $mode"
 	done
-	grep -oE '`playbooks/[a-z0-9-]+\.md`' "$mode" | tr -d '`' | sort -u | while read -r ref; do
+	while read -r ref; do
 		[ -f "skills/cell-mode/$ref" ] || bad "$mode" "routing row points at missing $ref"
+	done < <(grep -oE '`playbooks/[a-z0-9-]+\.md`' "$mode" | tr -d '`' | sort -u)
+	for p in skills/cell-mode/procedures/*.md; do
+		[ -f "$p" ] || continue
+		grep -qE "^- \*\*[^*]+\*\* \(\`[^\`]*/procedures/$(basename "$p")\`\)" "$mode" || bad "$p" "not in the procedures list of $mode"
 	done
-	# 3. every rule is in the index
-	for d in skills/rule-*/; do
-		[ -d "$d" ] || continue
-		slug=$(basename "$d")
-		grep -q "\*\*$slug\*\*" "$mode" || bad "$d" "not in the rules index of $mode (expected **$slug**)"
+	# 3. every rule is in the index, and every rule a page cites has its page
+	for r in skills/cell-mode/rules/*.md; do
+		[ -f "$r" ] || continue
+		slug="rule-$(basename "$r" .md)"
+		grep -q "\*\*$slug\*\*" "$mode" || bad "$r" "not in the rules index of $mode (expected **$slug**)"
 	done
+	while IFS=: read -r f slug; do
+		slug="${slug//\*/}"
+		[ -f "skills/cell-mode/rules/${slug#rule-}.md" ] || bad "$f" "cites **$slug** but rules/${slug#rule-}.md is missing"
+	done < <(grep -roE '\*\*rule-[a-z0-9-]+\*\*' skills | sort -u)
 fi
 
-# 3b. a language skill spells every rule in the index, and carries its patterns
+plugin_root_prefix='${CLAUDE_PLUGIN_ROOT}/'
+while IFS=: read -r f ref; do
+	path="${ref#"$plugin_root_prefix"}"
+	[ -e "$path" ] || bad "$f" "points at missing $path"
+done < <(grep -roE '\$\{CLAUDE_PLUGIN_ROOT\}/[A-Za-z0-9_./-]+' skills)
+
+# 3b. a language page spells every rule in the index
 if [ -f "$mode" ]; then
-	for f in skills/*/SKILL.md; do
-		grep -q '^description: How the rules are spelled in' "$f" || continue
-		d=$(dirname "$f")
-		[ -f "$d/references/patterns.md" ] || bad "$f" "a language skill needs references/patterns.md"
+	for f in skills/cell-mode/languages/*.md; do
+		[ -f "$f" ] || continue
 		for slug in $(grep -oE '\*\*rule-[a-z0-9-]+\*\*' "$mode" | tr -d '*' | sort -u); do
 			grep -q "\*\*$slug\*\*" "$f" || bad "$f" "does not say how $slug is spelled"
 		done
@@ -51,17 +67,19 @@ if [ -f "$mode" ]; then
 fi
 
 # 4. a procedure that spawns carries its prompt
-for f in skills/*/SKILL.md; do
+for f in skills/cell-mode/procedures/*.md; do
 	[ -f "$f" ] || continue
-	d=$(dirname "$f")
-	case "$d" in skills/cell-mode|skills/rule-*) continue;; esac
 	if grep -qi '\bspawn' "$f"; then
-		ls "$d"/references/*.md >/dev/null 2>&1 || bad "$f" "says spawn but has no references/*-prompt.md"
+		ls "${f%.md}"/*.md >/dev/null 2>&1 || bad "$f" "says spawn but has no prompt in procedures/$(basename "$f" .md)/"
 	fi
 done
 
+while IFS=: read -r f cmd; do
+	[ "$cmd" = '`/cell-mode`' ] || bad "$f" "names $cmd, which is not a command; name the page by its path"
+done < <(grep -roE '`/[a-z][a-z-]*`' skills hooks | sort -u)
+
 # 5. size caps
-for f in skills/*/SKILL.md; do
+for f in "$mode" skills/cell-mode/rules/*.md skills/cell-mode/languages/*.md skills/cell-mode/procedures/*.md; do
 	[ -f "$f" ] || continue
 	n=$(wc -l < "$f"); [ "$n" -le 150 ] || bad "$f" "$n lines, cap is 150"
 done
@@ -77,13 +95,11 @@ for p in skills/cell-mode/playbooks/*.md; do
 	[ -z "$hit" ] || bad "$p" "pstack word, say it plainly: $hit"
 done
 
-# 7. nothing in a skill is project-specific
-hits=$(grep -rln -i -E 'cell-harness|cellstudio|compaction' skills templates 2>/dev/null)
-[ -z "$hits" ] || { printf '%s\n' "$hits" | while read -r h; do bad "$h" "names a project; skills are generic"; done; fail=1; }
+# 7. nothing in a page is project-specific
+while read -r h; do bad "$h" "names a project; pages are generic"; done < <(grep -rln -i -E 'cell-harness|cellstudio|compaction' skills templates 2>/dev/null)
 
 # 8. no em dash anywhere
-hits=$(grep -rln '—' --include='*.md' skills templates docs README.md 2>/dev/null)
-[ -z "$hits" ] || { printf '%s\n' "$hits" | while read -r h; do bad "$h" "contains an em dash"; done; fail=1; }
+while read -r h; do bad "$h" "contains an em dash"; done < <(grep -rln '—' --include='*.md' skills templates docs README.md 2>/dev/null)
 
 [ "$fail" -eq 0 ] && echo "lint: clean"
 exit "$fail"

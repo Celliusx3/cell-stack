@@ -1,0 +1,11 @@
+schema_version: "1.1"
+name: explain-in-two-parts
+description: Asking cell-mode to explain a function should route to the Explain playbook, change nothing, and reply with a short Problem and an Explanation that walks one example in three to six short numbered steps, with no closing question.
+tags: [cell-mode, explain]
+runs: 2
+execution:
+  max_turns: 30
+  timeout_seconds: 600
+  allowed_tools: [Read, Glob, Grep, Skill, TodoWrite, Edit, Write, Bash, Agent]
+context:
+  scaffold_script: fixture.sh

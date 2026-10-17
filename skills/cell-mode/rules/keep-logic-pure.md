@@ -1,0 +1,17 @@
+# Keep logic pure
+
+A body that both talks to the outside and decides something is split; the decision is a plain function beside the shell, typed in and typed out, with no framework import, and the shell is the read, the call and the write. Test the decision without the framework. From pstack's boundary-discipline and minimize-reader-load.
+
+## When
+
+A function body both talks to the outside (reads a file, a socket, the clock, a database, the DOM; a React effect; a request handler) and decides something (parses, filters, picks, scores, builds a prompt). Also when you are about to test something and find you need the framework to reach the logic: a renderer to check a sort, a running server to check a parse. It does not apply to a shell that only reads and writes with no decision in between, or to a decision that already takes typed data and returns typed data.
+
+## Rule
+
+The decision is a plain function beside the shell, typed in and typed out, with no framework import. The shell is the read, the call, and the write, and nothing else. Test the decision without the framework: hand it values, check what comes back.
+
+Instead of the tempting thing: do not put an if-chain inside the effect or the handler because it is "just a few lines". Those lines are the part worth testing, and inside the shell they can only be tested through the shell.
+
+## The test
+
+pstack's own question: "Can this be a pure function that the shell just calls? If yes, extract it."

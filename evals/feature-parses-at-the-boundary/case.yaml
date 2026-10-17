@@ -1,6 +1,6 @@
 schema_version: "1.1"
 name: feature-parses-at-the-boundary
-description: A new column should route to the Feature playbook, be researched first, be parsed into a typed row model at load, be written by a subagent from a failing test, and be shown running.
+description: A new column, asked for with no questions or stops, should route to the Feature playbook, be researched, be saved as a spec and tickets, be built through the Build playbook, be parsed into a typed row model at load, be written by a subagent from a failing test, and be shown running.
 tags: [cell-mode, feature, rule-typed-boundaries]
 runs: 2
 execution:
