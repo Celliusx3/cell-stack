@@ -34,7 +34,6 @@ if [ -f "$mode" ]; then
 	while read -r ref; do
 		[ -f "skills/cell-mode/$ref" ] || bad "$mode" "routing row points at missing $ref"
 	done < <(grep -oE '`playbooks/[a-z0-9-]+\.md`' "$mode" | tr -d '`' | sort -u)
-	# 2b. every procedure is in the mode's list
 	for p in skills/cell-mode/procedures/*.md; do
 		[ -f "$p" ] || continue
 		grep -qE "^- \*\*[^*]+\*\* \(\`[^\`]*/procedures/$(basename "$p")\`\)" "$mode" || bad "$p" "not in the procedures list of $mode"
@@ -75,7 +74,6 @@ for f in skills/cell-mode/procedures/*.md; do
 	fi
 done
 
-# 4b. a page names a procedure by its path; the only command is /cell-mode
 while IFS=: read -r f cmd; do
 	[ "$cmd" = '`/cell-mode`' ] || bad "$f" "names $cmd, which is not a command; name the page by its path"
 done < <(grep -roE '`/[a-z][a-z-]*`' skills hooks | sort -u)

@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
-# After an Edit or Write: count the comment lines the edit added and, if any,
-# tell the model to run the strip-comments procedure before handing back. The edit stands.
+# After an Edit or Write that adds comment lines, tell the model to run the strip-comments procedure.
 set -euo pipefail
 file=$(python3 -c 'import json,sys; print(json.load(sys.stdin).get("tool_input",{}).get("file_path",""))')
 [ -n "$file" ] && [ -f "$file" ] || exit 0
