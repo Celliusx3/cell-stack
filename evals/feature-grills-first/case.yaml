@@ -1,0 +1,11 @@
+schema_version: "1.1"
+name: feature-grills-first
+description: A vague feature request should route to the Feature playbook, read the code, and stop at one round of numbered questions about what the person wants, each with a recommended answer that a plain "yes" accepts, before any code, spec or ticket is written.
+tags: [cell-mode, feature, grill]
+runs: 2
+execution:
+  max_turns: 30
+  timeout_seconds: 600
+  allowed_tools: [Read, Glob, Grep, Skill, TodoWrite, Edit, Write, Bash, Agent]
+context:
+  scaffold_script: fixture.sh
