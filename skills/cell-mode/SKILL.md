@@ -52,8 +52,8 @@ Read the rule's page in full for any rule you apply: **rule-<slug>** is `rules/<
 
 - **Smallest change** (**rule-smallest-change**). Any code change, sizing a diff, tempted to add a layer or a helper. The minimum code that solves the asked problem; every changed line traces to the request.
 - **No pass-through** (**rule-no-pass-through**). A function whose body is one call with the same arguments. Delete it; callers call the real thing.
-- **Split on the seam** (**rule-split-on-the-seam**). A file near the project's line cap, or a module with two subjects. One file, one responsibility; split where the imports divide, never raise the cap.
-- **Typed boundaries** (**rule-typed-boundaries**). Data entering from outside, a signature reaching for a loose map or `any`, two components meeting. Parse into a typed model at the boundary, pass the model inside; a seam is an interface.
+- **One job per file** (**rule-one-job-per-file**). A file near the project's line cap, or a module with two subjects. One file, one job; split where the imports divide, never raise the cap.
+- **Typed boundaries** (**rule-typed-boundaries**). Data entering from outside, a signature reaching for a loose map or `any`, two components meeting. Parse into a typed model at the boundary, pass the model inside; where two parts meet, the caller depends on an interface.
 - **Group by subject** (**rule-group-by-subject**). Two or more functions taking the same first argument, or a class being born. They stay functions in one module named for the subject; a class is earned only by state it hides or a decision it makes.
 - **Keep logic pure** (**rule-keep-logic-pure**). A body that both talks to the outside (a file, a socket, the clock, React) and decides something. The decision is a plain function beside it, typed in and out; the shell is the read and the call.
 - **Strengthen the type** (**rule-strengthen-the-type**). A throw, a null check or a "should never happen" for a case the caller cannot produce. Push the case into the parameter type and delete the check; total functions take the plain type.

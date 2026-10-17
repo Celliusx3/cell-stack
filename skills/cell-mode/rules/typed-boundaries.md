@@ -1,6 +1,6 @@
 # Typed boundaries
 
-Parse external data into a typed model at the boundary and pass the model inside; no loose map or any past that line. A genuine open map is a map of string to string, not a model. A seam between components is an interface so the caller depends on the shape, not the implementation. From pstack's type-system-discipline and boundary-discipline, and dependency inversion.
+Parse external data into a typed model at the boundary and pass the model inside; no loose map or any past that line. A genuine open map is a map of string to string, not a model. Where two components meet, the caller depends on an interface, so it depends on the shape, not the implementation. From pstack's type-system-discipline and boundary-discipline, and dependency inversion.
 
 ## When
 
@@ -8,7 +8,7 @@ Data enters from outside: an HTTP body, a file, a config, a model's reply, an MC
 
 ## Rule
 
-At the boundary, parse into a typed model (in Python a Pydantic model or a frozen dataclass; in TypeScript a type parsed from a schema) and fail closed on what does not fit: raise, do not guess. Past the boundary, pass the model; a loose map or an `any` inside is a boundary that was skipped. Name the data shape before writing the function that uses it. Where two components meet, the caller depends on an interface naming the methods it needs (a `Protocol` in Python, an `interface` in TypeScript), and the concrete class satisfies it structurally; that is the seam a test doubles and a second implementation plugs into.
+At the boundary, parse into a typed model (in Python a Pydantic model or a frozen dataclass; in TypeScript a type parsed from a schema) and fail closed on what does not fit: raise, do not guess. Past the boundary, pass the model; a loose map or an `any` inside is a boundary that was skipped. Name the data shape before writing the function that uses it. Where two components meet, the caller depends on an interface naming the methods it needs (a `Protocol` in Python, an `interface` in TypeScript), and the concrete class satisfies it structurally; that is where a test double or a second implementation plugs in.
 
 A tuple of unnamed fields in a signature (`tuple[str, str]`, `list[tuple[str, int]]`) is a loose map too: the reader learns which field is which from a docstring or an unpacking. Name it as a model with named fields.
 
