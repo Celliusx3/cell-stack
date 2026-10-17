@@ -1,6 +1,6 @@
 # Spec
 
-Write the agreed feature down as one file the person approves and Build checks the finished code against. The Feature playbook runs it after the grill and the research. Shaped after mattpocock's to-spec skill.
+Write the agreed feature down as one file the person approves and Build checks the finished code against. The Feature playbook runs it after the grill and the research, and the Refactor playbook runs it for a refactor of more than about five files. Shaped after mattpocock's to-spec skill.
 
 ## Steps
 
@@ -12,7 +12,8 @@ Write the agreed feature down as one file the person approves and Build checks t
    - **Assumptions.** The recommended answers taken without asking, when the person said not to ask. Leave the section out otherwise.
    - **Out of scope.** What this feature deliberately leaves out, one line each.
    - **How we will know it works.** The checks a person could run, each as what they do and what they should see.
-3. Keep file paths, function names and code out of the spec; they go stale, and the tickets carry them. Evidence: the file and its line count.
+3. For a refactor, write it from the Refactor playbook's promises, what the change makes better, and its end state. Problem is what is hard to read or change today. What changes for you says that nothing a person sees changes, then how the code reads after. How we will know it works is the tests that guard the promises, with today's count. Leave out Decisions when there are none.
+4. Keep file paths, function names and code out of the spec; they go stale, and the tickets carry them. Evidence: the file and its line count.
 
 ## Subagents
 

@@ -16,14 +16,14 @@ The plan file is written for a person deciding yes or no who has not read the co
 - **What each fix does**, numbered like its problem, with the same example: what happens now.
 - Each decision in one line: the choice, and who else does it the same way.
 - What stays the same, with today's test count ("31 passed"). A promise with no test is named as the first thing to write.
-- For a feature: the spec in short, as a numbered walkthrough of a person using it (what they do, what they see). Anything the change stores says where it is kept, in what form, and who can read it.
+- For a feature: the spec in short, as a numbered walkthrough of a person using it (what they do, what they see). Anything the change stores says where it is kept, in what form, and who can read it. For a refactor saved for Build: its spec in short, saying that nothing the person sees changes.
 - A behaviour choice the change exposes and the person must make: the case as one example, what the source being copied does there, and the strict option named.
 
 ## 3. How to do it
 
 - **Where the work happens:** the folder and the branch.
 - **Before anything:** the checks to run first, and what they show today.
-- **Numbered steps:** the playbook's remaining steps, each naming the file it changes. Work over about five files is split into parts, each under its own heading. For a feature, the tickets in order, one line each with its blockers, and the folder they are saved in.
+- **Numbered steps:** the playbook's remaining steps, each naming the file it changes. Work over about five files is split into parts, each under its own heading. For a feature, or a refactor saved for Build, the tickets in order, one line each with its blockers, and the folder they are saved in.
 - **The checks:** the commands, what passing looks like, and the break-on-purpose for each part.
 - **The commits** to suggest, in order.
 - **Later:** what is left for separate changes, one line each, saying why nothing here changes for it.
