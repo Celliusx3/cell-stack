@@ -51,7 +51,7 @@ Any other kind starts as a copy of the nearest page of that kind: a playbook fro
 | `skills/` holds only `cell-mode`; its `SKILL.md` frontmatter is exactly `name`, `description`, `disable-model-invocation: true`; no other page has frontmatter | `cell-mode` is the only skill, so it is the only `/` command and the one way in. `disable-model-invocation` keeps it out of the model's Skill listing; the hook puts it in context instead. A page with frontmatter looks like a skill and is not one. |
 | Every playbook has a routing row, and every row points at a real file | A playbook with no row is unreachable; a row with no file is a broken promise the model will trip on mid-task. |
 | Every `${CLAUDE_PLUGIN_ROOT}/...` path a page names exists | The model follows the path as written. A page that moved is a step it cannot read, and nothing else would say so. |
-| Every rule page is in the index, and every indexed rule has its page | The mode cites from the index and opens `rules/<slug>.md`. An unindexed rule is never cited; an indexed rule with no page is a file the model cannot open. |
+| Every rule page is in the index, and every rule a page cites has its page | The mode cites from the index and opens `rules/<slug>.md`. An unindexed rule is never cited; a cited rule with no page, say after a rename, is a file the model cannot open. |
 | A procedure that says "spawn" has a prompt in `procedures/<name>/` | The prompt being a file is what makes the subagent do the same thing every time. |
 | No page over 150 lines, no playbook over 40 | The body is pasted into context on every use. pstack's one 2,000-line skill is the cautionary example. |
 | No em dash in any `.md` | The reply rule, applied to the skills themselves. The model copies the style it reads. |

@@ -34,15 +34,16 @@ if [ -f "$mode" ]; then
 	while read -r ref; do
 		[ -f "skills/cell-mode/$ref" ] || bad "$mode" "routing row points at missing $ref"
 	done < <(grep -oE '`playbooks/[a-z0-9-]+\.md`' "$mode" | tr -d '`' | sort -u)
-	# 3. every rule is in the index, and every indexed rule has its page
+	# 3. every rule is in the index, and every rule a page cites has its page
 	for r in skills/cell-mode/rules/*.md; do
 		[ -f "$r" ] || continue
 		slug="rule-$(basename "$r" .md)"
 		grep -q "\*\*$slug\*\*" "$mode" || bad "$r" "not in the rules index of $mode (expected **$slug**)"
 	done
-	while read -r slug; do
-		[ -f "skills/cell-mode/rules/${slug#rule-}.md" ] || bad "$mode" "indexes **$slug** but rules/${slug#rule-}.md is missing"
-	done < <(grep -oE '\*\*rule-[a-z0-9-]+\*\*' "$mode" | tr -d '*' | sort -u)
+	while IFS=: read -r f slug; do
+		slug="${slug//\*/}"
+		[ -f "skills/cell-mode/rules/${slug#rule-}.md" ] || bad "$f" "cites **$slug** but rules/${slug#rule-}.md is missing"
+	done < <(grep -roE '\*\*rule-[a-z0-9-]+\*\*' skills | sort -u)
 fi
 
 plugin_root_prefix='${CLAUDE_PLUGIN_ROOT}/'
