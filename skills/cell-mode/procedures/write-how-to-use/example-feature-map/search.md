@@ -17,7 +17,7 @@ Search finds notes by title or body, opens a match in the editor, and tells a pe
 - Press `/` while focus is outside an editable field.
 - Run `notes search <query>` in a terminal.
 
-## Driving it with control-notes
+## Using it with control-notes
 
 Preconditions:
 

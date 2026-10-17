@@ -43,7 +43,7 @@ A procedure is a page of steps that a playbook step names, or that a request ask
 - **Tickets** (`${CLAUDE_PLUGIN_ROOT}/skills/cell-mode/procedures/tickets.md`). Right after the spec. The spec cut into numbered tickets that Build makes one at a time.
 - **Strip comments** (`${CLAUDE_PLUGIN_ROOT}/skills/cell-mode/procedures/strip-comments.md`). A request to strip, reduce or clean up the comments in named files, with those files as the scope, and every diff before it is handed back. Deletes the comments a file does not need and fixes the code that needed them.
 - **Commit** (`${CLAUDE_PLUGIN_ROOT}/skills/cell-mode/procedures/commit.md`). The person asks to commit ("commit this", "let's commit"), or a playbook reaches its commit step. One commit per story, each proven to pass on its own; nothing pushed.
-- **Drive** (`${CLAUDE_PLUGIN_ROOT}/skills/cell-mode/procedures/drive.md`). A change must be shown in the real app and the repo has no skill for using it, or the person asks for one. Writes a repo-local skill that starts the app and uses it the way a person does, then runs it once.
+- **Write how-to-use** (`${CLAUDE_PLUGIN_ROOT}/skills/cell-mode/procedures/write-how-to-use.md`). A change must be shown in the real app and the repo has no skill for using it, or the person asks for one. Writes a repo-local skill that starts the app and uses it the way a person does, then runs it once.
 
 ## Plan mode
 

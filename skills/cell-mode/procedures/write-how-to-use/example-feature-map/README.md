@@ -1,15 +1,15 @@
 # Notes feature map
 
-The maintained list of what a person can do in Notes, and how to prove each one works. Read this index before driving the app, then follow the matching feature file.
+The maintained list of what a person can do in Notes, and how to prove each one works. Read this index before using the app, then follow the matching feature file.
 
-## Before any drive
+## Before any run
 
-- Launch Notes at `http://127.0.0.1:4173` with a throwaway data directory: `NOTES_DATA_DIR=/tmp/notes-drive-$RUN_ID`, so two runs never share state.
+- Launch Notes at `http://127.0.0.1:4173` with a throwaway data directory: `NOTES_DATA_DIR=/tmp/notes-run-$RUN_ID`, so two runs never share state.
 - Seed notes titled `Quarterly plan` and `Grocery list`.
 - Run `control-notes doctor` and require the expected URL, data directory and build.
-- Never drive a copy this run did not start.
+- Never use a copy this run did not start.
 
-## How to drive
+## How to use it
 
 - Start every recipe from the seeded state unless its preconditions say otherwise.
 - Prefer ARIA roles and accessible names over CSS selectors or position.
@@ -30,7 +30,7 @@ An H1, one paragraph on what the person sees, then exactly four H2s in this orde
 
 1. `Sub-features`: short ids, one line each.
 2. `How to get to it (user POV)`: every entry point.
-3. `Driving it with <harness>`: `Preconditions:` first, then one bullet per action pairing the exact command with what is seen.
+3. `Using it with <harness>`: `Preconditions:` first, then one bullet per action pairing the exact command with what is seen.
 4. `Gotchas`: what wastes or spoils a run.
 
 Name only user paths, stable handles, required state, commands and visible proof. No implementation details.
