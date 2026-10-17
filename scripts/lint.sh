@@ -31,9 +31,9 @@ if [ -f "$mode" ]; then
 		[ -f "$p" ] || continue
 		grep -q "\`playbooks/$(basename "$p")\`" "$mode" || bad "$p" "no routing row in $mode"
 	done
-	grep -oE '`playbooks/[a-z0-9-]+\.md`' "$mode" | tr -d '`' | sort -u | while read -r ref; do
+	while read -r ref; do
 		[ -f "skills/cell-mode/$ref" ] || bad "$mode" "routing row points at missing $ref"
-	done
+	done < <(grep -oE '`playbooks/[a-z0-9-]+\.md`' "$mode" | tr -d '`' | sort -u)
 	# 3. every rule is in the index, and every indexed rule has its page
 	for r in skills/cell-mode/rules/*.md; do
 		[ -f "$r" ] || continue
@@ -87,12 +87,10 @@ for p in skills/cell-mode/playbooks/*.md; do
 done
 
 # 7. nothing in a page is project-specific
-hits=$(grep -rln -i -E 'cell-harness|cellstudio|compaction' skills templates 2>/dev/null)
-[ -z "$hits" ] || { printf '%s\n' "$hits" | while read -r h; do bad "$h" "names a project; pages are generic"; done; fail=1; }
+while read -r h; do bad "$h" "names a project; pages are generic"; done < <(grep -rln -i -E 'cell-harness|cellstudio|compaction' skills templates 2>/dev/null)
 
 # 8. no em dash anywhere
-hits=$(grep -rln '—' --include='*.md' skills templates docs README.md 2>/dev/null)
-[ -z "$hits" ] || { printf '%s\n' "$hits" | while read -r h; do bad "$h" "contains an em dash"; done; fail=1; }
+while read -r h; do bad "$h" "contains an em dash"; done < <(grep -rln '—' --include='*.md' skills templates docs README.md 2>/dev/null)
 
 [ "$fail" -eq 0 ] && echo "lint: clean"
 exit "$fail"
