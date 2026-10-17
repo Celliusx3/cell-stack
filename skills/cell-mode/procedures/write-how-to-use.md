@@ -1,8 +1,6 @@
 # Write how-to-use
 
-Write a repo-local skill that starts the app, uses it the way a person does, and captures proof. Use for "make a how-to-use skill for this repo", "how do I verify the UI", or when a Verify step has no scripted way to prove a screen or a command. Ported from pstack's create-verification-skill.
-
-A skill under the project's own `.claude/skills/how-to-use-<app>/` that a later agent, one that has never seen the app, can follow cold: launch, check, use one feature, capture, clean up. Written for that agent, not for a person.
+Write a skill under the project's own `.claude/skills/how-to-use-<app>/` that starts the app, uses it the way a person does, and captures proof, for a later agent that has never seen the app to follow cold: launch, check, use one feature, capture, clean up. Ported from pstack's create-verification-skill.
 
 ## Steps
 
@@ -21,13 +19,8 @@ A skill under the project's own `.claude/skills/how-to-use-<app>/` that a later 
    - Cleanup: how to stop what this run started. Never kill by process name; kill what you started. Cleanup removes copies and scratch state, never the evidence; the skill names where the evidence lives.
    - Helpers: any script the skill ships is executable and its call is shown in the body.
    Evidence: the file, and `wc -l` under 150.
-3. Seed the feature map at `.claude/skills/how-to-use-<app>/features/`: a `README.md` index and one file per user-facing feature, the top three to five from routes, commands, menus or docs. Copy the shape in `${CLAUDE_PLUGIN_ROOT}/skills/cell-mode/procedures/write-how-to-use/example-feature-map/`: each file has an H1, one paragraph on what a person sees, then exactly four H2s, `Sub-features`, `How to get to it (user POV)`, `Using it with <harness>`, `Gotchas`. The map is the repo's maintained list; a proof that uses one convenient entry point is incomplete when the map lists others. Evidence: the file list.
-4. Run the skill once, end to end: launch, doctor, use one mapped feature (one is enough; the map exists so later runs cover the rest), capture, clean up. After cleanup, confirm the evidence is still at the named place; a cleanup that eats the proof fails this step. Fix what fails and run the cleanup after every failed try too, so nothing is left running. A skill never run is a draft, not a deliverable. Evidence: the commands, their output, the evidence path.
-5. Reply.
-
-## Subagents
-
-None. The whole procedure runs in the main conversation, since step 4 must be run and watched by the agent that wrote step 2.
+3. Seed the feature map at `.claude/skills/how-to-use-<app>/features/`: a `README.md` index and one file per user-facing feature, the top three to five from routes, commands, menus or docs. Copy the shape of the example in `${CLAUDE_PLUGIN_ROOT}/skills/cell-mode/procedures/write-how-to-use/example-feature-map/`; its index says what each feature file holds. The map is the repo's maintained list; a proof that uses one convenient entry point is incomplete when the map lists others. Evidence: the file list.
+4. Run the skill once yourself, not through a helper, end to end: launch, doctor, use one mapped feature (one is enough; the map exists so later runs cover the rest), capture, clean up. After cleanup, confirm the evidence is still at the named place; a cleanup that eats the proof fails this step. Fix what fails and run the cleanup after every failed try too, so nothing is left running. A skill never run is a draft, not a deliverable. Evidence: the commands, their output, the evidence path.
 
 ## Reply
 
