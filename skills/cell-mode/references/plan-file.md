@@ -34,7 +34,7 @@ What the diff will hold, in one place, so the person sees it without walking sec
 
 - **The example's line, before and after:** the one import or call from the example that changes, with its real names.
 - **The layout, before and after,** as one tree in a code block: every folder and file that changes, each with the names it holds, the old on the left of an arrow and the new on the right. A new file says it is new, a removed one says where its names went, and a folder that keeps its layout gets one line saying so. For a feature, the tree shows each new file and what it holds.
-- **Each rename, old to new,** one line each.
+- **Each rename, old to new,** with the line that calls it before and after, so the person judges the name where it is read.
 - **What follows:** the files that change only an import or a line, as counts ("21 app files"), and each doc that names an old path.
 - **What does not change,** in one line, with today's test count.
 
