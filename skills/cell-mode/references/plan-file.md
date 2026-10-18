@@ -12,9 +12,12 @@ The plan file is written for a person deciding yes or no who has not read the co
 ## 2. Today's flow
 
 - **The same example, walked through how things work now**, in numbered steps.
-- What goes wrong is said in the step where it happens, as what the person would see.
+- Each step has two labelled parts, what the code does and what is wrong with it, with one problem per bullet. What goes wrong is said in the step where it happens, as what the person would see.
+- Real values, not a stated rule: the id or name the code is handed and what it gives back (`r1` in, `r1` out), never a sentence of the form "the X is the Y".
+- A risk is a short story: the change someone makes, what then breaks, and what the person sees.
+- A rule kept in two places is told as the two questions it answers, each with where it is asked, and the story walks through both.
 - A problem the example does not reach gets one closing line, with its own small example.
-- For a feature, today's flow is what the person does now without it.
+- For a feature, today's flow is what the person does now without it. For a refactor, it opens with one line saying none of it shows in the app, and each step is about the next person who reads or changes the code.
 
 ## 3. The flow after the change
 
@@ -23,6 +26,7 @@ The plan file is written for a person deciding yes or no who has not read the co
 - What stays the same, with today's test count ("31 passed"). A promise with no test is named as the first thing to write.
 - For a feature: anything the change stores says where it is kept, in what form, and who can read it. For a refactor saved for Build: that nothing the person sees changes, and the flow is a person reading or changing the code.
 - A behaviour choice the change exposes and the person must make: the case as one example, what the source being copied does there, and the strict option named.
+- For a refactor, the section ends with the rules check from the Refactor playbook: one line per finding, saying what is renamed, which ticket fixes it, or why it stays. A strict reading not taken is marked to decide at approval.
 
 ## 4. How to do it, in short
 
