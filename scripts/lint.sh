@@ -116,6 +116,9 @@ rewritten=(
 	skills/cell-mode/playbooks/feature.md
 	skills/cell-mode/playbooks/build.md
 	skills/cell-mode/playbooks/refactor.md
+	skills/cell-mode/playbooks/fix.md
+	skills/cell-mode/playbooks/investigate.md
+	skills/cell-mode/playbooks/explain.md
 )
 if ! out=$(python3 scripts/long-sentences.py "${rewritten[@]}" 2>&1); then
 	printf '%s\n' "$out" >&2

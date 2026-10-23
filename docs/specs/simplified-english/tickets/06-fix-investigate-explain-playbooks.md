@@ -1,4 +1,4 @@
-**Status.** open
+**Status.** done
 
 **What to build.** Rewrite `playbooks/fix.md`, `playbooks/investigate.md` and `playbooks/explain.md` the same way as ticket 05. A walk through an example keeps three to six steps, with one thing happening in each step. Add the three playbooks to the lint list.
 
