@@ -24,7 +24,7 @@ Before the first edit of every task, say in one line where it will be written: t
 
 ## Playbooks
 
-Match the task to a playbook, open its file, and open a `TodoWrite` list whose first items are its steps, copied in verbatim, before any task-specific todos. A step you choose not to do stays in the list with a one-line `skip: <reason>`. With no `TodoWrite` tool in the session, number the steps in your first message instead, skips included, so the person sees them. When no playbook matches, look for a procedure below that does; when neither matches, say so and ask which shape the work has; do not improvise one.
+Match the task to a playbook, open its file, and open a `TodoWrite` list whose first items are its numbered steps, copied in verbatim, before any task-specific todos. The sub-steps under a step stay out of the list. A step you choose not to do stays in the list with a one-line `skip: <reason>`. With no `TodoWrite` tool in the session, number the steps in your first message instead, skips included, so the person sees them. When no playbook matches, look for a procedure below that does; when neither matches, say so and ask which shape the work has; do not improvise one.
 
 - **Investigate.** A read-only question: how does X work, why is Y like this, are we sure about Z. `playbooks/investigate.md`
 - **Explain.** A concept, a module or a behaviour to teach by example: explain X, what does Y mean, show me how Z is used. Ends in plain words and one example, not a cited trace. `playbooks/explain.md`
