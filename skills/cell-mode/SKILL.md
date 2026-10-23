@@ -77,16 +77,25 @@ Read the rule's page in full for any rule you apply: **rule-<slug>** is `rules/<
 - **No name switch** (**rule-no-name-switch**). Shared code (a channel, a dispatcher, a renderer) gaining a branch for one member's name. Shared code knows no member by name; make the shared behaviour right for all, or move the difference onto the member.
 - **One id, one meaning** (**rule-one-id-one-meaning**). Two ids that are equal today but mean different things. Never pass one where the other is meant; one function maps between them.
 
+## Writing
+
+These rules cover every text you write for a person: a plan, a spec, a ticket, a question, a reply, a commit message, a PR. They also cover every page of this mode. They follow ASD-STE100, Simplified Technical English, in spirit only, with no STE word list.
+
+- Write direct sentences. Put the actor first, and use the active voice. Put a condition before its instruction: "If the build fails, read the log."
+- Give each numbered step one action. Two actions share a step only when they happen at the same time. A step can add one sentence for its result: "Run the tests. 31 pass."
+- Use one word for one thing in the whole text. After you write "ticket", do not also write "slice" or "piece" for it.
+- Keep a numbered step to 20 words and any other sentence to 25. A paragraph has six sentences at most. A code span or a number counts as one word. To count them in a file, run `${CLAUDE_PLUGIN_ROOT}/scripts/long-sentences.py` with the file's path.
+- Use everyday words. If a word needs the codebase to make sense, use the plain one. Do not use fold, seam, retrofit, probe, fire, terminal, stream or yield.
+- Do not use an em dash. Do not join two sentences with a colon or a semicolon. A colon can start a list.
+
 ## Reply
 
 Write the reply clean as you draft it. It is read by a person, not graded by a machine.
 
 - Lead with the outcome in one line: what was done, or what was decided, or the question. Who it is for and what changes for them is that line, not a heading.
-- Everyday words. No fold, seam, retrofit, probe, fire, terminal, stream, yield. If a word needs the codebase to make sense, use the plain one.
 - Reasons are one line each, numbered when there are more than one. Options are one line each.
 - Evidence is a short parenthetical or a link, never a quoted paragraph. A rule is cited by its file and a few of its words. A number carries its source: measured, inferred, or guess. Never hand the user a check you could have run.
 - Length follows the work. A decision or a small change is under fifteen lines. Only a playbook that names sections gets sections, and every one it names stays.
 - What the next engineer inherits is one sentence at the end, only when there is one.
-- Short declarative sentences. No em dash. A colon before a list is fine, a colon as a connector is not.
 - Never invent a link, a line number, or a quote. Cite only what you read this session.
 - When the person says they are lost, or asks how something works, answer with one concrete example first (what they do, what they see, what happens), then the reasons. An example beats a table.
