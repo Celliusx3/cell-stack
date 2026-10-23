@@ -1,4 +1,4 @@
-**Status.** open
+**Status.** done
 
 **What to build.** Rewrite `procedures/grill.md`, `procedures/spec.md`, `procedures/tickets.md`, `procedures/commit.md` and `procedures/research.md` in the Writing style. Each page that makes a text for a person points at the Writing section: the questions, the spec, the tickets, the commit message, and the research reply. Add the five pages to the lint list.
 

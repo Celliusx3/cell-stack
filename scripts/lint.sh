@@ -108,6 +108,11 @@ while read -r h; do bad "$h" "contains an em dash"; done < <(grep -rln '—' --i
 # 9. a rewritten page keeps the Writing caps of the mode
 rewritten=(
 	skills/cell-mode/references/plan-file.md
+	skills/cell-mode/procedures/grill.md
+	skills/cell-mode/procedures/spec.md
+	skills/cell-mode/procedures/tickets.md
+	skills/cell-mode/procedures/commit.md
+	skills/cell-mode/procedures/research.md
 )
 if ! out=$(python3 scripts/long-sentences.py "${rewritten[@]}" 2>&1); then
 	printf '%s\n' "$out" >&2
