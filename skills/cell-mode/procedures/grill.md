@@ -1,15 +1,35 @@
 # Grill
 
-Question the person about a feature until nothing about what they want is left open or quietly assumed. The agreed answers are what the spec is written from. Shaped after mattpocock's grilling skill.
+Question the person about a feature until nothing about what they want is open or quietly assumed. The spec is written from the agreed answers. Shaped after mattpocock's grilling skill.
 
 ## Steps
 
-1. Sort every open question by who can answer it. What exists today (a field, a command, how something is stored) is read from the code and never asked. How others build this kind of thing is left for research. What the person wants, and why, goes to the person. Evidence: the questions you answered from the code, one line each with the file.
-2. Ask one round: every question about what the person wants that you can see now, numbered, in their words. Each is a yes-or-no question whose "yes" is your recommended answer, so a plain "yes" accepts it, and each is followed by that answer written out after "Recommended:". Ask nothing about how it will be built (files, modules, layout) and show no design yet; that comes after the grill. When `AskUserQuestion` is available, use it, four questions to a call, with the recommended option first and "(Recommended)" in its label. Otherwise write the numbered list in the reply and end the turn there.
-3. Read the answers. An answer that opens new questions starts the next round, which asks only what it opened. When the person uses a word loosely, propose one exact word for it in the next round and use only that word afterwards.
-4. Stop when nothing is open and nothing is assumed. List the agreed answers, numbered, one line each, and ask the person to confirm them. This is stop 1: nothing is written until they confirm.
-5. When the person says not to ask ("don't ask", "just go", "no questions"), ask nothing. Take your recommended answers and mark each one as an assumption, for the spec to list.
+1. Sort every open question by who can answer it. Evidence: the questions you answered from the code, one line each with the file.
+   1. Read what exists today from the code: a field, a command, how something is stored. Never ask it.
+   2. Leave how others build this kind of thing for research.
+   3. Send what the person wants, and why, to the person.
+2. Ask one round of questions.
+   1. Ask, in a numbered list and in their words, every question about what they want that you can see now.
+   2. Make each one a yes-or-no question whose "yes" is your recommended answer. A plain "yes" then accepts it.
+   3. After each question, write that answer out after "Recommended:".
+   4. Write each question per the mode's Writing section.
+   5. Ask nothing about how it will be built: files, modules, layout.
+   6. Show no design yet. The design comes after the grill.
+   7. When `AskUserQuestion` is available, use it, with four questions to a call.
+   8. In each call, put the recommended option first, with "(Recommended)" in its label.
+   9. When `AskUserQuestion` is not available, write the numbered list in the reply.
+   10. End the turn after the list.
+3. Read the answers.
+   1. When an answer opens new questions, start the next round. Ask only what that answer opened.
+   2. When the person uses a word loosely, propose one exact word for it in the next round.
+   3. Use only that word afterwards.
+4. Stop when nothing is open and nothing is assumed.
+   1. List the agreed answers, numbered, one line each.
+   2. Ask the person to confirm them. This is stop 1. Nothing is written until they confirm.
+5. When the person says not to ask ("don't ask", "just go", "no questions"), ask nothing.
+   1. Take your recommended answers.
+   2. Mark each one as an assumption, for the spec to list.
 
 ## Reply
 
-Each round: what you read from the code instead of asking, one line each, then the numbered questions, each with its "Recommended:" answer. A defect found on the way is one line after the questions. At the end: the agreed answers, numbered, and the request to confirm them.
+Each round gives what you read from the code instead of asking, one line each. Then it gives the numbered questions, each with its "Recommended:" answer. A defect found on the way is one line after the questions. At the end, the reply gives the agreed answers, numbered, and the request to confirm them.
