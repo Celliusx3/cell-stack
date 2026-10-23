@@ -25,7 +25,7 @@ claude --plugin-dir ~/Desktop/cellstudio/cellstack
 | `procedures/commit.md` | you asked for commits: one commit per story, each proven to pass on its own; nothing pushed |
 | `languages/python.md`, `languages/typescript.md` | how every rule is spelled in that language; the mode reads the one for the file you are in |
 
-Two hooks ship with the plugin. `hooks/session-start.sh` puts cell mode into context at the start of every session, so a plain request routes to a playbook without typing `/cell-mode`. `hooks/comment-nag.sh` runs after every `Edit` or `Write` and, when the edit added comment lines, tells the model to run the strip-comments procedure before handing back.
+Three hooks ship with the plugin. `hooks/session-start.sh` puts cell mode into context at the start of every session, so a plain request routes to a playbook without typing `/cell-mode`. `hooks/comment-nag.sh` runs after every `Edit` or `Write` and, when the edit added comment lines, tells the model to run the strip-comments procedure before handing back. `hooks/sentence-nag.sh` runs after every `Edit` or `Write` to a `.md` file in a `plans` or `specs` folder and tells the model to split long sentences.
 
 ## Adding a page
 

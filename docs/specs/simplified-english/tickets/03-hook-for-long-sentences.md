@@ -1,4 +1,4 @@
-**Status.** open
+**Status.** done
 
 **What to build.** Add `hooks/sentence-nag.sh` beside `hooks/comment-nag.sh`. After an `Edit` or a `Write` to a `.md` file under a `plans` or a `specs` folder, it runs `scripts/long-sentences.py` on the file. When the script finds long sentences, the hook tells the model to split them. It never stops the write. Register it in `hooks/hooks.json`. Add it to the syntax check in `Makefile` and to the hook paragraph in `README.md`.
 

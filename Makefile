@@ -9,7 +9,7 @@ lint:
 	scripts/lint.sh
 
 check: lint
-	bash -n hooks/comment-nag.sh hooks/session-start.sh
+	bash -n hooks/comment-nag.sh hooks/session-start.sh hooks/sentence-nag.sh
 	claude plugin validate .
 
 rule:
