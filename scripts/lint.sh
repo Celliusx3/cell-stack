@@ -134,6 +134,11 @@ rewritten=(
 	skills/cell-mode/rules/no-pass-through.md
 	skills/cell-mode/rules/one-id-one-meaning.md
 	skills/cell-mode/rules/one-job-per-file.md
+	skills/cell-mode/rules/place-by-kind.md
+	skills/cell-mode/rules/smallest-change.md
+	skills/cell-mode/rules/strengthen-the-type.md
+	skills/cell-mode/rules/suspect-the-test.md
+	skills/cell-mode/rules/typed-boundaries.md
 )
 if ! out=$(python3 scripts/long-sentences.py "${rewritten[@]}" 2>&1); then
 	printf '%s\n' "$out" >&2
