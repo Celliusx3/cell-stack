@@ -1,6 +1,6 @@
 # Search notes
 
-Search finds notes by title or body, opens a match in the editor, and tells a person the difference between no matches and search being unavailable.
+Search finds notes by title or body, and opens a match in the editor. It tells a person the difference between no matches and search being unavailable.
 
 ## Sub-features
 
@@ -25,7 +25,7 @@ Preconditions:
 - The seed holds `Quarterly plan` with body text `Draft budget`.
 
 - **Toolbar entry.** Run `control-notes browser click --role button --name "Search"`. A dialog named `Search notes` appears with focus in its searchbox.
-- **Keyboard entry.** Close the dialog, then run `control-notes browser press --key "/"`. The same dialog appears and no slash is typed into the page.
+- **Keyboard entry.** Close the dialog. Run `control-notes browser press --key "/"`. The same dialog appears, and no slash is typed into the page.
 - **Title match.** Run `control-notes browser fill --role searchbox --name "Search notes" --value "quarterly"`. The `Search results` list holds `Quarterly plan` and not `Grocery list`.
 - **Body match.** Fill `budget` the same way. `Quarterly plan` stays, with a body excerpt.
 - **Open result.** Run `control-notes browser click --role link --name "Quarterly plan"`. The dialog closes and the editor heading reads `Quarterly plan`.
@@ -38,7 +38,7 @@ Preconditions:
 ## Gotchas
 
 - `/` inside the editor or the searchbox types a slash instead of opening search.
-- Results arrive after a short debounce; wait for the list or the empty status, not a fixed sleep.
+- Results arrive after a short debounce. Wait for the list or the empty status, not a fixed sleep.
 - Archived notes are left out unless `Include archived` is on.
-- The CLI prints for people by default; use `--format json` for stable checks.
-- Opening a result changes the page; reopen search before proving another query.
+- The CLI prints for people by default. Use `--format json` for stable checks.
+- Opening a result changes the page. Reopen search before proving another query.

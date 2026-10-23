@@ -1,25 +1,115 @@
 # TypeScript
 
-How the rules are spelled in TypeScript. Applied to any .ts or .tsx file; read after the rule it spells.
+How the rules are spelled in TypeScript. It applies to any .ts or .tsx file. Read it after the rule it spells.
 
-Read the rule first; this is only how it is written here. One row per rule in the mode's index.
+Read the rule first. This page is only how the rule is written here. It has one entry per rule in the mode's index.
 
-| Rule | In TypeScript |
-|---|---|
-| **rule-smallest-change** | No optional prop or parameter for a caller that does not exist, no `...rest` passed through "for later", no `try/catch` around a call that cannot throw. A new module needs an importer outside tests. |
-| **rule-no-pass-through** | `const f = (x) => g(x)` is deleted; so is a re-export barrel nobody imports and a hook that only returns another hook's value. A wrapper survives only when it converts, defaults, checks, or translates an error. |
-| **rule-one-job-per-file** | Split at the import block. A module that imports only the schema library (`zod`) and nothing from its own package is the data; a module that imports the data and `fetch`, a client, or React is the code that acts on it, and its logic splits off again per **rule-keep-logic-pure**. The new module is named per **rule-name-for-the-reader**. |
-| **rule-typed-boundaries** | A typed model is a `z.object(...)` schema with `type X = z.infer<typeof X>`. Parse with `X.parse(raw)` at the boundary and let it throw: that is failing closed. Inside, no `any`, no `Record<string, any>`, no `as` cast (`satisfies` checks a value against a type without one), no tuple of unnamed fields (`[string, string]`) where an object with named fields would do; `unknown` only as the type of data not yet parsed. An interface is an `interface` or `type` the caller owns. A sum type is a discriminated union on a `kind` literal, with `const _exhaustive: never = x` in the default arm. A genuinely open map is `Record<string, string>`. |
-| **rule-group-by-subject** | The functions stay exported functions in one module named for the subject. A class that is earned has `private readonly` fields for what it hides; it and its methods are named per **rule-name-for-the-reader**. A closure factory returning an object of methods over the same hidden state is the same shape and is fine in a codebase that avoids `class`. No one-field wrapper around a value the caller already holds, no class of static methods. |
-| **rule-keep-logic-pure** | The decision is an exported function with no React, `fetch` or DOM import. The effect (only for syncing with something outside React: a socket, the DOM, a timer), the route handler, or the event handler is the shell that calls it. In React, derived state is a `useMemo` over the pure function, never a second effect. Tested with no renderer: call it, check the return. |
-| **rule-strengthen-the-type** | A `throw new Error("should never happen")`, a `!` non-null assertion, or an `as` to get past a guard becomes a narrower parameter. `T[]` stays while every operation is total; `[T, ...T[]]` where the loose type forces a `!`; a string-literal union replaces a string checked against a list; an optional prop is removed when no caller omits it. |
-| **rule-suspect-the-test** | A failing test whose only fix widens a route, adds an `as`, or reconstructs an input. `fetch` and every conforming client collapse `..` in a URL before sending, `JSON.stringify` drops `undefined`, and jsdom is not a browser. A test asserting those is testing the runtime. |
-| **rule-leave-generated-alone** | `package-lock.json`, a vendored `components/ui/*` a component library's `add` rewrites, a generated GraphQL or OpenAPI client, `*.snap`, anything under `.next` or `dist`. Style a vendored component by aliasing the names it already reads in your own stylesheet, never by editing it. |
-| **rule-place-by-kind** | A new component goes in the folder of its domain beside its siblings (`components/<domain>/`), a route beside the routes, a shared helper in `lib/` only when every screen uses it. No new folder for one file when a sibling folder already holds its kind. |
-| **rule-name-tools-exactly** | A tool description in a `.ts` file says what the tool does, when, and what comes back, with no example call; each argument's rule is that field's `.describe(...)` in its zod schema. A prompt template names each call with its real tool and argument names. A wording that fixes a model failure gets a test asserting the sentence is there. |
-| **rule-few-parameters** | Count every parameter. A fifth becomes one argument typed by an `interface` and destructured in the signature; a React component already takes one props object, and its props are the group. |
-| **rule-no-name-switch** | No `if (item.name === ...)` or `switch` on one member's name in a shared component or helper. The member's difference goes in its entry of the registry map the shared code looks up, never inline. |
-| **rule-one-id-one-meaning** | Props, params and fields are named for the id they mean; one function maps between them. A branded type (`string & { readonly __brand: "BotId" }`) when a swap must fail the build. |
-| **rule-name-for-the-reader** | Folders and files follow the case the project already uses; a component's file is named for its component. Classes, types and interfaces are `PascalCase`, functions `camelCase`. A yes or no returns `boolean` and starts with `is`, `has`, `should` or `can` (`shouldClose`). A value is a noun phrase with no `get` prefix (`refusalReason`, `unpostedIds`). An action is a verb and its object (`sendInvoice`); a bare verb (`save`, `close`) only as a method on the thing it acts on. A test's name is the promise it checks. `index.ts` and a router's `page.tsx` or `layout.tsx` keep their names. A React hook keeps `use` and then names what it returns (`useUnpostedRows`). `handleX` for an event handler is React's convention and stays. |
+**rule-smallest-change**
 
-Also here: no `console.log` in shipped code.
+- No optional prop or parameter for a caller that does not exist.
+- No `...rest` passed through "for later".
+- No `try/catch` around a call that cannot throw.
+- A new module needs an importer outside tests.
+
+**rule-no-pass-through**
+
+- `const f = (x) => g(x)` is deleted.
+- So is a re-export barrel nobody imports, and a hook that only returns another hook's value.
+- A wrapper survives only when it converts, defaults, checks, or translates an error.
+
+**rule-one-job-per-file**
+
+- Split at the import block.
+- A module that imports only the schema library (`zod`), and nothing from its own package, is the data.
+- A module that imports the data and `fetch`, a client, or React is the code that acts on it. Its logic splits off again per **rule-keep-logic-pure**.
+- The new module is named per **rule-name-for-the-reader**.
+
+**rule-typed-boundaries**
+
+- A typed model is a `z.object(...)` schema with `type X = z.infer<typeof X>`.
+- Parse with `X.parse(raw)` at the boundary, and let it throw. That is failing closed.
+- Inside, use no `any`, no `Record<string, any>`, and no `as` cast. `satisfies` checks a value against a type without one.
+- Use no tuple of unnamed fields (`[string, string]`) where an object with named fields would do.
+- Use `unknown` only as the type of data not yet parsed.
+- An interface is an `interface` or `type` the caller owns.
+- A sum type is a discriminated union on a `kind` literal, with `const _exhaustive: never = x` in the default arm.
+- A genuinely open map is `Record<string, string>`.
+
+**rule-group-by-subject**
+
+- The functions stay exported functions in one module named for the subject.
+- A class that is earned has `private readonly` fields for what it hides. It and its methods are named per **rule-name-for-the-reader**.
+- A closure factory returning an object of methods over the same hidden state is the same shape. It is fine in a codebase that avoids `class`.
+- No one-field wrapper around a value the caller already holds, and no class of static methods.
+
+**rule-keep-logic-pure**
+
+- The decision is an exported function with no React, `fetch` or DOM import.
+- The shell that calls it is the effect, the route handler, or the event handler.
+- Use an effect only for syncing with something outside React: a socket, the DOM, a timer.
+- In React, derived state is a `useMemo` over the pure function, never a second effect.
+- Test the decision with no renderer. Call it, and check the return.
+
+**rule-strengthen-the-type**
+
+- A `throw new Error("should never happen")`, a `!` non-null assertion, or an `as` to get past a guard becomes a narrower parameter.
+- `T[]` stays while every operation is total.
+- Use `[T, ...T[]]` where the loose type forces a `!`.
+- A string-literal union replaces a string checked against a list.
+- An optional prop is removed when no caller omits it.
+
+**rule-suspect-the-test**
+
+- A failing test whose only fix widens a route, adds an `as`, or reconstructs an input.
+- `fetch` and every conforming client collapse `..` in a URL before sending.
+- `JSON.stringify` drops `undefined`, and jsdom is not a browser.
+- A test asserting those is testing the runtime.
+
+**rule-leave-generated-alone**
+
+- `package-lock.json`, a vendored `components/ui/*` that a component library's `add` rewrites, a generated GraphQL or OpenAPI client, `*.snap`, and anything under `.next` or `dist`.
+- Style a vendored component by aliasing the names it already reads in your own stylesheet, never by editing it.
+
+**rule-place-by-kind**
+
+- A new component goes in the folder of its domain, beside its siblings (`components/<domain>/`).
+- A route goes beside the routes.
+- A shared helper goes in `lib/` only when every screen uses it.
+- No new folder for one file when a sibling folder already holds its kind.
+
+**rule-name-tools-exactly**
+
+- A tool description in a `.ts` file says what the tool does, when, and what comes back, with no example call.
+- Each argument's rule is that field's `.describe(...)` in its zod schema.
+- A prompt template names each call with its real tool and argument names.
+- A wording that fixes a model failure gets a test asserting the sentence is there.
+
+**rule-few-parameters**
+
+- Count every parameter.
+- A fifth becomes one argument typed by an `interface` and destructured in the signature.
+- A React component already takes one props object, and its props are the group.
+
+**rule-no-name-switch**
+
+- No `if (item.name === ...)` or `switch` on one member's name in a shared component or helper.
+- The member's difference goes in its entry of the registry map the shared code looks up, never inline.
+
+**rule-one-id-one-meaning**
+
+- Props, params and fields are named for the id they mean. One function maps between them.
+- Use a branded type (`string & { readonly __brand: "BotId" }`) when a swap must fail the build.
+
+**rule-name-for-the-reader**
+
+- Folders and files follow the case the project already uses. A component's file is named for its component.
+- Classes, types and interfaces are `PascalCase`, functions `camelCase`.
+- A yes or no returns `boolean` and starts with `is`, `has`, `should` or `can` (`shouldClose`).
+- A value is a noun phrase with no `get` prefix (`refusalReason`, `unpostedIds`).
+- An action is a verb and its object (`sendInvoice`). A bare verb (`save`, `close`) fits only as a method on the thing it acts on.
+- A test's name is the promise it checks.
+- `index.ts` and a router's `page.tsx` or `layout.tsx` keep their names.
+- A React hook keeps `use` and then names what it returns (`useUnpostedRows`).
+- `handleX` for an event handler is React's convention, and it stays.
+
+Also, keep `console.log` out of shipped code.
