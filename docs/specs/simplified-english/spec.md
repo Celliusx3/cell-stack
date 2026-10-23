@@ -2,7 +2,7 @@
 
 ## Problem
 
-Cell mode asks for short sentences, but it gives no word limit and nothing counts the words. A plan can put five actions in one step, use three words for one thing, and hold a 70-word sentence. The spec, the tickets, the grill questions, the replies, and the commit and PR text have the same gaps. The cellstack pages use the same long style, and the model copies the style it reads.
+Cell mode asks for short sentences, but it gives no word cap and nothing counts the words. A plan can put five actions in one step, use three words for one thing, and hold a 70-word sentence. The spec, the tickets, the grill questions, the replies, and the commit and PR text have the same gaps. The cellstack pages use the same long style, and the model copies the style it reads.
 
 ## What changes for you
 
@@ -28,7 +28,7 @@ The spec, the tickets, the grill questions, the replies, and the commit and PR t
 - The word count includes list items. AminBlg/SimpleEnglish found that the model puts all text in bullets when list items do not count. Syntaf/vale-llm-slop also counts list items.
 - The hook only gives a message. It never stops a write. The hook of AminBlg/SimpleEnglish does the same.
 - A playbook keeps its numbered steps and their numbers. The one-action sub-steps go under each step. ASD-STE100 rule 5.2 numbers and letters the work steps.
-- Word limits replace line limits for pages: 950 words for a playbook, 2,700 for the mode, and 1,100 for each other page. Words are what goes into context.
+- Word caps replace line caps for pages: 950 words for a playbook, 2,700 for the mode, and 1,100 for each other page. Words are what goes into context.
 - Cellstack writes its own rules and does not adopt danyuchn/asd-ste100-skill or AminBlg/SimpleEnglish. Lint allows only one skill, and the AminBlg/SimpleEnglish reply rules ban numbered lists.
 
 ## Out of scope
@@ -45,5 +45,5 @@ The spec, the tickets, the grill questions, the replies, and the commit and PR t
 - You run the meaning script on each rewritten page against the commit before this work. It finds no lost path, rule name, number, quoted phrase or heading.
 - You add a 30-word sentence to the plan page. Lint fails and names the file and the line.
 - You write a plan with a 30-word sentence. The hook gives a message about it.
-- You run the Explain eval. Its reply has no sentence longer than the limits.
+- You run the Explain eval. Its reply has no sentence over the caps.
 - You run the full eval suite at the end. It passes at the same rate as the baseline or better.

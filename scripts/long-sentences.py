@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Prints each sentence in the given Markdown files that is over the Writing caps, and exits 1 when there is one."""
+"""Prints each sentence and paragraph in the given Markdown files that is over the Writing caps, and exits 1 when there is one."""
 from __future__ import annotations
 
 import re

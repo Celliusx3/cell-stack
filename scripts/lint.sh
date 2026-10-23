@@ -78,18 +78,18 @@ while IFS=: read -r f cmd; do
 	[ "$cmd" = '`/cell-mode`' ] || bad "$f" "names $cmd, which is not a command; name the page by its path"
 done < <(grep -roE '`/[a-z][a-z-]*`' skills hooks | sort -u)
 
-# 5. word caps, and 5 to 15 steps in a playbook; a list marker is not a word
-words() { sed -E 's/^[[:space:]]*([0-9]+\.|[-*])[[:space:]]+//' "$1" | wc -w | tr -d ' '; }
+# 5. word caps, and 5 to 15 steps in a playbook
+words_without_list_markers() { sed -E 's/^[[:space:]]*([0-9]+\.|[-*])[[:space:]]+//' "$1" | wc -w | tr -d ' '; }
 for p in skills/cell-mode/playbooks/*.md; do
 	[ -f "$p" ] || continue
-	n=$(words "$p"); [ "$n" -le 950 ] || bad "$p" "$n words, cap is 950"
+	n=$(words_without_list_markers "$p"); [ "$n" -le 950 ] || bad "$p" "$n words, cap is 950"
 	s=$(grep -cE '^[0-9]+\.' "$p"); { [ "$s" -ge 5 ] && [ "$s" -le 15 ]; } || bad "$p" "$s numbered steps, a playbook has 5 to 15"
 done
 if [ -f "$mode" ]; then
-	n=$(words "$mode"); [ "$n" -le 2700 ] || bad "$mode" "$n words, cap is 2700"
+	n=$(words_without_list_markers "$mode"); [ "$n" -le 2700 ] || bad "$mode" "$n words, cap is 2700"
 fi
 while read -r f; do
-	n=$(words "$f"); [ "$n" -le 1100 ] || bad "$f" "$n words, cap is 1100"
+	n=$(words_without_list_markers "$f"); [ "$n" -le 1100 ] || bad "$f" "$n words, cap is 1100"
 done < <(find skills/cell-mode -type f -name '*.md' ! -path "$mode" ! -path 'skills/cell-mode/playbooks/*' | sort)
 
 # 6. playbook steps are in a new hire's words, not pstack's
@@ -113,6 +113,12 @@ if ! out=$(python3 scripts/long-sentences.py "${pages[@]}" 2>&1); then
 	printf '%s\n' "$out" >&2
 	fail=1
 fi
+
+# 10. the checker still catches a long step and a long sentence
+sample=$(mktemp)
+printf '1. %s\n\n%s\n' "$(printf 'one %.0s' {1..21})" "$(printf 'two %.0s' {1..26})" > "$sample"
+[ "$(python3 scripts/long-sentences.py "$sample" | wc -l | tr -d ' ')" -eq 2 ] || bad scripts/long-sentences.py "no longer catches a 21-word step and a 26-word sentence, the Writing caps of 20 and 25 in skills/cell-mode/SKILL.md"
+rm -f "$sample"
 
 [ "$fail" -eq 0 ] && echo "lint: clean"
 exit "$fail"
