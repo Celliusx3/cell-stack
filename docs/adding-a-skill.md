@@ -38,7 +38,7 @@ Any other kind starts as a copy of the nearest page of that kind: a playbook fro
 
 **procedure.** One line under the title says what it makes and for whom; when it runs goes in the mode's list, not the page. Under `## Steps`, numbered, each naming the evidence it produces. If a step says "spawn", put the subagent's prompt in `procedures/<name>/<role>-prompt.md`, name it in the page by its full `${CLAUDE_PLUGIN_ROOT}/skills/cell-mode/...` path so lint checks it exists, and pass it verbatim; name the `subagent_type` (`Explore` when it must not write, `general-purpose` when it does). There is no `## Subagents` section: the step says all of that, and the mode's Subagents section says the rest. Under `## Reply`, what the reply must contain, in order. Anything deterministic (a poll, a diff, a log row) goes in `scripts/` and the step says "run it".
 
-**playbook.** Five to fifteen numbered steps. A playbook that writes carries a **Plan mode stops here** line naming which steps run during planning and which become the plan. Step 1 is always "apply the project's `CLAUDE.md`" (it is already in context; the step opens the rule files it links). Each step names its evidence. The last line is `**Reply:**` followed by what the reply must contain. Cap is 40 lines: a playbook that needs more is two playbooks.
+**playbook.** Five to fifteen numbered steps. A playbook that writes carries a **Plan mode stops here** line naming which steps run during planning and which become the plan. Step 1 is always "apply the project's `CLAUDE.md`" (it is already in context; the step opens the rule files it links). Each step names its evidence. The last line is `**Reply:**` followed by what the reply must contain. Cap is 950 words: a playbook that needs more is two playbooks.
 
 **rule.** `## When` (the situations, concrete enough to know when it does *not* apply), `## Rule` (one or two sentences, then what to do instead of the tempting thing), `## The test` (one question that tells whether it was kept). No example section: the rule says what the example would have shown. A rule with no source is an opinion; the line under the title says the rule and where it came from.
 
@@ -55,8 +55,9 @@ Any other kind starts as a copy of the nearest page of that kind: a playbook fro
 | Every `${CLAUDE_PLUGIN_ROOT}/...` path a page names exists | The model follows the path as written. A page that moved is a step it cannot read, and nothing else would say so. |
 | Every rule page is in the index, and every rule a page cites has its page | The mode cites from the index and opens `rules/<slug>.md`. An unindexed rule is never cited; a cited rule with no page, say after a rename, is a file the model cannot open. |
 | A procedure that says "spawn" has a prompt in `procedures/<name>/` | The prompt being a file is what makes the subagent do the same thing every time. |
-| No page over 150 lines, no playbook over 40 | The body is pasted into context on every use. pstack's one 2,000-line skill is the cautionary example. |
+| No playbook over 950 words or outside 5 to 15 numbered steps, no `SKILL.md` over 2,700 words, no other page over 1,100 words | The body is pasted into context on every use. Words are what fills the context, so the caps count words, and a list marker is not a word. pstack's one 2,000-line skill is the cautionary example. |
 | No em dash in any `.md` | The reply rule, applied to the skills themselves. The model copies the style it reads. |
+| A page in the `rewritten` list of `scripts/lint.sh` keeps the Writing caps of the mode (`scripts/long-sentences.py`) | The model copies the style it reads. |
 
 ## Conventions
 

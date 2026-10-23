@@ -78,15 +78,19 @@ while IFS=: read -r f cmd; do
 	[ "$cmd" = '`/cell-mode`' ] || bad "$f" "names $cmd, which is not a command; name the page by its path"
 done < <(grep -roE '`/[a-z][a-z-]*`' skills hooks | sort -u)
 
-# 5. size caps
-for f in "$mode" skills/cell-mode/rules/*.md skills/cell-mode/languages/*.md skills/cell-mode/procedures/*.md; do
-	[ -f "$f" ] || continue
-	n=$(wc -l < "$f"); [ "$n" -le 150 ] || bad "$f" "$n lines, cap is 150"
-done
+# 5. word caps, and 5 to 15 steps in a playbook; a list marker is not a word
+words() { sed -E 's/^[[:space:]]*([0-9]+\.|[-*])[[:space:]]+//' "$1" | wc -w | tr -d ' '; }
 for p in skills/cell-mode/playbooks/*.md; do
 	[ -f "$p" ] || continue
-	n=$(wc -l < "$p"); [ "$n" -le 40 ] || bad "$p" "$n lines, playbook cap is 40"
+	n=$(words "$p"); [ "$n" -le 950 ] || bad "$p" "$n words, cap is 950"
+	s=$(grep -cE '^[0-9]+\.' "$p"); { [ "$s" -ge 5 ] && [ "$s" -le 15 ]; } || bad "$p" "$s numbered steps, a playbook has 5 to 15"
 done
+if [ -f "$mode" ]; then
+	n=$(words "$mode"); [ "$n" -le 2700 ] || bad "$mode" "$n words, cap is 2700"
+fi
+while read -r f; do
+	n=$(words "$f"); [ "$n" -le 1100 ] || bad "$f" "$n words, cap is 1100"
+done < <(find skills/cell-mode -type f -name '*.md' ! -path "$mode" ! -path 'skills/cell-mode/playbooks/*' | sort)
 
 # 6. playbook steps are in a new hire's words, not pstack's
 for p in skills/cell-mode/playbooks/*.md; do
@@ -100,6 +104,15 @@ while read -r h; do bad "$h" "names a project; pages are generic"; done < <(grep
 
 # 8. no em dash anywhere
 while read -r h; do bad "$h" "contains an em dash"; done < <(grep -rln '—' --include='*.md' skills templates docs README.md 2>/dev/null)
+
+# 9. a rewritten page keeps the Writing caps of the mode
+rewritten=(
+	skills/cell-mode/references/plan-file.md
+)
+if ! out=$(python3 scripts/long-sentences.py "${rewritten[@]}" 2>&1); then
+	printf '%s\n' "$out" >&2
+	fail=1
+fi
 
 [ "$fail" -eq 0 ] && echo "lint: clean"
 exit "$fail"
