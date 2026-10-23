@@ -9,7 +9,7 @@ lint:
 	scripts/lint.sh
 
 check: lint
-	bash -n hooks/comment-nag.sh hooks/session-start.sh hooks/sentence-nag.sh
+	for f in hooks/*.sh; do bash -n "$$f" || exit 1; done
 	claude plugin validate .
 
 rule:
