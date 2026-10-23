@@ -105,47 +105,11 @@ while read -r h; do bad "$h" "names a project; pages are generic"; done < <(grep
 # 8. no em dash anywhere
 while read -r h; do bad "$h" "contains an em dash"; done < <(grep -rln '—' --include='*.md' skills templates docs README.md 2>/dev/null)
 
-# 9. a rewritten page keeps the Writing caps of the mode
-rewritten=(
-	skills/cell-mode/references/plan-file.md
-	skills/cell-mode/procedures/grill.md
-	skills/cell-mode/procedures/spec.md
-	skills/cell-mode/procedures/tickets.md
-	skills/cell-mode/procedures/commit.md
-	skills/cell-mode/procedures/research.md
-	skills/cell-mode/playbooks/feature.md
-	skills/cell-mode/playbooks/build.md
-	skills/cell-mode/playbooks/refactor.md
-	skills/cell-mode/playbooks/fix.md
-	skills/cell-mode/playbooks/investigate.md
-	skills/cell-mode/playbooks/explain.md
-	skills/cell-mode/SKILL.md
-	skills/cell-mode/procedures/strip-comments.md
-	skills/cell-mode/procedures/write-how-to-use.md
-	skills/cell-mode/procedures/research/researcher-prompt.md
-	skills/cell-mode/procedures/strip-comments/reviewer-prompt.md
-	skills/cell-mode/rules/few-parameters.md
-	skills/cell-mode/rules/group-by-subject.md
-	skills/cell-mode/rules/keep-logic-pure.md
-	skills/cell-mode/rules/leave-generated-alone.md
-	skills/cell-mode/rules/name-for-the-reader.md
-	skills/cell-mode/rules/name-tools-exactly.md
-	skills/cell-mode/rules/no-name-switch.md
-	skills/cell-mode/rules/no-pass-through.md
-	skills/cell-mode/rules/one-id-one-meaning.md
-	skills/cell-mode/rules/one-job-per-file.md
-	skills/cell-mode/rules/place-by-kind.md
-	skills/cell-mode/rules/smallest-change.md
-	skills/cell-mode/rules/strengthen-the-type.md
-	skills/cell-mode/rules/suspect-the-test.md
-	skills/cell-mode/rules/typed-boundaries.md
-	skills/cell-mode/languages/python.md
-	skills/cell-mode/languages/typescript.md
-	templates/rule.md
-	skills/cell-mode/procedures/write-how-to-use/example-feature-map/README.md
-	skills/cell-mode/procedures/write-how-to-use/example-feature-map/search.md
-)
-if ! out=$(python3 scripts/long-sentences.py "${rewritten[@]}" 2>&1); then
+# 9. every page keeps the Writing caps of the mode
+pages=()
+while read -r f; do pages+=("$f"); done < <(find skills templates -type f -name '*.md' | sort)
+pages+=(docs/adding-a-skill.md README.md)
+if ! out=$(python3 scripts/long-sentences.py "${pages[@]}" 2>&1); then
 	printf '%s\n' "$out" >&2
 	fail=1
 fi

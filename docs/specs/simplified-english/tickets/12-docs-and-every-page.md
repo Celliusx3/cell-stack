@@ -1,4 +1,4 @@
-**Status.** open
+**Status.** done
 
 **What to build.** Rewrite `docs/adding-a-skill.md` and `README.md` in the Writing style. Change `scripts/lint.sh` so that it checks every page under `skills/` and `templates/`, plus those two docs, and delete the list. The old specs in `docs/specs/` stay out. Delete `scripts/same-meaning.py`.
 
