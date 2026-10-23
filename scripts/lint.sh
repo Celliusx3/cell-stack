@@ -119,6 +119,11 @@ rewritten=(
 	skills/cell-mode/playbooks/fix.md
 	skills/cell-mode/playbooks/investigate.md
 	skills/cell-mode/playbooks/explain.md
+	skills/cell-mode/SKILL.md
+	skills/cell-mode/procedures/strip-comments.md
+	skills/cell-mode/procedures/write-how-to-use.md
+	skills/cell-mode/procedures/research/researcher-prompt.md
+	skills/cell-mode/procedures/strip-comments/reviewer-prompt.md
 )
 if ! out=$(python3 scripts/long-sentences.py "${rewritten[@]}" 2>&1); then
 	printf '%s\n' "$out" >&2
