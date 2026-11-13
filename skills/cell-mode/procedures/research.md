@@ -15,15 +15,16 @@ Find how others have built the thing before designing it. The reader is whoever 
       - what the person sees
    4. Put the facets into every researcher's prompt.
 2. Spawn the researchers in one message.
-   1. Give each one `subagent_type: "Explore"`.
+   1. Give each one `subagent_type: "general-purpose"`, because it reads pages in full. Its prompt forbids edits.
    2. Give each one `${CLAUDE_PLUGIN_ROOT}/skills/cell-mode/procedures/research/researcher-prompt.md` verbatim, followed by the question, its facets, and one source line:
       - `Source: this project.` Its docs and code, for an existing pattern, a teardown, or a decision already written down.
       - `Source: GitHub.` `gh search code` and `gh search repos` for implementations of the same thing.
-      - `Source: library docs.` Context7 (`resolve-library-id`, then `query-docs`) for each library involved.
+      - `Source: library docs.` Context7 (its `resolve-library-id`, then `query-docs` tools) for each library involved.
       - `Source: the web.` Exa or WebSearch, in the first pass whenever the question is which shape to build. It waits for a thin result only when the question is how a named library behaves. You decide, and the reply says so.
-   3. Expect each researcher to return at most four rows: source, what they do, link or path, one quoted line.
-   4. When the person asks for more, or the pick is still open, make a second pass.
-   5. In a second pass, spawn one researcher per source not yet used.
+   3. Name each MCP tool by its full `mcp__` name from the session's tool list.
+   4. Expect each researcher to return at most four rows: source, what they do, link or path, one quoted line.
+   5. When the person asks for more, or the pick is still open, make a second pass.
+   6. In a second pass, spawn one researcher per source not yet used.
 3. Read what comes back yourself.
    1. Drop any row with no link or path.
    2. Keep the quote, not the researcher's paraphrase.

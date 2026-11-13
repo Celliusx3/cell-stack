@@ -5,8 +5,9 @@
 1. Apply the project's `CLAUDE.md` (already in context) as this repo's rules.
    1. If the change touches the rule files it links, open them.
 2. Read the code the change touches and its tests, so no question asks what the code answers.
-   1. Name the data shape it adds or changes, per **rule-typed-boundaries**.
-   2. Name where each new file goes, per **rule-place-by-kind**.
+   1. If the change is one file and under about ten lines, skip steps 3 to 7. Build it as a Fix with its test first.
+   2. Name the data shape it adds or changes, per **rule-typed-boundaries**.
+   3. Name where each new file goes, per **rule-place-by-kind**.
 3. **Grill.** Run `${CLAUDE_PLUGIN_ROOT}/skills/cell-mode/procedures/grill.md`.
    1. Ask rounds of numbered questions about what the person wants and why, each with a recommended answer.
    2. Stop 1 is the person confirming the agreed answers.

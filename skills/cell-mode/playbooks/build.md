@@ -15,9 +15,6 @@
    4. For a refactor ticket, nothing fails first, because it changes no behaviour.
    5. Instead, run the tests that guard its promises.
    6. Paste them green.
-   7. After step 5, break each moved piece on purpose.
-   8. Check that a test fails.
-   9. Undo the break.
 4. Hand the ticket to one `general-purpose` subagent with the exact scope.
    1. Give it the ticket file, the spec, the data shape and the check from step 3.
    2. Also give it the project's `CLAUDE.md` and the language page for the file type.
@@ -32,6 +29,7 @@
    5. Fix a bug that blocks the ticket now, as its own Fix with its own test.
    6. Name a failure that the environment causes: a server setting, a model's window, a missing key.
    7. Fix that failure where it lives, with the person. Never code around it.
+   8. For a refactor ticket, break each moved piece on purpose. Check that a test fails. Undo the break.
 6. Commit the ticket.
    1. Set the ticket's Status to `done`.
    2. Commit the ticket with `${CLAUDE_PLUGIN_ROOT}/skills/cell-mode/procedures/commit.md`. The person's approval of the tickets covers this commit.

@@ -7,7 +7,7 @@ Find how others have built the thing in the question, or what the authority on i
 - a link or a path that a person can open
 - one line quoted from it word for word
 
-A row with no link or path is not a row. Drop it. A repository row carries stars, license and last push.
+A row with no link or path is not a row. Drop it. A repository row carries stars, license, last push, and any network call it makes at run time.
 
 Do not recommend. Do not summarize across rows. Do not paraphrase where you can quote.
 

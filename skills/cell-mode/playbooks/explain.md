@@ -37,7 +37,7 @@ If explaining turns up a defect, name it. Then stop. That is a different playboo
 9. Change nothing. No `Edit`, no `Write`, no commit.
    1. Name a fix only as a recommendation, marked as one.
 
-**Words:** the ones a person who does not program would use. Do not use stream, yield, terminal, generator, subscriber, drain or protocol. Write a thing the code calls out as what it would say, in quotes: "I'm finished", "I'm waiting for you". Use a code name only when the reader will have to type it, once, in backticks.
+**Words:** the ones a person who does not program would use. Do not use stream, yield, terminal, generator, subscriber, drain or protocol. This list wins over the mode's Writing section. Write a thing the code calls out as what it would say, in quotes: "I'm finished", "I'm waiting for you". Use a code name only when the reader will have to type it, once, in backticks.
 
 **Reply:**
 

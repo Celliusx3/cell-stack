@@ -4,7 +4,7 @@ set -euo pipefail
 file=$(python3 -c 'import json,sys; print(json.load(sys.stdin).get("tool_input",{}).get("file_path",""))')
 [ -n "$file" ] && [ -f "$file" ] || exit 0
 case "$file" in
-	*.py) pattern='^\+[[:space:]]*#' ;;
+	*.py) pattern='^\+[[:space:]]*#([^!]|$)' ;;
 	*.ts|*.tsx) pattern='^\+[[:space:]]*(//|/\*|\*)' ;;
 	*) exit 0 ;;
 esac
@@ -18,4 +18,4 @@ fi
 [ "$count" -gt 0 ] || exit 0
 name=$(basename "$file")
 root="${CLAUDE_PLUGIN_ROOT:-$(cd "$(dirname "$0")/.." && pwd)}"
-printf '{"hookSpecificOutput":{"hookEventName":"PostToolUse","additionalContext":"%s comment lines added to %s; run %s before handing back"}}\n' "$count" "$name" "$root/skills/cell-mode/procedures/strip-comments.md"
+python3 -c 'import json,sys; print(json.dumps({"hookSpecificOutput": {"hookEventName": "PostToolUse", "additionalContext": f"{sys.argv[1]} comment lines in the uncommitted diff of {sys.argv[2]}; run {sys.argv[3]} before handing back"}}))' "$count" "$name" "$root/skills/cell-mode/procedures/strip-comments.md"
