@@ -8,7 +8,7 @@ One front door, `/cell-mode`, on by default in every session through a hook. You
 claude --plugin-dir ~/Desktop/cellstudio/cellstack
 ```
 
-`make check` validates the manifest and the structure rules. `make help` lists the rest.
+`make check` checks the manifest and the structure rules. `make help` lists the rest.
 
 ## What the mode reads
 

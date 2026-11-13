@@ -56,7 +56,7 @@ Read the rule first. This page is only how the rule is written here. It has one 
 - `Sequence[T]` stays where every operation is total.
 - A `NonEmpty` is a `tuple[T, *tuple[T, ...]]` alias.
 - A `Literal[...]` replaces a string checked against a set.
-- `Optional` is removed from a parameter no caller passes `None` to.
+- `Optional` is deleted from a parameter no caller passes `None` to.
 - No `# type: ignore` and no `cast` to get past it.
 
 **rule-suspect-the-test**

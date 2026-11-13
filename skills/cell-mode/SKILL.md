@@ -32,7 +32,7 @@ Longer work goes in a git worktree: more than about five files, several services
 
 When work moves between its worktree and the checkout, follow `${CLAUDE_PLUGIN_ROOT}/skills/cell-mode/references/worktree.md`.
 
-Remove the throwaway worktree that `${CLAUDE_PLUGIN_ROOT}/skills/cell-mode/procedures/commit.md` makes to prove a commit as soon as the proof runs.
+Delete the throwaway worktree that `${CLAUDE_PLUGIN_ROOT}/skills/cell-mode/procedures/commit.md` makes to prove a commit as soon as the proof runs.
 
 ## Playbooks
 

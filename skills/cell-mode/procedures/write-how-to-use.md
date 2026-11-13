@@ -1,6 +1,6 @@
 # Write how-to-use
 
-Write a skill under the project's own `.claude/skills/how-to-use-<app>/`. The skill starts the app, uses it the way a person does, and captures proof. It is for a later agent that has never seen the app and follows it cold: launch, check, use one feature, capture, clean up. Ported from pstack's create-verification-skill.
+Write a skill under the project's own `.claude/skills/how-to-use-<app>/`. The skill starts the app, uses it the way a person does, and captures proof. It is for a later agent that has never seen the app and follows it cold: start, check, use one feature, capture, clean up. Ported from pstack's create-verification-skill.
 
 ## Steps
 
@@ -19,7 +19,7 @@ Write a skill under the project's own `.claude/skills/how-to-use-<app>/`. The sk
 2. Write `.claude/skills/how-to-use-<app>/SKILL.md`. Evidence: the file, and `wc -l` under 150.
    1. Write the frontmatter: `name: how-to-use-<app>`, and a `description` naming the app, the surface, and when to reach for it.
    2. Then write these sections, each filled from step 1, with no placeholder left:
-      - Launch: the exact start command, how to tell it is ready (a log line, a port answering), and how to stop it. For a short-lived CLI, launch means build once. Then each run gets its own fresh session.
+      - Start: the exact start command, how to tell it is ready (a log line, a port answering), and how to stop it. For a short-lived CLI, start means build once. Then each run gets its own fresh session.
       - Doctor: one read-only check that says "this copy is the one to use": process up, right build, port owned by us, login valid. An agent runs it first whenever anything looks off.
       - Use: the recipe with this repo's real handles (ARIA labels, data attributes, prompt strings, route paths), never coordinates or tab order.
       - Evidence: what to capture and where it goes. Use the real user path, not a test-only route. Capture the action and the state after it, not only the final screen. Check side effects beside what is visible: a file written, a row inserted, a message sent. Mock only where a production boundary already isolates the outside system. Check a dry-run mode by watching what it touches, not by trusting its name.
@@ -31,12 +31,12 @@ Write a skill under the project's own `.claude/skills/how-to-use-<app>/`. The sk
    3. Copy the shape of the example in `${CLAUDE_PLUGIN_ROOT}/skills/cell-mode/procedures/write-how-to-use/example-feature-map/`. Its index says what each feature file holds.
    4. The map is the repo's maintained list. A proof that uses one convenient entry point is incomplete when the map lists others.
 4. Run the skill once yourself, end to end, not through a helper. Evidence: the commands, their output, the evidence path.
-   1. Launch.
+   1. Start.
    2. Run the doctor.
    3. Use one mapped feature. One is enough, because the map exists so later runs cover the rest.
    4. Capture.
    5. Clean up.
-   6. After cleanup, confirm the evidence is still at the named place. A cleanup that eats the proof fails this step.
+   6. After cleanup, check the evidence is still at the named place. A cleanup that eats the proof fails this step.
    7. Fix what fails.
    8. Run the cleanup after every failed try too, so nothing is left running.
    9. A skill never run is a draft, not a deliverable.

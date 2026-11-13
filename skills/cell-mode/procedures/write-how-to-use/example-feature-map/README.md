@@ -4,7 +4,7 @@ The maintained list of what a person can do in Notes, and how to prove each one 
 
 ## Before any run
 
-- Launch Notes at `http://127.0.0.1:4173` with a throwaway data directory: `NOTES_DATA_DIR=/tmp/notes-run-$RUN_ID`, so two runs never share state.
+- Start Notes at `http://127.0.0.1:4173` with a throwaway data directory: `NOTES_DATA_DIR=/tmp/notes-run-$RUN_ID`, so two runs never share state.
 - Seed notes titled `Quarterly plan` and `Grocery list`.
 - Run `control-notes doctor` and require the expected URL, data directory and build.
 - Never use a copy this run did not start.

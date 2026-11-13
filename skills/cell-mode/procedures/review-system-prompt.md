@@ -19,7 +19,7 @@ Checks a prompt that ships to a model against Anthropic's prompt guidance for cu
    1. For a pasted prompt, leave out the ``` fence around it.
    2. For a prompt built in code, write the assembled text. Put a placeholder such as `{user_name}` for each per-request value.
 6. Run `${CLAUDE_PLUGIN_ROOT}/scripts/lint-prompt.py` with that file. Evidence: the linter's output.
-   1. Its output is a list of leads to confirm, not findings.
+   1. Its output is a list of leads to check, not findings.
    2. A tag that the prose only names, such as "the documents in <docs>", shows as never closed. That is fine.
    3. If Python cannot run, check the same items by hand. Say so in the reply.
 7. Read `${CLAUDE_PLUGIN_ROOT}/skills/cell-mode/procedures/review-system-prompt/checklist-instructions.md` in full. Go through each section.
