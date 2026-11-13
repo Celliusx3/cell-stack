@@ -121,6 +121,7 @@ These rules cover every text you write for a person: a plan, a spec, a ticket, a
 - Keep a numbered step to 20 words and any other sentence to 25. A paragraph has six sentences at most. A code span or a number counts as one word. To count them in a file, run `${CLAUDE_PLUGIN_ROOT}/scripts/long-sentences.py` with the file's path.
 - Use everyday words. If a word needs the codebase to make sense, use the plain one. Do not use fold, seam, retrofit, probe, fire or terminal as plain words. When the codebase names a real thing, such as a stream or a `yield`, keep its term.
 - Do not use an em dash. Do not join two sentences with a colon or a semicolon. A colon can start a list.
+- Use one plain verb for each action: `start`, not `spin up` or `launch`. No marketing words. `${CLAUDE_PLUGIN_ROOT}/scripts/ste-lint.py` checks a file.
 
 ## Reply
 

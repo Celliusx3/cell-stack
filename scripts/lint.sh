@@ -113,10 +113,15 @@ if ! out=$(python3 scripts/long-sentences.py "${pages[@]}" 2>&1); then
 	printf '%s\n' "$out" >&2
 	fail=1
 fi
+if ! out=$(python3 scripts/ste-lint.py --disable passive-voice,present-perfect "${pages[@]}" 2>&1); then
+	printf '%s\n' "$out" >&2
+	fail=1
+fi
 
 # 10. the checker still catches a long step and a long sentence
 sample=$(mktemp)
 printf '1. %s\n\n%s\n' "$(printf 'one %.0s' {1..21})" "$(printf 'two %.0s' {1..26})" > "$sample"
+printf 'Run it; then stop.\n' | python3 scripts/ste-lint.py >/dev/null && bad scripts/ste-lint.py "no longer catches a semicolon, which the Writing section of skills/cell-mode/SKILL.md bans"
 [ "$(python3 scripts/long-sentences.py "$sample" | wc -l | tr -d ' ')" -eq 2 ] || bad scripts/long-sentences.py "no longer catches a 21-word step and a 26-word sentence, the Writing caps of 20 and 25 in skills/cell-mode/SKILL.md"
 rm -f "$sample"
 
