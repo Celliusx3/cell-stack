@@ -1,0 +1,11 @@
+schema_version: "1.1"
+name: review-prompt-stays-investigate
+description: A read-only question about what a prompt says must stay with the Investigate playbook, answer from the file, and never open a review page.
+tags: [cell-mode, procedures, review]
+runs: 2
+execution:
+  max_turns: 30
+  timeout_seconds: 600
+  allowed_tools: [Read, Glob, Grep, Skill, TodoWrite, Edit, Write, Bash, Agent]
+context:
+  scaffold_script: fixture.sh

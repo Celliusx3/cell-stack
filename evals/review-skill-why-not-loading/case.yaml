@@ -1,0 +1,11 @@
+schema_version: "1.1"
+name: review-skill-why-not-loading
+description: A why-question about a skill that never loads should go to the review-skill page, not Investigate, name the two-word description as the cause, give a rewritten description, and change no file.
+tags: [cell-mode, procedures, review]
+runs: 2
+execution:
+  max_turns: 40
+  timeout_seconds: 900
+  allowed_tools: [Read, Glob, Grep, Skill, TodoWrite, Edit, Write, Bash, Agent]
+context:
+  scaffold_script: fixture.sh

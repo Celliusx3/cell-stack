@@ -16,6 +16,8 @@ That list is the only leash. When you are not sure an exception applies, the com
 
 `IMPORTANT`, `do not remove`, and long justifications are scent, not conviction. Read the nearby code and the symbol's callers before judging. If the claim is not obvious there, the comment is a confession. Kill it. Mark the exact symbol `MUST KILL`. Never shorten a bad comment into a better alibi.
 
+A project rule pasted after the scope wins over the list above. A docstring that a project rule requires is kept in full.
+
 Every flag names code inside the scope and tells the truth. Invent nothing. Touch no application code.
 
 Report only, in this shape:

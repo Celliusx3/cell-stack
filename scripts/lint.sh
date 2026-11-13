@@ -120,5 +120,19 @@ printf '1. %s\n\n%s\n' "$(printf 'one %.0s' {1..21})" "$(printf 'two %.0s' {1..2
 [ "$(python3 scripts/long-sentences.py "$sample" | wc -l | tr -d ' ')" -eq 2 ] || bad scripts/long-sentences.py "no longer catches a 21-word step and a 26-word sentence, the Writing caps of 20 and 25 in skills/cell-mode/SKILL.md"
 rm -f "$sample"
 
+# 11. the review linters still pass a good skill and still catch a broken one
+good="evals/review-skill-keeps-good-short/files/writing-changelogs"
+python3 scripts/lint-skill.py "$good" | grep -q "no mechanical issues found" || bad scripts/lint-skill.py "flags the good skill in $good"
+broken=$(mktemp -d)
+printf -- '---\nname: x\ndescription: Helper.\n---\nSee [r](references/gone.md).\n' > "$broken/SKILL.md"
+python3 scripts/lint-skill.py "$broken" | grep -q "HIGH" || bad scripts/lint-skill.py "no longer catches a missing linked file"
+rm -rf "$broken"
+prompt=$(mktemp)
+printf 'Today is {{today}}.\nRule one.\nRule two.\nRule three.\nRule four.\n<rules>\n- a\n' > "$prompt"
+out=$(python3 scripts/lint-prompt.py "$prompt")
+printf '%s\n' "$out" | grep -q "caching" || bad scripts/lint-prompt.py "no longer catches a per-request value at the top"
+printf '%s\n' "$out" | grep -q "tags" || bad scripts/lint-prompt.py "no longer catches an unclosed tag"
+rm -f "$prompt"
+
 [ "$fail" -eq 0 ] && echo "lint: clean"
 exit "$fail"
