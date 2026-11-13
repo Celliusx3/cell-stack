@@ -48,7 +48,7 @@ Then:
 
 ### What to write, per kind
 
-Every page follows the Writing section of the mode, like any text for a person. A step holds one action, and each thing keeps one word. A sentence has at most 20 words in a numbered step and 25 elsewhere. Lint runs `scripts/long-sentences.py` on every page.
+Every page follows the Writing section of the mode, like any text for a person. A step holds one action, and each thing keeps one word. A sentence has at most 20 words in a numbered step and 25 elsewhere. Lint runs `scripts/long-sentences.py` and `scripts/ste-lint.py` on every page.
 
 **procedure.** One line under the title says what it makes and for whom. When it runs goes in the mode's list, not the page. Under `## Steps`, write numbered steps, each naming the evidence it produces, with one-action sub-steps under them. Under `## Reply`, write what the reply must contain, in order. Anything deterministic (a poll, a diff, a log row) goes in `scripts/`, and the step says "run it".
 
@@ -83,7 +83,7 @@ No example section. The rule says what the example would have shown. A rule with
 | A procedure that says "spawn" has a prompt in `procedures/<name>/` | The prompt being a file is what makes the subagent do the same thing every time. |
 | No playbook over 950 words or outside 5 to 15 numbered steps, no `SKILL.md` over 2,700 words, no other page over 1,100 words | The body is pasted into context on every use. Words are what fills the context, so the caps count words, and a list marker is not a word. pstack's one 2,000-line skill is the cautionary example. |
 | No em dash in any `.md` | The Writing rule, applied to the pages themselves. The model copies the style it reads. |
-| Every page under `skills/` and `templates/`, this guide and the README keep the Writing caps of the mode (`scripts/long-sentences.py`) | The model copies the style it reads. |
+| Every page under `skills/` and `templates/`, this guide and the README keep the Writing caps of the mode (`scripts/long-sentences.py`) and its STE rules (`scripts/ste-lint.py`) | The model copies the style it reads. |
 
 ## Conventions
 

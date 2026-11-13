@@ -8,7 +8,7 @@ One front door, `/cell-mode`, on by default in every session through a hook. You
 claude --plugin-dir ~/Desktop/cellstudio/cellstack
 ```
 
-`make check` validates the manifest and the structure rules. `make help` lists the rest.
+`make check` checks the manifest and the structure rules. `make help` lists the rest.
 
 ## What the mode reads
 
@@ -29,7 +29,9 @@ claude --plugin-dir ~/Desktop/cellstudio/cellstack
 
 Every text the mode writes for you follows its Writing section, in the spirit of ASD-STE100. A step holds one action, and each thing keeps one word. A sentence has at most 20 words in a numbered step and 25 elsewhere. `scripts/long-sentences.py` counts them, and lint runs it on every page.
 
-Three hooks ship with the plugin. `hooks/session-start.sh` puts cell mode into context at the start of every session, so a plain request routes to a playbook without typing `/cell-mode`. `hooks/comment-nag.sh` runs after every `Edit` or `Write`. When the edit added comment lines, it tells the model to run the strip-comments procedure before handing back. `hooks/sentence-nag.sh` runs after every `Edit` or `Write` to a `.md` file in a `plans` or `specs` folder and tells the model to split long sentences.
+Lint also runs `scripts/ste-lint.py` on every page. It finds semicolons, soft phrasal verbs, marketing words, actions made into nouns and two verbs for one action. It comes unchanged from [danyuchn/asd-ste100-skill](https://github.com/danyuchn/asd-ste100-skill) under the MIT licence in `scripts/ste-lint.LICENSE`.
+
+Three hooks ship with the plugin. `hooks/session-start.sh` puts cell mode into context at the start of every session, so a plain request routes to a playbook without typing `/cell-mode`. `hooks/comment-nag.sh` runs after every `Edit` or `Write`. When the edit added comment lines, it tells the model to run the strip-comments procedure before handing back. `hooks/sentence-nag.sh` runs after every `Edit` or `Write` to a `.md` file in a `plans` or `specs` folder. It tells the model to fix each sentence that breaks the Writing rules.
 
 ## Adding a page
 

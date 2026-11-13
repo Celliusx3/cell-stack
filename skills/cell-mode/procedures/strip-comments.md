@@ -1,6 +1,6 @@
 # Strip comments
 
-Remove the comments a file does not need, and fix the code that needed them. The reader is whoever reads the file next. Ported from pstack's strip-comments skill and its Comment Sicko reviewer.
+Delete the comments a file does not need, and fix the code that needed them. The reader is whoever reads the file next. Ported from pstack's strip-comments skill and its Comment Sicko reviewer.
 
 ## Steps
 
@@ -22,7 +22,7 @@ Remove the comments a file does not need, and fix the code that needed them. The
    8. If the second report is bad too, report it open. The procedure fails.
 3. Delete the accepted comments.
    1. Fix the trivial `MUST KILL`s directly:
-      - remove a dead path
+      - delete a dead path
       - drop a parameter
       - use the real API
       - rename the symbol, so the prose is unnecessary

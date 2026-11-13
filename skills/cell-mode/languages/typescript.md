@@ -56,7 +56,7 @@ Read the rule first. This page is only how the rule is written here. It has one 
 - `T[]` stays while every operation is total.
 - Use `[T, ...T[]]` where the loose type forces a `!`.
 - A string-literal union replaces a string checked against a list.
-- An optional prop is removed when no caller omits it.
+- An optional prop is deleted when no caller omits it.
 
 **rule-suspect-the-test**
 

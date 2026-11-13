@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# After an Edit or Write to a .md file under a plans or specs folder, tell the model to split each sentence over the Writing caps.
+# After an Edit or Write to a .md file under a plans or specs folder, tell the model to fix each sentence over the Writing caps or against the STE rules.
 set -euo pipefail
 file=$(python3 -c 'import json,sys; print(json.load(sys.stdin).get("tool_input",{}).get("file_path") or "")') || exit 0
 case "$file" in
@@ -8,7 +8,9 @@ case "$file" in
 esac
 [ -f "$file" ] || exit 0
 root="${CLAUDE_PLUGIN_ROOT:-$(cd "$(dirname "$0")/.." && pwd)}"
-findings=$(python3 "$root/scripts/long-sentences.py" "$file" || true)
+long=$(python3 "$root/scripts/long-sentences.py" "$file" || true)
+ste=$(python3 "$root/scripts/ste-lint.py" --disable passive-voice,present-perfect "$file" | grep -F "$file:" || true)
+findings=$(printf '%s\n%s\n' "$long" "$ste" | sed '/^$/d')
 [ -n "$findings" ] || exit 0
 python3 - "$file" "$findings" <<'PY' || true
 import json, sys
@@ -17,7 +19,7 @@ count = len(printed)
 subject = f"1 sentence in {path} is" if count == 1 else f"{count} sentences in {path} are"
 label = "The first three findings:" if count > 3 else "Findings:"
 context = "\n".join([
-    f"{subject} over the Writing caps. Split each one as the Writing section of cell mode says, before you hand back.",
+    f"{subject} over the Writing caps or against the STE rules. Fix each one as the Writing section of cell mode says, before you hand back.",
     label,
     *printed[:3],
 ])

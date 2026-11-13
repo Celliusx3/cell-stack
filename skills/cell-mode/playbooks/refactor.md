@@ -52,8 +52,8 @@
    2. Otherwise, hand them to one `general-purpose` subagent with the exact scope.
    3. Give it the files, the names being moved and the promises that must hold.
    4. Also give it the language page for the file type.
-9. Remove before you add.
-   1. Remove dead code, one-call wrappers (**rule-no-pass-through**) and leftover references.
+9. Delete before you add.
+   1. Delete dead code, one-call wrappers (**rule-no-pass-through**) and leftover references.
    2. Then make the smallest change that reaches the end state (**rule-smallest-change**).
 10. Move one thing at a time.
    1. Move one thing.
@@ -83,7 +83,7 @@
    4. Say why.
 14. Prepare the commits.
    1. Run `${CLAUDE_PLUGIN_ROOT}/skills/cell-mode/procedures/strip-comments.md` on the diff.
-   2. Write the commits in order: removal, reshape, cleanup. Give each its message.
+   2. Write the commits in order: deletion, reshape, cleanup. Give each its message.
    3. Make none unless asked.
    4. When asked, run `${CLAUDE_PLUGIN_ROOT}/skills/cell-mode/procedures/commit.md`.
 

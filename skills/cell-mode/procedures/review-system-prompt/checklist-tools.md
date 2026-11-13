@@ -18,7 +18,7 @@ Check this section only when the model has tools.
 - Two tools that overlap have a rule that says which one to use.
 - The prompt says when to call tools in parallel, and when to wait for one result before the next call.
 - An action that cannot be undone needs the user's confirmation or a clear scope. That covers delete, send, pay and deploy.
-- A rule in the prompt lowers the risk of a destructive action but cannot remove it. Say when the tool itself must check.
+- A rule in the prompt lowers the risk of a destructive action but cannot make it zero. Say when the tool itself must check.
 - A long task says how to track progress, what to do when context runs low, and when to stop and ask.
 - The model checks its own work where it can, and does not claim a success it did not check.
 - No instruction pushes the model to special-case tests or hard-code answers.
