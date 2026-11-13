@@ -23,6 +23,8 @@ claude --plugin-dir ~/Desktop/cellstudio/cellstack
 | `procedures/strip-comments.md` | before review: strips the comments a file does not need and fixes the code that needed them |
 | `procedures/write-how-to-use.md` | a change must be shown in the real app, and the repo has no skill for it. It writes one that starts the app, uses one feature, and keeps the proof |
 | `procedures/commit.md` | you asked for commits: one commit per story, each proven to pass on its own. Nothing is pushed |
+| `procedures/review-skill.md` | you ask to review a skill, or why it does not load: a verdict, ranked findings and the exact fixes, checked against Anthropic's guide |
+| `procedures/review-system-prompt.md` | you ask to review a system prompt, an agent prompt, a tool description or a `CLAUDE.md`: the same kind of reply |
 | `languages/python.md`, `languages/typescript.md` | how every rule is spelled in that language. The mode reads the one for the file you are in |
 
 Every text the mode writes for you follows its Writing section, in the spirit of ASD-STE100. A step holds one action, and each thing keeps one word. A sentence has at most 20 words in a numbered step and 25 elsewhere. `scripts/long-sentences.py` counts them, and lint runs it on every page.
@@ -42,3 +44,5 @@ A playbook, procedure or language page starts as a copy of the nearest one. [doc
 ## Status
 
 Structure and the mode exist. Six playbooks: Investigate, Explain, Refactor, Fix, Feature, Build. Feature plans a change with you in four stages (grill, research, spec, tickets) and stops twice for you. Build then builds every ticket, committing each, and cleans up without stopping. Fifteen rules, indexed in the mode. Project rules still live in each project's `CLAUDE.md`, which the mode reads first.
+
+Two review procedures check a skill or a prompt against Anthropic's guidance, each with its own linter in `scripts/`.

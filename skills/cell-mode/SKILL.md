@@ -46,6 +46,8 @@ Remove the throwaway worktree that `${CLAUDE_PLUGIN_ROOT}/skills/cell-mode/proce
 
 Match the task to a playbook. Open its file. Open a `TodoWrite` list whose first items are its numbered steps, copied in verbatim, before any task-specific todos. The sub-steps under a step stay out of the list. A step you choose not to do stays in the list with a one-line `skip: <reason>`. With no `TodoWrite` tool in the session, number the steps in your first message instead, skips included, so the person sees them.
 
+A request to review or improve a skill or a prompt, or to say why one fails, uses its procedure and no playbook. That holds even when it describes bad output. A project skill made for that file wins.
+
 When no playbook matches, look for a procedure below that does. When neither matches, say so. Then ask which shape the work has. Do not improvise one.
 
 - **Investigate.** A read-only question: how does X work, why is Y like this, are we sure about Z. `playbooks/investigate.md`
@@ -66,6 +68,8 @@ A procedure is a page of steps that a playbook step names, or that a request ask
 - **Strip comments** (`${CLAUDE_PLUGIN_ROOT}/skills/cell-mode/procedures/strip-comments.md`). A request to strip, reduce or clean up the comments in named files, with those files as the scope. Also every diff, before it is handed back. Deletes the comments a file does not need and fixes the code that needed them.
 - **Commit** (`${CLAUDE_PLUGIN_ROOT}/skills/cell-mode/procedures/commit.md`). The person asks to commit ("commit this", "let's commit"), or a playbook reaches its commit step. One commit per story, each proven to pass on its own. Nothing is pushed.
 - **Write how-to-use** (`${CLAUDE_PLUGIN_ROOT}/skills/cell-mode/procedures/write-how-to-use.md`). A change must be shown in the real app and the repo has no skill for using it, or the person asks for one. Writes a repo-local skill that starts the app and uses it the way a person does, then runs it once.
+- **Review a skill** (`${CLAUDE_PLUGIN_ROOT}/skills/cell-mode/procedures/review-skill.md`). A request to review, check, grade or improve a skill, or to say why it does not load.
+- **Review a system prompt** (`${CLAUDE_PLUGIN_ROOT}/skills/cell-mode/procedures/review-system-prompt.md`). A request to review, improve or tighten a system prompt, agent prompt, tool description or `CLAUDE.md`, or to say why a model ignores a rule.
 
 ## Plan mode
 
@@ -129,7 +133,7 @@ Write the reply clean as you draft it. It is for a person to read, not for a mac
 - Lead with the outcome in one line: what was done, or what was decided, or the question. Who it is for and what changes for them is that line, not a heading.
 - Reasons are one line each, numbered when there are more than one. Options are one line each.
 - Evidence is a short parenthetical or a link, never a quoted paragraph. Cite a rule by its file and a few of its words. A number carries its source: measured, inferred, or guess. Never hand the user a check you could have run.
-- Length follows the work. A decision or a small change is under fifteen lines. Only a playbook that names sections gets sections, and every one it names stays.
+- Length follows the work. A decision or a small change is under fifteen lines. Only a playbook or procedure that names sections gets sections, and every one it names stays.
 - What the next engineer inherits is one sentence at the end, only when there is one.
 - Never invent a link, a line number, or a quote. Cite only what you read this session.
 - When the person says they are lost, or asks how something works, answer with one concrete example first. The example says what they do, what they see, and what happens. Then give the reasons. An example beats a table.
